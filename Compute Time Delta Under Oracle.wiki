@@ -1,0 +1,25 @@
+= Oracle计算时间差表达式 =
+
+URL: http://www.cnblogs.com/cheney0618/archive/2007/03/23/684949.html
+
+最近做一项目，需要计算两时间差值，Oracle对我来说比陌生，怎么都计算不出来，
+后来在网上找到一些资料介绍Oracle计算时间差的方法。总结了一下。
+
+有两个日期数据START_DATE，END_DATE，欲得到这两个日期的
+时间差（以天，小时，分钟，秒，毫秒）：
+
+== 天： ==
+    ROUND(TO_NUMBER(END_DATE - START_DATE))
+    
+== 小时： ==
+    ROUND(TO_NUMBER(END_DATE - START_DATE) * 24)
+    
+== 分钟： ==
+    ROUND(TO_NUMBER(END_DATE - START_DATE) * 24 * 60)
+    
+== 秒： ==
+    ROUND(TO_NUMBER(END_DATE - START_DATE) * 24 * 60 * 60)
+    
+== 毫秒： ==
+    ROUND(TO_NUMBER(END_DATE - START_DATE) * 24 * 60 * 60 * 60)
+    
