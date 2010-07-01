@@ -1,0 +1,75 @@
+= Class File Format =
+
+== Constant Pool ==
+
+class文件中的常量池其实就是符号表，包含字符串常量、类和接口名、方法名、属性名等等。
+class文件的其他部分用#n来引用常量池里的item，常量池里面的item也可能会引用别的item。
+
+
+== Access Flags ==
+
+ * ACC_PUBLIC
+ * ACC_FINAL
+ 
+    不能与ACC_ABSTRACT共存
+    
+ * ACC_ABSTRACT
+ * ACC_SUPER
+  
+    仅仅是为了向下兼容旧编译器编译出来的class文件
+    
+ * ACC_INTERFACE
+ 
+疑问：内部类中的protected，private以及static修饰符是如何反映在这里的？抑或根本与这里的Acess flag无关？
+
+ 
+== Descriptor ==
+
+class文件里的method、field在constant pool里都有对应的描述符。Descriptor用特殊的语法来
+描述field的类型，method的参数类型和返回值类型等等。
+
+下面是对类型为String的field的描述符
+
+{{{
+    const #18 = Asciz   Ljava/lang/String;;
+}}}
+
+
+下面是对接受一个String参数，返回值为!StringBuilder的方法的描述符
+
+{{{
+    const #51 = Asciz   (Ljava/lang/String;)Ljava/lang/StringBuilder;;
+}}}
+
+
+== Method与Methodref ==
+
+Method描述当前class的方法，包括access flag，name，descriptor以及attributes，
+其中attributes又包含它的字节码（code），异常，deprecated标记
+和synthetic信息（synchronized标志？） 
+
+Methodref是constant pool中的一种item，它代表了对method的引用，比如字节码中调用
+一个方法时就会使用method ref，下面是一个例子：
+
+{{{
+    invokevirtual   #9;
+}}}
+
+这句代码是指调用constant pool中index为9的item所描述的method。constant pool中的内容
+对应的是：
+
+{{{
+    const #9 = Method   #38.#39; //#38是这个method所属的类， #39是这个method的name和type
+    const #20 = Asciz   (Ljava/lang/String;)V; //接受一个String，返回void的方法描述符
+    const #38 = class   #54; //class的名字引用#54，即java.io.PrintStream
+    const #39 = NameAndType #55:#20; //name是#55，即println，descriptor是#20
+    const #54 = Asciz   java/io/PrintStream;
+    const #55 = Asciz   println;
+}}}
+
+
+
+== Field与Fieldref ==
+
+和Method与Methodref的关系类似，自己揣摩
+          

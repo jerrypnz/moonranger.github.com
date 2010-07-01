@@ -1,0 +1,70 @@
+= Method Invoking =
+
+== JVM Stack Frames ==
+
+ * JVM的局部变量和操作数栈是分开的，这个是native程序的模型不一样
+ * 对于成员方法的stack frame，local variables的0号元素是this，即对象本身的reference
+ * 创建新frame时的一些细节
+ 
+JVM Spec对stack frame的具体实现没有做限制，既可以从heap中独立申请（疑似链表的结构），
+也可以使用一整块连续的空间。如果使用的是连续的空间，在创建新的stack frame时，其local variables
+区域可以与当前frame的部分oprand stack重叠，这样就无须对objectref和args做复制操作了。
+
+!JavaWorld上的原文( http://www.javaworld.com/javaworld/jw-06-1997/jw-06-hood.html )：
+
+    The JVM specification does not require a particular implementation for the Java stack. 
+    Frames could be allocated individually from a heap, or they could be taken from contiguous 
+    memory, or both. If two frames are contiguous, however, the virtual machine can just overlap 
+    them such that the top of the operand stack of one frame forms the bottom of the local 
+    variables of the next. In this scheme, the virtual machine need not copy objectref and args 
+    from one frame to another, because the two frames overlap. The operand stack word containing 
+    objectref in the calling method's frame would be the same memory location as local variable 
+    0 of the new frame.
+    
+----
+
+
+== invokevirtual ==
+
+调用class的public, protected的instance method时使用这个opcode，通过method table实现延迟绑定（多态）。
+下面有invokevirtual和invokeinterface的详细对比
+
+----
+
+== invokespecial ==
+
+调用class的private instance method以及<init>时使用这个opcode。调用的方法就是opcode中指定的method-ref，
+不会做延迟绑定。如果用C++类比的话，invokespecial就是调用不带virtual的函数；而invokevirtual就是调用带
+virtual的函数。
+
+----
+
+== invokeinterface ==
+
+调用interface的method，会使用这个opcode。它也是通过method table做延迟绑定，但是它与invokevirtual最大的
+不同在于，invokevirtual调用一次后，对应的method在method table中的offset可以被缓存，以后调用的时候可以直
+接使用此offset从method table中找到对应的方法。能这么做的原因在于一个instance method在method table中的位置，
+在整棵class继承树上都是固定的（怀疑与Java的单继承特性有关）。相比之下，interface的实现就不一定了，因为一个
+class可以实现多个interface，某一个interface中的特定方法在实现了这个interface的class的method table中的位置
+就不是固定的了，所以调用interface上的方法，这个offset必须根据class动态获取。
+
+正因如此，调用interface中的方法相对比较慢一些。
+
+下面是!JavaWorld上对这部分描述的原文( http://www.javaworld.com/javaworld/jw-06-1997/jw-06-hood.html )
+
+    To understand why a separate opcode is necessary for interface references, you must understand 
+    a bit about method tables. When the Java virtual machine loads a class file, it may create a 
+    method table for the class. (Whether or not a method table is actually created is the decision 
+    of each virtual machine designer; however, it is likely that commercial JVMs will create method 
+    tables.) A method table is just an array of direct references to the bytecodes for each instance 
+    method that can be invoked on an object, including methods inherited from superclasses.
+
+
+    The JVM uses a different opcode to invoke a method given an interface reference because it can't 
+    make as many assumptions about the method table offset as it can given a class reference. If the 
+    JVM has a class reference, it knows each method will always occupy the same position in the method 
+    table, independent of the actual class of the object. This is not true with an interface reference: 
+    The method could occupy different locations for different classes that implement the same interface.
+
+----
+
