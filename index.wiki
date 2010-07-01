@@ -1,14 +1,14 @@
 = Jerry's Personal WIKI =
 
-== Index ==
+== Table of Content ==
 
  * *Tech*
     # [[Java]]
         * [[Hibernate]]
         * [[Android]]
-    # [[UNIX/Linux]]
+    # [[Unix]]
         * [[Vim Tips]]
-    # [[C/C++]]
+    # [[C++]]
     # [[Python]]
     # [[Database]]
         * [[MySQL]]
