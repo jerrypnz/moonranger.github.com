@@ -1,6 +1,6 @@
-= InnoDB Locking =
+= !InnoDB Locking =
 
-InnoDB引擎支持两种行锁：共享锁和独占锁
+!InnoDB引擎支持两种行锁：共享锁和独占锁
 
 == 共享锁（读锁） ==
 
