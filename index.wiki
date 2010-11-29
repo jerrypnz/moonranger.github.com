@@ -2,19 +2,16 @@
 
 == Table of Content ==
 
- * *Tech*
+- *Tech*
     # [[Java]]
-        * [[Hibernate]]
-        * [[Android]]
-    # [[Unix]]
-        * [[Vim Tips]]
-    # [[C++]]
+    # [[UNIX]]
+    # [[C and C++]]
     # [[Python]]
-    # [[Database]]
-        * [[MySQL]]
-        * [[Oracle]]
- * *Life*
-    * [[Travel]]
+    # [[MySQL]]
+    # [[Oracle]]
+    # [[Vim Tips]]
+- *Life*
+    # [[Travel]]
 
 
 

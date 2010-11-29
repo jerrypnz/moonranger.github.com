@@ -1,1 +1,5 @@
 = Hibernate =
+
+== Traps and Pitfalls ==
+
+ * Criteria查询，关联对象如果没有

@@ -1,0 +1,9 @@
+= Slow Query Log =
+
+打开!MySQL慢查询log的方法：
+{{{
+set global log_slow_queries= on 
+set global long_query_time = 50
+set global show_query_log = on 
+set global slow_query_log_file ="/usr/local/mysql/data/slow-sql.log"
+}}}
