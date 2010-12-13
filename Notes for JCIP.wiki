@@ -1,6 +1,5 @@
 %toc
-
-= Notes for Java Concurrency in Practice =
+    = 《Java Concurrency in Practice》读书笔记=
 
 == Part I ==
 
@@ -133,4 +132,49 @@ public class TaskRunnable implements Runnable {
     Thread interruption is a cooperative mechanism for a thread to signal another thread that it should, at its convenience and if it feels like it, stop what it is doing and do something else.
 
  * isInterrupted方法返回线程当前的interrupted状态；interrupted方法清除并返回interrupted状态。
- * sleep, wait之类的阻塞方法里会检查线程是否被打断，如果被打断了，它们会重置interrupted状态并抛出!InterruptedException。这意味着在抓!InterruptedException的时候调用isInterrupted会返回false。
+ * 如果打断发生时线程阻塞在sleep，wait之类的方法中，那它们会重置interrupted状态并抛出!InterruptedException。这意味着在抓!InterruptedException的时候调用isInterrupted会返回false。
+ * 如果打断发生在线程正常运行时，那打断只会将interrupted标志改成true，线程需要自己检查并清除这个标志。
+ * 如果在进入阻塞方法之前线程就已经被打断并且interrupted标志未被重置，那这些阻塞方法会立刻抛出!InterruptedException。见如下例子：
+ 
+{{{class="brush: java"
+public class InterruptBeforeSleep {
+    public static void main(String[] args) {
+        Runnable task = new Runnable() {
+            
+            public void run() {
+                System.out.println("Running task");
+                double dummy = 0.11111;
+                for (double i = 2.0; i < 100000000.0; i++) {
+                    dummy *= (i / (i-1));
+                }
+                System.out.println("Result is: " + dummy);
+                System.out.println("About to sleep");
+                try {
+                    Thread.sleep(SECONDS.toMillis(20));
+                } catch (InterruptedException e) {
+                    System.out.println("I'm interrupted!");
+                    // The interrupt status is cleared when Thread.sleep throws InterruptedException
+                    System.out.println("I'm interrupted? " + Thread.currentThread().isInterrupted());
+                }
+            }
+        };
+        
+        Thread t = new Thread(task);
+        t.start();
+        t.interrupt();
+        System.out.println("Main interrupted the task thread");
+    }
+}
+}}}
+    这个程序的输出：
+{{{
+Main interrupted the task thread
+Running task
+Result is: 1.1110999894874712E7
+About to sleep
+I'm interrupted!
+I'm interrupted? false
+}}}
+
+ * Because each thread has its own interruption policy, you should not interrupt a thread unless you know what interruption means to that thread.
+ * 
