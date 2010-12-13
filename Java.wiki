@@ -1,15 +1,15 @@
 = Java =
 
-# *Concurrency*
+- *Concurrency*
     * [[Notes for JCIP]]
     * [[Threads and Locks Basic]]
     * [[Why Does Double Checking Not Work Sometimes]]
-# *JVM*
+- *JVM*
     * [[Method Invoking]]
     * [[Class File Format]]
-# *OOM*
+- *OOM*
     * [[OOM Caused by String.split]]
-# *JEE*
+- *JEE*
     * [[Hibernate]]
-# *Android*
+- *Android*
     * [[NotePad Sample Research]]

@@ -1,4 +1,9 @@
+%toc
+
 = Hibernate =
+
+== Session管理 ==
+Session是JDBC Connection之上的包装，所以Session的生命周期通常应该和Connection一样，
 
 == Traps and Pitfalls ==
 
