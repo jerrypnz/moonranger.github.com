@@ -1,9 +1,0 @@
-= Oracle =
-   
-== General ==
-    * [[Oracle Keywords]]
-    * Oracle查询的in子句最多仅支持1000个元素
-    * Oracle不区分null和空字符串
-    
-== Datetime Operations ==
-    * [[Compute Time Delta Under Oracle]]

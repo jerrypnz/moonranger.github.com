@@ -1,4 +1,10 @@
-= Slow Query Log =
+= MySQL =
+
+== InnoDB Related ==
+- [[innodb-locking|InnoDB Locking]]
+
+== Tips & Tricks ==
+=== Slow Query Log ===
 
 打开!MySQL慢查询log的方法：
 {{{

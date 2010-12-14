@@ -7,8 +7,4 @@
     * [[method-invoking|Method Invoking]]
     * [[class-file-format|Class File Format]]
 - *OOM*
-    * [[oom-caused-by-string|OOM Caused by String.split]]
-- *JEE*
-    * [[hibernate|Hibernate]]
-- *Android*
-    * [[notepad-sample-research|NotePad Sample Research]]
+    * [[oom-caused-by-string-split|OOM Caused by String.split]]

@@ -3,21 +3,23 @@
 
 == Programming ==
 === 混饭用的 ===
-- 语言[[Java]]
-- 工具[[Hibernate]]和[[Spring]]
-- 面向对象[[OOP]]
-- 数据库[[MySQL]]和[[Oracle]]
+- 语言[[java|Java]]
+- 工具[[hibernate|Hibernate]]和[[spring|Spring]]
+- 面向对象[[oop|OOP]]
+- 数据库[[mysql|MySQL]]和[[oracle|Oracle]]
 
     吐槽：为什么我对关系数据库技术无爱？因为关系数据库的理论告诉我们，数据库设计要尽量做到符合范式，
     减少数据冗余，blah，blah。 但是在实践中，我相信很多DBA会建议用违反范式的方式来设计数据库 以便提
     高性能！这不坑爹吗……
 
 === 业余爱好 ===
-- 操作系统[[UNIX]](所有Unix家族的OS，包括Linux，MAC和BSD等）
-    # 各色[[Shell]]技巧
-- 最喜欢的脚本语言[[Python]]
-- 最喜欢的编辑器[[Vim]]
-    # amix.dk的10条[[Vim Tips]]
+- 操作系统[[unix|UNIX]](所有Unix家族的OS，包括Linux，MAC和BSD等）
+    - 各色[[shell|Shell]]技巧
+- 偶尔研究研究Android
+    - [[notepad-sample-research|NotePad Sample Research]]
+- 最喜欢的脚本语言[[python|Python]]
+- 最喜欢的编辑器[[vim|Vim]]
+    - amix.dk的10条[[vim-tips|Vim Tips]]
 
 === 思绪点滴 ===
 - 从机制策略的分离到数据驱动程序设计

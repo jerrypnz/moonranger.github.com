@@ -1,0 +1,58 @@
+= 10 kick-ass Vim tips =
+
+Here are 10 Vim tips that I think you should know about (if you use Vim).
+
+== The super star and sharp ==
+
+In normal mode you can use * and # to search for a word under the cursor.
+* searches forward for the word, while # searches backwards.
+
+== Simple completion in any text ==
+
+Hit CTRL-N once in insert mode and it will try to complete the current word 
+with the first match in the current file. CTRL-P does the same thing but 
+searches backwards.
+
+== The . ==
+
+Type . in normal mode to repeat last change, this is super useful when doing a receptive task.
+
+== The % key ==
+
+You can use the % key to jump to a matching opening or closing parenthesis, 
+square bracket or a curly brace. Insanely useful when programming.
+
+== Indent using == and = ==
+
+When working with source code it is very nice to work with indented code.
+To indent the current line issue == in normal mode. Use Shift-V to go into 
+visual mode, select a couple of lines and do = to indent them.
+
+== Undo and redo ==
+
+You can use u to undo the last change. CTRL-R redoes a change that has been undone. 
+U returns the current line to its original state.
+
+In Vim 7 you can use g- or g+ to go between text-states. To go to a text state 
+1 minute earlier, you can use:
+
+    :eariler 1m
+
+== Incremental search ==
+
+There is a really neat search-option (Firefox users will love this tip). 
+When you search (for example, using /), the matches will be shown while you type. 
+To turn this option on, type following:
+
+    set incsearch
+
+== Highlighting all the search pattern matches ==
+
+To highlight all the search pattern matches in a file set the following option:
+
+    :set hlsearch
+    
+To disable the highlighting temporarily, use:
+
+    :nohlsearch
+    

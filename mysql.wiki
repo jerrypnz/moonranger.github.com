@@ -1,7 +1,0 @@
-= !MySQL =
-
-== !InnoDB Related ==
-    * [[InnoDB Locking]]
-
-== Tips & Tricks ==
-    * [[Slow Query Log]]
