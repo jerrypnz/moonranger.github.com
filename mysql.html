@@ -1,0 +1,31 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="css/style.css" />
+<title>mysql</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<h1 id="toc_1">MySQL</h1>
+
+<h2 id="toc_1.1">InnoDB Related</h2>
+<ul>
+<li>
+<a href="innodb-locking.html">InnoDB Locking</a>
+</li>
+</ul>
+
+<h2 id="toc_1.2">Tips &amp; Tricks</h2>
+<h3 id="toc_1.2.1">Slow Query Log</h3>
+
+<p>
+打开MySQL慢查询log的方法：
+</p>
+<pre>
+set global log_slow_queries= on 
+set global long_query_time = 50
+set global show_query_log = on 
+set global slow_query_log_file ="/usr/local/mysql/data/slow-sql.log"
+</pre>
+
+</body>
+</html>

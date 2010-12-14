@@ -1,0 +1,53 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="css/style.css" />
+<title>threads-and-locks</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<h1 id="toc_1">Basic Concepts of Threads and Locks</h1>
+
+<ul>
+<li>
+被线程共享的变量，class或者instance变量、数组等都被放在main memory中（in heap？）
+</li>
+<li>
+main memory中每一个对象都有关联的lock，线程访问main memory中的对象必须先获取对应的lock
+</li>
+<li>
+每个线程都有自己的working memory（stack frame？），操作一个共享的变量时，线程要将变量从main memory中copy到自己的working memory中再做操作；操作完成后再将变量从自己的working memory拷贝到main memory中
+</li>
+<li>
+从main memory中读取变量被分为两步：read和load。这么做的原因是有的CPU架构（比如80x86）里内存拷贝并不是原子操作，需要分成两条指令执行。
+</li>
+</ul>
+<blockquote>
+While register-to-register moves are possible, direct memory-to-memory moves are not. 
+In cases where memory transfers are desired, the source memory contents must first be 
+loaded into a register, then can be stored to the destination memory address.
+reference：<a href="http://www.cs.virginia.edu/~evans/cs216/guides/x86.html">http://www.cs.virginia.edu/~evans/cs216/guides/x86.html</a>
+</blockquote>
+<ul>
+<li>
+double和long型的变量，如果不是volatile的，会被当作两个32位的变量来读取或者存储（也就是会有两次read，load或write，store操作）。这意味着两个线程同时写入一个double或long变量时，其结果有可能是不确定的，有可能一半是线程a写入的部分，一半是线程b写入的部分……
+</li>
+<li>
+JVM Spec鼓励JVM实现使用64位原子操作来实现double和long的读取和写入
+</li>
+<li>
+lock和unlock是成对的，一个线程如果lock了一个对象多次，其必须unlock同样的次数才能释放这个lock
+</li>
+</ul>
+<blockquote>
+Less formally: only one thread at a time is permitted to lay claim to a lock; moreover, 
+a thread may acquire the same lock multiple times and does not relinquish ownership of it 
+until a matching number of unlock operations have been performed.
+</blockquote>
+<ul>
+<li>
+一个线程必须将其working memory中已经赋值的变量store回main memory中才能释放lock
+</li>
+</ul>
+
+</body>
+</html>

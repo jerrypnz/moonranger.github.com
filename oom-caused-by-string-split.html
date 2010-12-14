@@ -1,0 +1,36 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="css/style.css" />
+<title>oom-caused-by-string-split</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<h1 id="toc_1">String类的split方法引起的内存泄漏</h1>
+
+<p>
+URL: <a href="http://www.javaeye.com/topic/626801">http://www.javaeye.com/topic/626801</a>
+</p>
+
+<ul>
+<li>
+程序从每个请求中得到一个String大对象，该对象内部char[]的长度达数百K。
+</li>
+<li>
+程序对String大对象做split，将split得到的String小对象放到HashMap中，用作缓存。
+</li>
+<li>
+Sun JDK6对String.split方法做了优化，split出来的Stirng对象直接使用原String对象的char[]
+</li>
+<li>
+HashMap中的每个String对象其实都指向了一个巨大的char[]
+</li>
+<li>
+HashMap的上限是万级的，因此被缓存的Sting对象的总大小=万*百K=G级。
+</li>
+<li>
+G级的内存被缓存占用了，大量的内存被浪费，造成内存泄露的迹象。
+</li>
+</ul>
+
+</body>
+</html>

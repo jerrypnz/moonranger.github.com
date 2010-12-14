@@ -1,0 +1,94 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="css/style.css" />
+<title>vim-tips</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<h1 id="toc_1">10 kick-ass Vim tips</h1>
+
+<p>
+Here are 10 Vim tips that I think you should know about (if you use Vim).
+</p>
+
+<h2 id="toc_1.1">The super star and sharp</h2>
+
+<p>
+In normal mode you can use * and # to search for a word under the cursor.
+</p>
+<ul>
+<li>
+searches forward for the word, while # searches backwards.
+</li>
+</ul>
+
+<h2 id="toc_1.2">Simple completion in any text</h2>
+
+<p>
+Hit CTRL-N once in insert mode and it will try to complete the current word 
+with the first match in the current file. CTRL-P does the same thing but 
+searches backwards.
+</p>
+
+<h2 id="toc_1.3">The .</h2>
+
+<p>
+Type . in normal mode to repeat last change, this is super useful when doing a receptive task.
+</p>
+
+<h2 id="toc_1.4">The % key</h2>
+
+<p>
+You can use the % key to jump to a matching opening or closing parenthesis, 
+square bracket or a curly brace. Insanely useful when programming.
+</p>
+
+<h2 id="toc_1.5">Indent using == and =</h2>
+
+<p>
+When working with source code it is very nice to work with indented code.
+To indent the current line issue == in normal mode. Use Shift-V to go into 
+visual mode, select a couple of lines and do = to indent them.
+</p>
+
+<h2 id="toc_1.6">Undo and redo</h2>
+
+<p>
+You can use u to undo the last change. CTRL-R redoes a change that has been undone. 
+U returns the current line to its original state.
+</p>
+
+<p>
+In Vim 7 you can use g- or g+ to go between text-states. To go to a text state 
+1 minute earlier, you can use:
+</p>
+<blockquote>
+:eariler 1m
+</blockquote>
+<h2 id="toc_1.7">Incremental search</h2>
+
+<p>
+There is a really neat search-option (Firefox users will love this tip). 
+When you search (for example, using /), the matches will be shown while you type. 
+To turn this option on, type following:
+</p>
+<blockquote>
+set incsearch
+</blockquote>
+<h2 id="toc_1.8">Highlighting all the search pattern matches</h2>
+
+<p>
+To highlight all the search pattern matches in a file set the following option:
+</p>
+<blockquote>
+:set hlsearch
+</blockquote>
+<p>
+To disable the highlighting temporarily, use:
+</p>
+<blockquote>
+:nohlsearch
+</blockquote>
+
+</body>
+</html>

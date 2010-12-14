@@ -1,0 +1,118 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="css/style.css" />
+<title>class-file-format</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<h1 id="toc_1">Class File Format</h1>
+
+<h2 id="toc_1.1">Constant Pool</h2>
+
+<p>
+class文件中的常量池其实就是符号表，包含字符串常量、类和接口名、方法名、属性名等等。
+class文件的其他部分用#n来引用常量池里的item，常量池里面的item也可能会引用别的item。
+</p>
+
+
+<h2 id="toc_1.2">Access Flags</h2>
+
+<ul>
+<li>
+ACC_PUBLIC
+</li>
+<li>
+ACC_FINAL
+</li>
+</ul>
+<blockquote>
+不能与ACC_ABSTRACT共存
+</blockquote>
+<ul>
+<li>
+ACC_ABSTRACT
+</li>
+<li>
+ACC_SUPER
+</li>
+</ul>
+<blockquote>
+仅仅是为了向下兼容旧编译器编译出来的class文件
+</blockquote>
+<ul>
+<li>
+ACC_INTERFACE
+</li>
+</ul>
+ 
+<p>
+疑问：内部类中的protected，private以及static修饰符是如何反映在这里的？抑或根本与这里的Acess flag无关？
+</p>
+
+ 
+<h2 id="toc_1.3">Descriptor</h2>
+
+<p>
+class文件里的method、field在constant pool里都有对应的描述符。Descriptor用特殊的语法来
+描述field的类型，method的参数类型和返回值类型等等。
+</p>
+
+<p>
+下面是对类型为String的field的描述符
+</p>
+
+<pre>
+    const #18 = Asciz   Ljava/lang/String;;
+</pre>
+
+
+<p>
+下面是对接受一个String参数，返回值为StringBuilder的方法的描述符
+</p>
+
+<pre>
+    const #51 = Asciz   (Ljava/lang/String;)Ljava/lang/StringBuilder;;
+</pre>
+
+
+<h2 id="toc_1.4">Method与Methodref</h2>
+
+<p>
+Method描述当前class的方法，包括access flag，name，descriptor以及attributes，
+其中attributes又包含它的字节码（code），异常，deprecated标记
+和synthetic信息（synchronized标志？） 
+</p>
+
+<p>
+Methodref是constant pool中的一种item，它代表了对method的引用，比如字节码中调用
+一个方法时就会使用method ref，下面是一个例子：
+</p>
+
+<pre>
+    invokevirtual   #9;
+</pre>
+
+<p>
+这句代码是指调用constant pool中index为9的item所描述的method。constant pool中的内容
+对应的是：
+</p>
+
+<pre>
+    const #9 = Method   #38.#39; //#38是这个method所属的类， #39是这个method的name和type
+    const #20 = Asciz   (Ljava/lang/String;)V; //接受一个String，返回void的方法描述符
+    const #38 = class   #54; //class的名字引用#54，即java.io.PrintStream
+    const #39 = NameAndType #55:#20; //name是#55，即println，descriptor是#20
+    const #54 = Asciz   java/io/PrintStream;
+    const #55 = Asciz   println;
+</pre>
+
+
+
+<h2 id="toc_1.5">Field与Fieldref</h2>
+
+<p>
+和Method与Methodref的关系类似，自己揣摩
+</p>
+
+</body>
+</html>

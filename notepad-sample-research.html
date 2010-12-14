@@ -1,0 +1,46 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="css/style.css" />
+<title>notepad-sample-research</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<h1 id="toc_1">Android学习: NodePad应用</h1>
+<ol>
+<li>
+包名是一个Android应用的标志（安装apk的时候是不是就是靠这个来决定是update还是install？）
+</li>
+<li>
+AndroidManifest.xml是一个android应用必不可少的描述文件，它描述了一个android程序的不同组件
+</li>
+<li>
+IntentFilter描述了一个activity所支持的intent以及能操作的data
+</li>
+</ol>
+
+<p>
+运行时的Android可以看做一个activity的栈，从Home桌面开始，每当一个Intent引发一个activity的启动，
+栈里就会压入一个activity，当用户完成工作back以后，栈顶的activity就会出栈（但是其context应该会被保存），
+此时在栈顶的activity又会占有操作权。
+</p>
+
+<ol>
+<li>
+Intent里包含有data，用来在activity之间交换数据？
+</li>
+<li>
+android.view.Menu.addIntentOptions(int, int, int, ComponentName, Intent[], Intent, int, MenuItem[])这个值得研究一番
+</li>
+<li>
+Intent里包含有data，用来在activity之间交换数据？
+</li>
+<li>
+Context Menu是指按住一个item时跳出来的菜单；Options Menu是指按menu键后屏幕下方出现的menu
+</li>
+<li>
+6里提到的那个真的不简单……感觉像是可以将一种data所支持的特定category的所有操作都列出来。怀疑NotePad这个程序中的Edit Title就属于此类……需要进一步研究！
+</li>
+</ol>
+
+</body>
+</html>

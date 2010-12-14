@@ -1,0 +1,310 @@
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="css/style.css" />
+<title>notes-for-jcip</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<h1 id="toc_1" class="justcenter">《Java Concurrency in Practice》读书笔记</h1>
+<div class="toc">
+<ul>
+<li><a href="#toc_1">《Java Concurrency in Practice》读书笔记</a></li>
+<ul>
+<li><a href="#toc_1.1">Part I</a></li>
+<ul>
+<li><a href="#toc_1.1.1">Work Stealing</a></li>
+<li><a href="#toc_1.1.2">正确处理InterruptedException</a></li>
+<li><a href="#toc_1.1.3">CyclicBarrier</a></li>
+<li><a href="#toc_1.1.4">总结</a></li>
+</ul>
+<li><a href="#toc_1.2">Part II</a></li>
+<ul>
+<li><a href="#toc_1.2.1">手工创建线程的劣势</a></li>
+<li><a href="#toc_1.2.2">Executor框架</a></li>
+<li><a href="#toc_1.2.3">并行化异质任务的局限性</a></li>
+<li><a href="#toc_1.2.4">任务的取消与终止</a></li>
+</ul>
+</ul>
+</ul>
+</div>
+
+<h2 id="toc_1.1">Part I</h2>
+
+<h3 id="toc_1.1.1">Work Stealing</h3>
+<p>
+BlockingQueue用在传统的生产者/消费者模式，BlockingDeque用在work stealing模式中。
+传统的生产者/消费者模式，如果有多个生产者或多个消费者，不同的生产者（消费者）之间会有锁竞争，
+一定程度上影响了scalability。work stealing模式的出现就是为了解决这个问题。在work stealing模式
+中，每一对生产者/消费者都有一个自己的双端队列，如果一个消费者发现自己的队列是空的，就去另一个
+消费者队列的尾部（而不是头部）“偷取”一个产品来消费。因为每一对生产者消费者都有自己的队列，所以
+不同的生产者（或消费者）之间不会有锁竞争。同时，因为“偷取”是发生在队列的头部，所以进一步降低了
+竞争（但是貌似会和对应队列的生产者竞争啊，额……）
+</p>
+
+<p>
+这个模式也适合消费者自己同时也是生产者的模式。
+</p>
+   
+<p>
+JCIP中的原文：
+</p>
+   
+<p>
+Just as blocking queues lend themselves to the producer-consumer pattern, 
+deques lend themselves to a related pattern called work stealing. A 
+producerconsumer design has one shared work queue for all consumers; 
+in a work stealing design, every consumer has its own deque. 
+If a consumer exhausts the work in its own deque, it can steal work 
+from the tail of someone else's deque. Work stealing can be more scalable 
+than a traditional producer-consumer design because workers don't contend 
+for a shared work queue; most of the time they access only their own deque, 
+reducing contention. When a worker has to access another's queue, it 
+does so from the tail rather than the head, further reducing contention.
+</p>
+
+<p>
+performing a unit of work is likely to result in the identification of more work. 
+For example, processing a page in a web crawler usually results in the identification 
+of new pages to be crawled. Similarly, many graph-exploring algorithms, such as marking 
+the heap during garbage collection, can be efficiently parallelized using work stealing.
+When a worker identifies a new unit of work, it places it at the end of its own deque
+(or alternatively, in a work sharing design, on that of another worker); when its deque 
+is empty, it looks for work at the end of someone else's deque, ensuring that each worker
+stays busy.
+</p>
+        
+<h3 id="toc_1.1.2">正确处理InterruptedException</h3>
+<p>
+通常有两种处理手段：
+</p>
+<ol>
+<li>
+不抓InterruptedException，交给调用者来处理
+</li>
+<li>
+抓InterruptedException，但一定要通过调用Thread.currentThread().interrupted()来恢复当前线程
+    的interrupted状态，这样上层调用者就知道当前线程是被interrupted掉的。
+</li>
+</ol>
+
+<p>
+也许应该写段代码来测试一下并体会这样做的好处。
+</p>
+
+<p>
+JCIP中的原文：
+</p>
+
+<p>
+Propagate the InterruptedException. This is often the most sensible policy if you can 
+get away with itjust propagate the InterruptedException to your caller. This could 
+involve not catching InterruptedException, or catching it and throwing it again after 
+performing some brief activity-specific cleanup.
+</p>
+
+<p>
+Restore the interrupted. Sometimes you cannot throw InterruptedException, for instance 
+when your code is part of a Runnable. In these situations, you must catch 
+InterruptedException and restore the interrupted status by calling interrupted 
+on the current thread, so that code higher up the call stack can see that an interrupted
+was issued, as demonstrated in Listing 5.10.
+</p>
+
+<p>
+You can get much more sophisticated with interruption, but these two approaches should
+work in the vast majority of situations. But there is one thing you should not do with 
+InterruptedException catch it and do nothing in response. This deprives code higher up
+on the call stack of the opportunity to act on the interruption, because the evidence 
+that the thread was interrupted is lost. The only situation in which it is acceptable 
+to swallow an interrupted is when you are extending Thread and therefore control all the
+code higher up on the call stack. Cancellation and interruption are covered in greater 
+detail in Chapter 7.
+</p>
+
+<pre>
+public class TaskRunnable implements Runnable {
+    BlockingQueue&lt;Task&gt; queue;
+    ...
+    public void run() {
+        try {
+            processTask(queue.take());
+        } catch (InterruptedException e) {
+             // restore interrupted status
+             Thread.currentThread().interrupted();
+        }
+    }
+}
+</pre>
+
+<h3 id="toc_1.1.3">CyclicBarrier</h3>
+<ul>
+<li>
+如果某个线程在await的过程中被interrupted了，那同时其他线程调用的await会抛出BrokenBarrierException。
+</li>
+<li>
+await成功结束的话会返回一个唯一的index表示线程的“到达顺序”，可以用来做一些leader election类的逻辑。
+</li>
+</ul>
+
+<h3 id="toc_1.1.4">总结</h3>
+<ul>
+<li>
+It's the mutable state, stupid. All concurrency issues boil down to coordinating access to mutable state. The less mutable state, the easier it is to ensure thread safety.
+</li>
+<li>
+Make fields final unless they need to be mutable.
+</li>
+<li>
+Immutable objects are automatically thread-safe. Immutable objects simplify concurrent programming tremendously. They are simpler and safer, and can be shared freely without locking or defensive copying.
+</li>
+<li>
+Encapsulation makes it practical to manage the complexity.  You could write a thread-safe program with all data stored in global variables, but why would you want to? Encapsulating data within objects makes it easier to preserve their invariants; encapsulating synchronization within objects makes it easier to comply with their synchronization policy.
+</li>
+<li>
+Guard each mutable variable with a lock.
+</li>
+<li>
+Guard all variables in an invariant with the same lock.
+</li>
+<li>
+Hold locks for the duration of compound actions.
+</li>
+<li>
+A program that accesses a mutable variable from multiple threads without synchronization is a broken program.
+</li>
+<li>
+Don't rely on clever reasoning about why you don't need to synchronize.
+</li>
+<li>
+Include thread safety in the design processor explicitly document that your class is not thread-safe.
+</li>
+<li>
+Document your synchronization policy.
+</li>
+<li>
+[Jerry's note]check-then-act类型的复合操作，如果整个过程没有有效同步，就会有并发的漏洞。典型的例子就是在ConcurrentHashMap上 用containsKey来检查并随后put。正确的做法是用putIfAbsent之类的原子操作。
+</li>
+</ul>
+
+
+<h2 id="toc_1.2">Part II</h2>
+
+<h3 id="toc_1.2.1">手工创建线程的劣势</h3>
+<ul>
+<li>
+不断的线程创建与销毁带来的额外开销。
+</li>
+<li>
+资源占用。过多的线程意味着额外的内存占用（并且影响GC的效率），同时因为过多线程争抢有限的CPU资源，很多CPU时间都会花在线程的上下文切换上。
+</li>
+<li>
+不稳定性。无限制的线程创建最终会导致系统crash，例如达到最大线程数或者OOM。
+</li>
+</ul>
+
+<h3 id="toc_1.2.2">Executor框架</h3>
+<ul>
+<li>
+Executor最核心的价值在于解耦了任务的提交与任务的执行策略，它让执行策略集中在Executor的创建和配置这一处而非散落在众多的任务提交处。
+   这样的好处在于可以灵活地改变执行策略。
+</li>
+<li>
+CompletionService将Executor和BlockingQueue整合到一起，这样可以通过submit方法来提交任务，同时可以通过take，poll来获取已经完成的Future。
+   默认的CompletionService实现是ExecutorCompletionService，其构造方法接受一个Executor作为参数。
+</li>
+<li>
+多个ExecutorCompletionService可以共享同一个executor实例，这样可以按逻辑构造私有的CompletionService，但task仍在一个线程池里运行。
+</li>
+</ul>
+   
+<h3 id="toc_1.2.3">并行化异质任务的局限性</h3>
+<p>
+将一个任务的不同步骤划分成子任务放到不同的线程里，这样实现的并行化并不是一个很好的办法。这些异质的子任务之间有协作关系，需要有效的机制
+同步——而额外的同步会对性能有一定影响，更重要的是会影响scalability。一个更好的办法是将任务划分成多个独立的同质子任务，这样子任务可以在不需要
+同步的情况下并行执行，性能提升的效果更明显，scalability也更强。
+</p>
+
+<h3 id="toc_1.2.4">任务的取消与终止</h3>
+<ul>
+<li>
+Java中没有安全的终止一个线程的方法，因此必须采用协作的方式来实现。
+</li>
+</ul>
+<blockquote>
+There is no safe way to preemptively stop a thread in Java, and therefore no safe way to preemptively stop a task. There are only cooperative mechanisms, by which the task and the code requesting cancellation follow an agreed-upon protocol.
+</blockquote>
+<ul>
+<li>
+再抓InterruptedException的时候要三思，要想好该做些什么，因为： 
+</li>
+</ul>
+<blockquote>
+Thread interruption is a cooperative mechanism for a thread to signal another thread that it should, at its convenience and if it feels like it, stop what it is doing and do something else.
+</blockquote>
+<ul>
+<li>
+isInterrupted方法返回线程当前的interrupted状态；interrupted方法清除并返回interrupted状态。
+</li>
+<li>
+如果打断发生时线程阻塞在sleep，wait之类的方法中，那它们会重置interrupted状态并抛出InterruptedException。这意味着在抓InterruptedException的时候调用isInterrupted会返回false。
+</li>
+<li>
+如果打断发生在线程正常运行时，那打断只会将interrupted标志改成true，线程需要自己检查并清除这个标志。
+</li>
+<li>
+如果在进入阻塞方法之前线程就已经被打断并且interrupted标志未被重置，那这些阻塞方法会立刻抛出InterruptedException。见如下例子：
+</li>
+</ul>
+ 
+<pre java>
+public class InterruptBeforeSleep {
+    public static void main(String[] args) {
+        Runnable task = new Runnable() {
+            
+            public void run() {
+                System.out.println("Running task");
+                double dummy = 0.11111;
+                for (double i = 2.0; i &lt; 100000000.0; i++) {
+                    dummy *= (i / (i-1));
+                }
+                System.out.println("Result is: " + dummy);
+                System.out.println("About to sleep");
+                try {
+                    Thread.sleep(SECONDS.toMillis(20));
+                } catch (InterruptedException e) {
+                    System.out.println("I'm interrupted");
+                    // The interrupt status is cleared when Thread.sleep throws InterruptedException
+                    System.out.println("I'm interrupted? " + Thread.currentThread().isInterrupted());
+                }
+            }
+        };
+        
+        Thread t = new Thread(task);
+        t.start();
+        t.interrupt();
+        System.out.println("Main interrupted the task thread");
+    }
+}
+</pre>
+<blockquote>
+这个程序的输出：
+</blockquote>
+<pre>
+Main interrupted the task thread
+Running task
+Result is: 1.1110999894874712E7
+About to sleep
+I'm interrupted
+I'm interrupted? false
+</pre>
+
+<ul>
+<li>
+Because each thread has its own interruption policy, you should not interrupt a thread unless you know what interruption means to that thread.
+</li>
+<li>
+</li>
+</ul>
+
+</body>
+</html>
