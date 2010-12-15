@@ -1,53 +1,132 @@
 body {
     font-family: sans-serif; 
-    margin: 1em 15em 1em 15em; 
-    font-size: 100%; 
+    margin-left: 10em;
+    margin-right: 10em;
+    font-size: 1em; 
     line-height: 130%;
+    color: #3A628A;
+}
+
+a {
+    text-decoration: none;
+    color: #BF8E47;
+}
+
+a:hover {
+    background-color: #FFCF89;
+    color: #A6680D;
+}
+
+a:visited {
+    color: #A6680D;
+}
+
+div {
+    display: block;
+}
+
+#navbar {
+    font-family: Tahoma, sans-serif;
+    font-size: 95%;
+    color: #0D4378;
+    width: 100%;
+    overflow: hidden;
+}
+
+#navbar ul {
+    margin: 0em;
+    display: block;
+}
+
+#navbar li {
+    padding: 0em;
+    margin: 0em;
+    list-style: none;
+    float: left;
+}
+
+#navbar li a {
+    display: block;
+    padding: 0.2em 1em 0.2em 1em;
+    margin-left: 0.1em;
+    /* CSS3, for latest Chrome 4+, Firefox 4+, etc. */
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    /* for firefox */
+    -moz-border-radius-topleft: 0.5em;
+    -moz-border-radius-topright: 0.5em;
+    /* for webkit (older Chrome and Safari, etc) */
+    -webkit-border-top-left-radius: 0.5em;
+    -webkit-border-top-right-radius: 0.5em;
+
+    color: #0D4378;
+    background-color: #7EADDC; 
+    text-decoration: none;
+    text-shadow: #5C9DDC 0px 1px; 
+}
+
+#navbar li .activated {
+    color: #7EADDC;
+    text-shadow: #3A628A 0px 1px; 
+    background: #0D4378;
+}
+
+#navbar li a:hover {
+    color: #7EADDC;
+    text-shadow: #0D4378 0px 1px; 
+    background: #2972B8;
+}
+
+#content {
+    border: solid 1px #0D4378;
+    padding: 1em;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-family: serif; 
-    margin-top: 1.5em; 
+    margin-top: 1em; 
     margin-bottom: 0.5em;
 }
 
 h1 {
-    font-size: 2.0em; 
-    color: #a77070;
+    margin-top: 0em; 
+    font-size: 1.5em; 
+    color: #BA6E00;
+    padding-bottom: 0.4em;
+    border-bottom: 1px dashed #FFAF89;
 }
 
 h2 {
-    font-size: 1.6em; 
-    color: #779977;
+    font-size: 1.2em; 
+    color: #BA6E00;
     margin-left: 0.2em;
 }
 
 h3 {
-    font-size: 1.3em; 
+    font-size: 1.1em; 
     color: #555577;
     margin-left: 0.4em;
 }
 
 h4 {
-    font-size: 1.2em; 
-    color: #222244;
+    font-size: 1.1em; 
+    color: #2972B8;
     margin-left: 0.6em;
 }
 
 h5 {
-    font-size: 1.1em; 
-    color: #222244;
+    font-size: 1.0em; 
+    color: #2972B8;
     margin-left: 0.8em;
 }
 
 h6 {
     font-size: 1.0em; 
-    color: #222244;
+    color: #2972B8;
     margin-left: 1em;
 }
 
 p, pre, blockquote, table, ul, ol, dl {
-    margin-left: 2em;
     margin-top: 1em; 
     margin-bottom: 1em;
 }
@@ -58,14 +137,14 @@ ul ul, ul ol, ol ol, ol ul {
 }
 
 li {
-    margin-left: 1.5em;
+    margin-left: 0.5em;
     margin-right: 0.5em; 
     margin-bottom: 0.5em;
     auto;
 }
 
 ul {
-    margin-left: 2em; 
+    margin-left: 0.5em; 
     padding-left: 0.5em;
 }
 
@@ -75,12 +154,6 @@ dt {
 
 img {
     border: none;
-}
-
-pre {
-    border-left: 1px solid #ccc; 
-    margin-left: 2em; 
-    padding-left: 0.5em;
 }
 
 blockquote {
