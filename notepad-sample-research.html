@@ -1,12 +1,23 @@
-<html>
-<head>
-<link rel="Stylesheet" type="text/css" href="css/style.css" />
-<title>notepad-sample-research</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-<body>
-<h1 id="toc_1">Android学习: NodePad应用</h1>
-<ol>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<link rel="Stylesheet" type="text/css" href="css/style.css" /> 
+<title>notepad-sample-research</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+</head> 
+<body> 
+    <div id="navbar">
+    	<ul>
+    		<li> <a class="activated" href="index.html">WIKI</a> </li>
+    		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
+    		<li> <a href="https://github.com/moonranger">Projects</a> </li>
+    		<li> <a href="about.html">About</a> </li>
+    	</ul>
+    </div>
+    <div id="content">
+<h1 id="toc_1"> Android学习: NodePad应用</h1>
+
+<ul>
 <li>
 包名是一个Android应用的标志（安装apk的时候是不是就是靠这个来决定是update还是install？）
 </li>
@@ -16,15 +27,13 @@ AndroidManifest.xml是一个android应用必不可少的描述文件，它描述
 <li>
 IntentFilter描述了一个activity所支持的intent以及能操作的data
 </li>
-</ol>
-
-<p>
+</ul>
+<blockquote>
 运行时的Android可以看做一个activity的栈，从Home桌面开始，每当一个Intent引发一个activity的启动，
 栈里就会压入一个activity，当用户完成工作back以后，栈顶的activity就会出栈（但是其context应该会被保存），
 此时在栈顶的activity又会占有操作权。
-</p>
-
-<ol>
+</blockquote>
+<ul>
 <li>
 Intent里包含有data，用来在activity之间交换数据？
 </li>
@@ -40,7 +49,20 @@ Context Menu是指按住一个item时跳出来的菜单；Options Menu是指按m
 <li>
 6里提到的那个真的不简单……感觉像是可以将一种data所支持的特定category的所有操作都列出来。怀疑NotePad这个程序中的Edit Title就属于此类……需要进一步研究！
 </li>
-</ol>
+</ul>
 
-</body>
-</html>
+    </div>
+ 
+</body> 
+<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
+<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
+<script language="javascript">
+dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</html> 

@@ -1,21 +1,43 @@
-<html>
-<head>
-<link rel="Stylesheet" type="text/css" href="css/style.css" />
-<title>mysql</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-<body>
-<h1 id="toc_1">MySQL</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<link rel="Stylesheet" type="text/css" href="css/style.css" /> 
+<title>mysql</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+</head> 
+<body> 
+    <div id="navbar">
+    	<ul>
+    		<li> <a class="activated" href="index.html">WIKI</a> </li>
+    		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
+    		<li> <a href="https://github.com/moonranger">Projects</a> </li>
+    		<li> <a href="about.html">About</a> </li>
+    	</ul>
+    </div>
+    <div id="content">
+<h1 id="toc_1"> MySQL</h1>
+<div class="toc">
+<ul>
+<li><a href="#toc_1"> MySQL</a></li>
+<ul>
+<li><a href="#toc_1.1">1. InnoDB Related</a></li>
+<li><a href="#toc_1.2">2. Tips &amp; Tricks</a></li>
+<ul>
+<li><a href="#toc_1.2.1">2.1. Slow Query Log</a></li>
+</ul>
+</ul>
+</ul>
+</div>
 
-<h2 id="toc_1.1">InnoDB Related</h2>
+<h2 id="toc_1.1">1. InnoDB Related</h2>
 <ul>
 <li>
 <a href="innodb-locking.html">InnoDB Locking</a>
 </li>
 </ul>
 
-<h2 id="toc_1.2">Tips &amp; Tricks</h2>
-<h3 id="toc_1.2.1">Slow Query Log</h3>
+<h2 id="toc_1.2">2. Tips &amp; Tricks</h2>
+<h3 id="toc_1.2.1">2.1. Slow Query Log</h3>
 
 <p>
 打开MySQL慢查询log的方法：
@@ -27,5 +49,18 @@ set global show_query_log = on
 set global slow_query_log_file ="/usr/local/mysql/data/slow-sql.log"
 </pre>
 
-</body>
-</html>
+    </div>
+ 
+</body> 
+<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
+<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
+<script language="javascript">
+dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</html> 

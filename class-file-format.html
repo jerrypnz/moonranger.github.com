@@ -1,13 +1,35 @@
-<html>
-<head>
-<link rel="Stylesheet" type="text/css" href="css/style.css" />
-<title>class-file-format</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-<body>
-<h1 id="toc_1">Class File Format</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<link rel="Stylesheet" type="text/css" href="css/style.css" /> 
+<title>class-file-format</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+</head> 
+<body> 
+    <div id="navbar">
+    	<ul>
+    		<li> <a class="activated" href="index.html">WIKI</a> </li>
+    		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
+    		<li> <a href="https://github.com/moonranger">Projects</a> </li>
+    		<li> <a href="about.html">About</a> </li>
+    	</ul>
+    </div>
+    <div id="content">
+<h1 id="toc_1"> Class File Format</h1>
+<div class="toc">
+<ul>
+<li><a href="#toc_1"> Class File Format</a></li>
+<ul>
+<li><a href="#toc_1.1">1. Constant Pool</a></li>
+<li><a href="#toc_1.2">2. Access Flags</a></li>
+<li><a href="#toc_1.3">3. Descriptor</a></li>
+<li><a href="#toc_1.4">4. Method与Methodref</a></li>
+<li><a href="#toc_1.5">5. Field与Fieldref</a></li>
+</ul>
+</ul>
+</div>
 
-<h2 id="toc_1.1">Constant Pool</h2>
+<h2 id="toc_1.1">1. Constant Pool</h2>
 
 <p>
 class文件中的常量池其实就是符号表，包含字符串常量、类和接口名、方法名、属性名等等。
@@ -15,7 +37,7 @@ class文件的其他部分用#n来引用常量池里的item，常量池里面的
 </p>
 
 
-<h2 id="toc_1.2">Access Flags</h2>
+<h2 id="toc_1.2">2. Access Flags</h2>
 
 <ul>
 <li>
@@ -50,7 +72,7 @@ ACC_INTERFACE
 </p>
 
  
-<h2 id="toc_1.3">Descriptor</h2>
+<h2 id="toc_1.3">3. Descriptor</h2>
 
 <p>
 class文件里的method、field在constant pool里都有对应的描述符。Descriptor用特殊的语法来
@@ -75,7 +97,7 @@ class文件里的method、field在constant pool里都有对应的描述符。Des
 </pre>
 
 
-<h2 id="toc_1.4">Method与Methodref</h2>
+<h2 id="toc_1.4">4. Method与Methodref</h2>
 
 <p>
 Method描述当前class的方法，包括access flag，name，descriptor以及attributes，
@@ -108,11 +130,24 @@ Methodref是constant pool中的一种item，它代表了对method的引用，比
 
 
 
-<h2 id="toc_1.5">Field与Fieldref</h2>
+<h2 id="toc_1.5">5. Field与Fieldref</h2>
 
 <p>
 和Method与Methodref的关系类似，自己揣摩
 </p>
 
-</body>
-</html>
+    </div>
+ 
+</body> 
+<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
+<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
+<script language="javascript">
+dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</html> 

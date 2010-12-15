@@ -1,17 +1,27 @@
-<html>
-<head>
-<link rel="Stylesheet" type="text/css" href="css/style.css" />
-<title>innodb-locking</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-<body>
-<h1 id="toc_1">InnoDB Locking</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<link rel="Stylesheet" type="text/css" href="css/style.css" /> 
+<title>innodb-locking</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+</head> 
+<body> 
+    <div id="navbar">
+    	<ul>
+    		<li> <a class="activated" href="index.html">WIKI</a> </li>
+    		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
+    		<li> <a href="https://github.com/moonranger">Projects</a> </li>
+    		<li> <a href="about.html">About</a> </li>
+    	</ul>
+    </div>
+    <div id="content">
+<h1 id="toc_1"> InnoDB Locking</h1>
 
 <p>
 InnoDB引擎支持两种行锁：共享锁和独占锁
 </p>
 
-<h2 id="toc_1.1">共享锁（读锁）</h2>
+<h2 id="toc_1.1">1. 共享锁（读锁）</h2>
 
 <p>
 仅允许事务对行做读操作，多个事务可以同时获得某一行的共享锁。
@@ -20,18 +30,18 @@ InnoDB引擎支持两种行锁：共享锁和独占锁
 select ... lock in share mode也可以对某一行加共享锁
 </p>
 
-<h2 id="toc_1.2">独占锁（写锁）</h2>
+<h2 id="toc_1.2">2. 独占锁（写锁）</h2>
 
 <p>
 允许事务对行做更新、删除操作，同一时间只能有一个事务持有某一行的独占锁。
 </p>
 
-<h2 id="toc_1.3">一个死锁的Case</h2>
+<h2 id="toc_1.3">3. 一个死锁的Case</h2>
 <p>
 A表的b_id引用了B的主键id，按以下序列执行会出现死锁的情况(t1, t2分别为两个事务）：
 </p>
 
-<pre>
+<pre name="code" class="sql">
 t1: insert into A(xxx, b_id)  values('xxx_value_1', 1)            OK
 t2: insert into A(xxx, b_id)  values('xxx_value_2', 1)            OK
 t1: update B set yyy='yyy_value1' where id=1                      Wait
@@ -61,5 +71,18 @@ t2 update的时候也需要等待t1, t2持有的共享锁
 测试的结果是t2会成为死锁中的失败者而回滚。
 </p>
 
-</body>
-</html>
+    </div>
+ 
+</body> 
+<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
+<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
+<script language="javascript">
+dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</html> 

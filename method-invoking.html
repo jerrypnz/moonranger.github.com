@@ -1,13 +1,34 @@
-<html>
-<head>
-<link rel="Stylesheet" type="text/css" href="css/style.css" />
-<title>method-invoking</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-<body>
-<h1 id="toc_1">Method Invoking</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<link rel="Stylesheet" type="text/css" href="css/style.css" /> 
+<title>method-invoking</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+</head> 
+<body> 
+    <div id="navbar">
+    	<ul>
+    		<li> <a class="activated" href="index.html">WIKI</a> </li>
+    		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
+    		<li> <a href="https://github.com/moonranger">Projects</a> </li>
+    		<li> <a href="about.html">About</a> </li>
+    	</ul>
+    </div>
+    <div id="content">
+<h1 id="toc_1"> Method Invoking</h1>
+<div class="toc">
+<ul>
+<li><a href="#toc_1"> Method Invoking</a></li>
+<ul>
+<li><a href="#toc_1.1">1. JVM Stack Frames</a></li>
+<li><a href="#toc_1.2">2. invokevirtual</a></li>
+<li><a href="#toc_1.3">3. invokespecial</a></li>
+<li><a href="#toc_1.4">4. invokeinterface</a></li>
+</ul>
+</ul>
+</div>
 
-<h2 id="toc_1.1">JVM Stack Frames</h2>
+<h2 id="toc_1.1">1. JVM Stack Frames</h2>
 
 <ul>
 <li>
@@ -43,7 +64,7 @@ objectref in the calling method's frame would be the same memory location as loc
 <hr />
 
 
-<h2 id="toc_1.2">invokevirtual</h2>
+<h2 id="toc_1.2">2. invokevirtual</h2>
 
 <p>
 调用class的public, protected的instance method时使用这个opcode，通过method table实现延迟绑定（多态）。
@@ -52,7 +73,7 @@ objectref in the calling method's frame would be the same memory location as loc
 
 <hr />
 
-<h2 id="toc_1.3">invokespecial</h2>
+<h2 id="toc_1.3">3. invokespecial</h2>
 
 <p>
 调用class的private instance method以及&lt;init&gt;时使用这个opcode。调用的方法就是opcode中指定的method-ref，
@@ -62,7 +83,7 @@ virtual的函数。
 
 <hr />
 
-<h2 id="toc_1.4">invokeinterface</h2>
+<h2 id="toc_1.4">4. invokeinterface</h2>
 
 <p>
 调用interface的method，会使用这个opcode。它也是通过method table做延迟绑定，但是它与invokevirtual最大的
@@ -97,5 +118,18 @@ The method could occupy different locations for different classes that implement
 </blockquote>
 <hr />
 
-</body>
-</html>
+    </div>
+ 
+</body> 
+<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
+<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
+<script language="javascript">
+dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</html> 

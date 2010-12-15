@@ -1,23 +1,33 @@
-<html>
-<head>
-<link rel="Stylesheet" type="text/css" href="css/style.css" />
-<title>unix</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-<body>
-<h1 id="toc_1">UNIX</h1>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<link rel="Stylesheet" type="text/css" href="css/style.css" /> 
+<title>unix</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+</head> 
+<body> 
+    <div id="navbar">
+    	<ul>
+    		<li> <a class="activated" href="index.html">WIKI</a> </li>
+    		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
+    		<li> <a href="https://github.com/moonranger">Projects</a> </li>
+    		<li> <a href="about.html">About</a> </li>
+    	</ul>
+    </div>
+    <div id="content">
+<h1 id="toc_1"> UNIX</h1>
 <div class="toc">
 <ul>
-<li><a href="#toc_1">UNIX</a></li>
+<li><a href="#toc_1"> UNIX</a></li>
 <ul>
-<li><a href="#toc_1.1">Tips &amp; Tricks</a></li>
+<li><a href="#toc_1.1">1. Tips &amp; Tricks</a></li>
 </ul>
-<li><a href="#toc_2">使用grep恢复被删文件内容</a></li>
+<li><a href="#toc_2"> 使用grep恢复被删文件内容</a></li>
 </ul>
 </div>
 
-<h2 id="toc_1.1">Tips &amp; Tricks</h2>
-<h1 id="toc_2">使用grep恢复被删文件内容</h1>
+<h2 id="toc_1.1">1. Tips &amp; Tricks</h2>
+<h1 id="toc_2"> 使用grep恢复被删文件内容</h1>
 
 <p>
 原文地址：<a href="http://coolshell.cn/articles/2822.html">http://coolshell.cn/articles/2822.html</a>
@@ -66,5 +76,18 @@ grep -a -B 50 -A 60 'some string in the file' /dev/sda1 &gt; results.txt
 当然，我还是建议你把root用户的rm的命令用alias换成别一个脚本，那个脚本会帮你把删除的文件放到某个地方。
 </p>
 
-</body>
-</html>
+    </div>
+ 
+</body> 
+<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
+<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
+<script language="javascript">
+dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</html> 

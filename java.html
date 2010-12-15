@@ -1,16 +1,33 @@
-<html>
-<head>
-<link rel="Stylesheet" type="text/css" href="css/style.css" />
-<title>java</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-<body>
-<h1 id="toc_1">Java</h1>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<link rel="Stylesheet" type="text/css" href="css/style.css" /> 
+<title>java</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+</head> 
+<body> 
+    <div id="navbar">
+    	<ul>
+    		<li> <a class="activated" href="index.html">WIKI</a> </li>
+    		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
+    		<li> <a href="https://github.com/moonranger">Projects</a> </li>
+    		<li> <a href="about.html">About</a> </li>
+    	</ul>
+    </div>
+    <div id="content">
+<h1 id="toc_1"> Java</h1>
+<div class="toc">
 <ul>
-<li>
-<strong>Concurrency</strong>
-</li>
+<li><a href="#toc_1"> Java</a></li>
+<ul>
+<li><a href="#toc_1.1">1. Concurrency</a></li>
+<li><a href="#toc_1.2">2. JVM</a></li>
+<li><a href="#toc_1.3">3. OOM</a></li>
+</ul>
+</ul>
+</div>
+
+<h2 id="toc_1.1">1. Concurrency</h2>
 <ul>
 <li>
 <a href="notes-for-jcip.html">Notes for JCIP</a>
@@ -19,9 +36,7 @@
 <a href="threads-and-locks.html">Threads and Locks Basic</a>
 </li>
 </ul>
-<li>
-<strong>JVM</strong>
-</li>
+<h2 id="toc_1.2">2. JVM</h2>
 <ul>
 <li>
 <a href="method-invoking.html">Method Invoking</a>
@@ -30,15 +45,25 @@
 <a href="class-file-format.html">Class File Format</a>
 </li>
 </ul>
-<li>
-<strong>OOM</strong>
-</li>
+<h2 id="toc_1.3">3. OOM</h2>
 <ul>
 <li>
 <a href="oom-caused-by-string-split.html">OOM Caused by String.split</a>
 </li>
 </ul>
-</ul>
 
-</body>
-</html>
+    </div>
+ 
+</body> 
+<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
+<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
+<script language="javascript">
+dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</html> 

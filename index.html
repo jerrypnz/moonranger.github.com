@@ -1,27 +1,37 @@
-<html>
-<head>
-<link rel="Stylesheet" type="text/css" href="css/style.css" />
-<title>index</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-<body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<link rel="Stylesheet" type="text/css" href="css/style.css" /> 
+<title>index</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+</head> 
+<body> 
+    <div id="navbar">
+    	<ul>
+    		<li> <a class="activated" href="index.html">WIKI</a> </li>
+    		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
+    		<li> <a href="https://github.com/moonranger">Projects</a> </li>
+    		<li> <a href="about.html">About</a> </li>
+    	</ul>
+    </div>
+    <div id="content">
+<h1 id="toc_1" class="justcenter"> Jerry's Personal WIKI</h1>
 <div class="toc">
 <ul>
-<li><a href="#toc_1">Jerry's Personal WIKI</a></li>
+<li><a href="#toc_1"> Jerry's Personal WIKI</a></li>
 <ul>
-<li><a href="#toc_1.1">Programming</a></li>
+<li><a href="#toc_1.1">1. Programming</a></li>
 <ul>
-<li><a href="#toc_1.1.1">混饭用的</a></li>
-<li><a href="#toc_1.1.2">业余爱好</a></li>
-<li><a href="#toc_1.1.3">思绪点滴</a></li>
+<li><a href="#toc_1.1.1">1.1. 混饭用的</a></li>
+<li><a href="#toc_1.1.2">1.2. 业余爱好</a></li>
+<li><a href="#toc_1.1.3">1.3. 思绪点滴</a></li>
 </ul>
 </ul>
 </ul>
 </div>
-<h1 id="toc_1">Jerry's Personal WIKI</h1>
 
-<h2 id="toc_1.1">Programming</h2>
-<h3 id="toc_1.1.1">混饭用的</h3>
+<h2 id="toc_1.1">1. Programming</h2>
+<h3 id="toc_1.1.1">1.1. 混饭用的</h3>
 <ul>
 <li>
 语言<a href="java.html">Java</a>
@@ -41,7 +51,7 @@
 减少数据冗余，blah，blah。 但是在实践中，我相信很多DBA会建议用违反范式的方式来设计数据库 以便提
 高性能！这不坑爹吗……
 </blockquote>
-<h3 id="toc_1.1.2">业余爱好</h3>
+<h3 id="toc_1.1.2">1.2. 业余爱好</h3>
 <ul>
 <li>
 操作系统<a href="unix.html">UNIX</a>(所有Unix家族的OS，包括Linux，MAC和BSD等）
@@ -72,7 +82,7 @@ amix.dk的10条<a href="vim-tips.html">Vim Tips</a>
 </ul>
 </ul>
 
-<h3 id="toc_1.1.3">思绪点滴</h3>
+<h3 id="toc_1.1.3">1.3. 思绪点滴</h3>
 <ul>
 <li>
 从机制策略的分离到数据驱动程序设计
@@ -82,5 +92,18 @@ amix.dk的10条<a href="vim-tips.html">Vim Tips</a>
 </li>
 </ul>
 
-</body>
-</html>
+    </div>
+ 
+</body> 
+<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
+<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
+<script language="javascript">
+dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</html> 
