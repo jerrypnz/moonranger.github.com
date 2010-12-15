@@ -1,4 +1,5 @@
 = Class File Format =
+%toc
 
 == Constant Pool ==
 

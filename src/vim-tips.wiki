@@ -1,4 +1,5 @@
 = 10 kick-ass Vim tips =
+%toc
 
 Here are 10 Vim tips that I think you should know about (if you use Vim).
 

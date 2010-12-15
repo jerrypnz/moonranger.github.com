@@ -1,4 +1,5 @@
 = Method Invoking =
+%toc
 
 == JVM Stack Frames ==
 

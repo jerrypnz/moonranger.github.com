@@ -1,10 +1,11 @@
 = Java =
+%toc
 
-- *Concurrency*
+== Concurrency ==
     * [[notes-for-jcip|Notes for JCIP]]
     * [[threads-and-locks|Threads and Locks Basic]]
-- *JVM*
+== JVM ==
     * [[method-invoking|Method Invoking]]
     * [[class-file-format|Class File Format]]
-- *OOM*
+== OOM ==
     * [[oom-caused-by-string-split|OOM Caused by String.split]]

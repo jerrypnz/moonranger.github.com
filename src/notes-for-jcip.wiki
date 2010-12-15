@@ -1,4 +1,4 @@
-    = 《Java Concurrency in Practice》读书笔记=
+= 《Java Concurrency in Practice》读书笔记=
 %toc
 
 == Part I ==
@@ -66,7 +66,7 @@ to swallow an interrupted is when you are extending Thread and therefore control
 code higher up on the call stack. Cancellation and interruption are covered in greater 
 detail in Chapter 7.
 
-{{{
+{{{name="code" class="java"
 public class TaskRunnable implements Runnable {
     BlockingQueue<Task> queue;
     ...
@@ -133,7 +133,7 @@ public class TaskRunnable implements Runnable {
  * 如果打断发生在线程正常运行时，那打断只会将interrupted标志改成true，线程需要自己检查并清除这个标志。
  * 如果在进入阻塞方法之前线程就已经被打断并且interrupted标志未被重置，那这些阻塞方法会立刻抛出InterruptedException。见如下例子：
  
-{{{java
+{{{name="code" class="java"
 public class InterruptBeforeSleep {
     public static void main(String[] args) {
         Runnable task = new Runnable() {
