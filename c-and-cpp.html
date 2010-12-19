@@ -21,7 +21,11 @@
 <li><a href="#toc_1"> C &amp; C++</a></li>
 <ul>
 <li><a href="#toc_1.1">1. Traps and Pitfalls</a></li>
-<li><a href="#toc_1.2">2. pthread</a></li>
+<li><a href="#toc_1.2">2. UNIX C</a></li>
+<ul>
+<li><a href="#toc_1.2.1">2.1. fork, waitpid and exit</a></li>
+<li><a href="#toc_1.2.2">2.2. pthread</a></li>
+</ul>
 </ul>
 </ul>
 </div>
@@ -58,10 +62,31 @@ x(10U) &gt; -1 ? 0
 10u &gt; -1 ? 0
 </pre>
 
-<h2 id="toc_1.2">2. pthread</h2>
+<h2 id="toc_1.2">2. UNIX C</h2>
+
+<h3 id="toc_1.2.1">2.1. fork, waitpid and exit</h3>
 <ul>
 <li>
-一个进程的多个线程共享了同样的地址空间，一个线程甚至能访问其他线程的堆栈（虽然这样做十分容易带来各种bug）
+fork()在父进程里返回子进程的pid，在子进程里返回0，出错返回负值。
+</li>
+<li>
+exit()传入的状态值会和0377做与运算以后（status &amp; 0377）再返回给父进程。为什么？
+</li>
+<li>
+通过waitpid()得到的子进程status需要通过一系列的宏做处理后才能进一步使用。
+</li>
+</ul>
+
+<pre code=name class=c>
+waitpid(pid, &amp;status, 0);
+status = WEXITSTATUS(status);
+printf("Sub process finished: %u, exit status: %d\n", pid, status);
+</pre>
+
+<h3 id="toc_1.2.2">2.2. pthread</h3>
+<ul>
+<li>
+一个进程的多个线程完全共享了同样的地址空间，一个线程甚至能访问其他线程的堆栈（虽然这样做十分容易带来各种bug）
 </li>
 </ul>
 
