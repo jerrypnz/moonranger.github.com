@@ -25,3 +25,9 @@
     	</ul>
     </div>
     <div id="content">
+        <script type="text/javascript">
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = '%title%';
+            var disqus_url = 'http://moonranger.github.com/%title%.html';
+        </script>
+
