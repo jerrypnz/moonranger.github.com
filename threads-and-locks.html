@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head> 
 <link rel="Stylesheet" type="text/css" href="css/style.css" /> 
-<title>threads-and-locks</title> 
+<title>游侠之心的个人维基</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 </head> 
 <body> 
@@ -12,6 +12,16 @@
     		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
     		<li> <a href="https://github.com/moonranger">Projects</a> </li>
     		<li> <a href="about.html">About</a> </li>
+    		<li class="search">
+                <form action="http://www.google.com/search" method="get">
+                    <input name="sitesearch" value="http://moonranger.github.com/" type="hidden" />
+                    <input name="hl" value="zh-CN" type="hidden" />
+                    <input name="ie" value="UTF-8" type="hidden" />
+                    <input size="25" name="q" id="query" value="Search..." type="text" 
+                        onfocus="if( this.value=='Search...') {this.value='' };" 
+                        onblur="if( this.value=='') {this.value='Search...' };" />
+                </form>
+            </li>
     	</ul>
     </div>
     <div id="content">
@@ -37,6 +47,7 @@ In cases where memory transfers are desired, the source memory contents must fir
 loaded into a register, then can be stored to the destination memory address.
 reference：<a href="http://www.cs.virginia.edu/~evans/cs216/guides/x86.html">http://www.cs.virginia.edu/~evans/cs216/guides/x86.html</a>
 </blockquote>
+    
 <ul>
 <li>
 double和long型的变量，如果不是volatile的，会被当作两个32位的变量来读取或者存储（也就是会有两次read，load或write，store操作）。这意味着两个线程同时写入一个double或long变量时，其结果有可能是不确定的，有可能一半是线程a写入的部分，一半是线程b写入的部分……
@@ -53,6 +64,7 @@ Less formally: only one thread at a time is permitted to lay claim to a lock; mo
 a thread may acquire the same lock multiple times and does not relinquish ownership of it 
 until a matching number of unlock operations have been performed.
 </blockquote>
+
 <ul>
 <li>
 一个线程必须将其working memory中已经赋值的变量store回main memory中才能释放lock
