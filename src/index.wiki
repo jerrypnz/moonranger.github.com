@@ -8,18 +8,19 @@
 - 面向对象[[oop|OOP]]
 - 数据库[[mysql|MySQL]]和[[oracle|Oracle]]
 
-    吐槽：为什么我对关系数据库技术无爱？因为关系数据库的理论告诉我们，数据库设计要尽量做到符合范式，
-    减少数据冗余，blah，blah。 但是在实践中，我相信很多DBA会建议用违反范式的方式来设计数据库 以便提
-    高性能！这不坑爹吗……
-
 === 业余爱好 ===
 - 操作系统[[unix|UNIX]](所有Unix家族的OS，包括Linux，MAC和BSD等）
     - 各色[[shell|Shell]]技巧
+- [[c-and-cpp|C/C++]]算不上精通，但一直很喜欢也很关注
 - 偶尔研究研究Android
     - [[notepad-sample-research|NotePad Sample Research]]
 - 最喜欢的脚本语言[[python|Python]]
 - 最喜欢的编辑器[[vim|Vim]]
     - amix.dk的10条[[vim-tips|Vim Tips]]
+
+=== 读书笔记快速通道 ===
+- [[notes-for-jcip|《Java并发编程实践》读书笔记]]
+- [[notes-for-csipp|《CSAPP》读书笔记]] 
 
 === 思绪点滴 ===
 - 从机制策略的分离到数据驱动程序设计

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head> 
 <link rel="Stylesheet" type="text/css" href="css/style.css" /> 
-<title>vim</title> 
+<title>游侠之心的个人维基</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 </head> 
 <body> 
@@ -12,17 +12,47 @@
     		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
     		<li> <a href="https://github.com/moonranger">Projects</a> </li>
     		<li> <a href="about.html">About</a> </li>
+    		<li class="search">
+                <form action="http://www.google.com/search" method="get">
+                    <input name="sitesearch" value="http://moonranger.github.com/" type="hidden" />
+                    <input name="hl" value="zh-CN" type="hidden" />
+                    <input name="ie" value="UTF-8" type="hidden" />
+                    <input size="25" name="q" id="query" value="Search..." type="text" 
+                        onfocus="if( this.value=='Search...') {this.value='' };" 
+                        onblur="if( this.value=='') {this.value='Search...' };" />
+                </form>
+            </li>
     	</ul>
     </div>
     <div id="content">
+        <script type="text/javascript">
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = 'vim';
+            var disqus_url = 'http://moonranger.github.com/vim.html';
+        </script>
+
 <h1 id="toc_1"> Vim</h1>
 <div class="toc">
 <ul>
 <li><a href="#toc_1"> Vim</a></li>
 </ul>
 </div>
-
     </div>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'moonranger'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
  
 </body> 
 <link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>

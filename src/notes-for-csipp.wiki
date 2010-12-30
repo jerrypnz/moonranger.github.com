@@ -1,0 +1,54 @@
+= 《深入理解计算机系统》读书笔记 =
+%toc
+
+== 第二章 信息的表示与处理 ==
+
+=== 整数表示与运算 ===
+
+==== 移位 ====
+算术右移是用最高位来填充，逻辑右移是用0来作填充。
+
+==== 补码 ====
+- 补码的核心：最高位的权重是-2^n，其他位和无符号的整数一致。
+- 重要的公式：-x = ~x + 1
+
+==== C语言里的无符号与有符号整数 ====
+- 陷阱：一个布尔表达式里如果既有无符号整数，又有有符号整数，并且没有强制类型转换的话，C会将这些整数当作无符处理，从而得出很多非正常的结果。
+
+以此程序为例：
+{{{name=code class=c
+#include <stdio.h>
+
+int main(int argc, const char *argv[])
+{
+    unsigned x = 10;
+    printf ("x > -1 ? %d\n", (x > -1));
+    printf ("10 > -1 ? %d\n", (10 > -1));
+    printf ("10u > -1 ? %d\n", (10u > -1));
+    return 0;
+}
+}}}
+
+其输出：
+{{{code=name
+x > -1 ? 0
+10 > -1 ? 1
+10u > -1 ? 0
+}}}
+
+- [ ]待查阅：为什么C语言里对有符号整数取值范围的定义里，T_MIN要写成(-T_MAX - 1)。
+
+比如在limits.h里面查到的int和long的取值范围定义：
+{{{name=code class=c
+/* Minimum and maximum values a `signed int' can hold.  */
+#  define INT_MIN	(-INT_MAX - 1)
+#  define INT_MAX	2147483647
+
+/* Minimum and maximum values a `signed long int' can hold.  */
+#  if __WORDSIZE == 64
+#   define LONG_MAX	9223372036854775807L
+#  else
+#   define LONG_MAX	2147483647L
+#  endif
+#  define LONG_MIN	(-LONG_MAX - 1L)
+}}}

@@ -35,7 +35,10 @@ div {
 
 #navbar ul {
     margin: 0em;
+    padding: 0em;
+    padding-left: 1em;
     display: block;
+    overflow: hidden;
 }
 
 #navbar li {
@@ -45,17 +48,29 @@ div {
     float: left;
 }
 
+#navbar .search {
+    float: right;
+}
+
+#navbar .search #query {
+    padding: 0.2em 0.2em 0.2em 18px;
+    margin: 0em;
+    border: solid 1px #ccc;
+    color: #AAAAAA;
+    background: url('../img/search.png') no-repeat center left;
+}
+
 #navbar li a {
     display: block;
     padding: 0.2em 1em 0.2em 1em;
     margin-left: 0.1em;
-    /* CSS3, for latest Chrome 4+, Firefox 4+, etc. */
+    /* css3, for latest chrome 4+, firefox 4+, etc. */
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
     /* for firefox */
     -moz-border-radius-topleft: 0.5em;
     -moz-border-radius-topright: 0.5em;
-    /* for webkit (older Chrome and Safari, etc) */
+    /* for webkit (older chrome and safari, etc) */
     -webkit-border-top-left-radius: 0.5em;
     -webkit-border-top-right-radius: 0.5em;
 

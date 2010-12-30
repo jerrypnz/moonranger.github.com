@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head> 
 <link rel="Stylesheet" type="text/css" href="css/style.css" /> 
-<title>index</title> 
+<title>游侠之心的个人维基</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 </head> 
 <body> 
@@ -12,9 +12,25 @@
     		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
     		<li> <a href="https://github.com/moonranger">Projects</a> </li>
     		<li> <a href="about.html">About</a> </li>
+    		<li class="search">
+                <form action="http://www.google.com/search" method="get">
+                    <input name="sitesearch" value="http://moonranger.github.com/" type="hidden" />
+                    <input name="hl" value="zh-CN" type="hidden" />
+                    <input name="ie" value="UTF-8" type="hidden" />
+                    <input size="25" name="q" id="query" value="Search..." type="text" 
+                        onfocus="if( this.value=='Search...') {this.value='' };" 
+                        onblur="if( this.value=='') {this.value='Search...' };" />
+                </form>
+            </li>
     	</ul>
     </div>
     <div id="content">
+        <script type="text/javascript">
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = 'index';
+            var disqus_url = 'http://moonranger.github.com/index.html';
+        </script>
+
 <h1 id="toc_1" class="justcenter"> Jerry's Personal WIKI</h1>
 <div class="toc">
 <ul>
@@ -24,7 +40,8 @@
 <ul>
 <li><a href="#toc_1.1.1">1.1. 混饭用的</a></li>
 <li><a href="#toc_1.1.2">1.2. 业余爱好</a></li>
-<li><a href="#toc_1.1.3">1.3. 思绪点滴</a></li>
+<li><a href="#toc_1.1.3">1.3. 读书笔记快速通道</a></li>
+<li><a href="#toc_1.1.4">1.4. 思绪点滴</a></li>
 </ul>
 </ul>
 </ul>
@@ -46,11 +63,7 @@
 数据库<a href="mysql.html">MySQL</a>和<a href="oracle.html">Oracle</a>
 </li>
 </ul>
-<blockquote>
-吐槽：为什么我对关系数据库技术无爱？因为关系数据库的理论告诉我们，数据库设计要尽量做到符合范式，
-减少数据冗余，blah，blah。 但是在实践中，我相信很多DBA会建议用违反范式的方式来设计数据库 以便提
-高性能！这不坑爹吗……
-</blockquote>
+
 <h3 id="toc_1.1.2">1.2. 业余爱好</h3>
 <ul>
 <li>
@@ -61,6 +74,9 @@
 各色<a href="shell.html">Shell</a>技巧
 </li>
 </ul>
+<li>
+<a href="c-and-cpp.html">C/C++</a>算不上精通，但一直很喜欢也很关注
+</li>
 <li>
 偶尔研究研究Android
 </li>
@@ -82,7 +98,17 @@ amix.dk的10条<a href="vim-tips.html">Vim Tips</a>
 </ul>
 </ul>
 
-<h3 id="toc_1.1.3">1.3. 思绪点滴</h3>
+<h3 id="toc_1.1.3">1.3. 读书笔记快速通道</h3>
+<ul>
+<li>
+<a href="notes-for-jcip.html">《Java并发编程实践》读书笔记</a>
+</li>
+<li>
+<a href="notes-for-csipp.html">《CSAPP》读书笔记</a> 
+</li>
+</ul>
+
+<h3 id="toc_1.1.4">1.4. 思绪点滴</h3>
 <ul>
 <li>
 从机制策略的分离到数据驱动程序设计
@@ -91,8 +117,22 @@ amix.dk的10条<a href="vim-tips.html">Vim Tips</a>
 计算机科学就是由一层又一层的抽象组成的
 </li>
 </ul>
-
     </div>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'moonranger'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
  
 </body> 
 <link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>

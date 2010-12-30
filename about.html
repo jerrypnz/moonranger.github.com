@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head> 
 <link rel="Stylesheet" type="text/css" href="css/style.css" /> 
-<title>about</title> 
+<title>游侠之心的个人维基</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 </head> 
 <body> 
@@ -12,15 +12,88 @@
     		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
     		<li> <a href="https://github.com/moonranger">Projects</a> </li>
     		<li> <a href="about.html">About</a> </li>
+    		<li class="search">
+                <form action="http://www.google.com/search" method="get">
+                    <input name="sitesearch" value="http://moonranger.github.com/" type="hidden" />
+                    <input name="hl" value="zh-CN" type="hidden" />
+                    <input name="ie" value="UTF-8" type="hidden" />
+                    <input size="25" name="q" id="query" value="Search..." type="text" 
+                        onfocus="if( this.value=='Search...') {this.value='' };" 
+                        onblur="if( this.value=='') {this.value='Search...' };" />
+                </form>
+            </li>
     	</ul>
     </div>
     <div id="content">
+        <script type="text/javascript">
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = 'about';
+            var disqus_url = 'http://moonranger.github.com/about.html';
+        </script>
+
 <h1 id="toc_1"> About Me</h1>
+
 <p>
-This is Jerry!
+Jerry、游侠之心、moonranger，这些都是我常用的网络ID。本人真名彭睿，85后IT男，湖北人在天津，目前在<a href="http://www.workssys.com">天津沃克斯</a>从事网管系统的开发工作。
 </p>
 
+<p>
+业余时间喜欢研究众多编程技术，其中：
+</p>
+<ul>
+<li>
+最爱Linux下的Python和C开发，欣赏UNIX家族的设计哲学，目前在业余时间捣鼓一个基于epoll的简单Web Server（期待我的好消息吧）。
+</li>
+<li>
+大学期间曾对游戏开发很有热情，做过几个十分无聊的小游戏，请参见个人的github代码库。
+</li>
+<li>
+对Web开发略有涉足，HTML，JavaScript和CSS略熟练，您看到的这个维基的页面主题就是本人开发的。多谢夸奖 ;-)
+</li>
+<li>
+混饭工具Java也正在深入学习中，目前在研究JVM原理、GC和Performance Tuning中（额，其实停滞了有一阵了）。
+</li>
+<li>
+厌恶关系数据库技术，目前只是熟悉基本的使用和开发，对更深入的调优、维护等话题不了解也没兴趣，原因如下：
+</li>
+</ul>
+<blockquote>
+吐槽时间：为什么我对关系数据库技术无爱？因为关系数据库的理论告诉我们，数据库设计要尽量做到符合范式， 减少数据冗余，blah，blah。 但是在实践中，我相信很多DBA会建议用字段冗余等违反范式的方式来设计数据库 以便提高性能！这种深入到骨子里的矛盾在我看来就是坑爹……
+</blockquote>
+
+<p>
+<strong>联系我</strong>
+</p>
+<ul>
+<li>
+GTalk &amp; gmail: pr2jerry[AT]gmail.com
+</li>
+<li>
+MSN: c_jerry[AT]126.com
+</li>
+<li>
+QQ: 43961207 (不常上）
+</li>
+<li>
+Skype: jerry860510
+</li>
+</ul>
     </div>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'moonranger'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
  
 </body> 
 <link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
