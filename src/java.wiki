@@ -3,6 +3,7 @@
 
 == Concurrency ==
 - [[threads-and-locks|Threads and Locks Basic]]
+- [[notes-for-jcip|《Java并发编程实践》读书笔记]]
 
 == JVM ==
 - [[method-invoking|Method Invoking]]
@@ -13,3 +14,4 @@
 
 == IO ==
 - [[java-nio|Java NIO]]
+- [[io-multiplexing-reactor|《Scalable IO in Java》阅读笔记]](IO Multiplexing和Reactor模式)
