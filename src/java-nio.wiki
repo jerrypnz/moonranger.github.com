@@ -1,0 +1,6 @@
+= Java NIO =
+%toc
+
+== Direct Buffer ==
+Direct buffer是ByteBuffer的一种模式，它通常创建在进程的native heap而非java heap上，
+这样就省去了很多拷贝动作（比如发生在GC时候的对象拷贝）。
