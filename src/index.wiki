@@ -2,29 +2,33 @@
 %toc
 
 == Programming ==
-=== 混饭用的 ===
-- 语言[[java|Java]]
-- 工具[[hibernate|Hibernate]]和[[spring|Spring]]
+=== General Topics ===
+- 语言
+    - 混饭用，但谈不上非常喜欢的[[java|Java]]
+    - 算不上精通，但一直很喜欢也很关注的[[c-and-cpp|C/C++]]
+    - 最爱的脚本语言[[python|Python]]
+    
 - 面向对象[[oop|OOP]]
-- 数据库[[mysql|MySQL]]和[[oracle|Oracle]]
+    - 依赖注入[[spring|Spring]]
 
-=== 业余爱好 ===
-- 操作系统[[unix|UNIX]](所有Unix家族的OS，包括Linux，MAC和BSD等）
+- 数据库[[mysql|MySQL]]和[[oracle|Oracle]]
+    - ORM工具[[hibernate|Hibernate]]
+
+- 操作系统[[unix|UNIX]](Linux，MAC和BSD等）
     - 各色[[shell|Shell]]技巧
-- [[c-and-cpp|C/C++]]算不上精通，但一直很喜欢也很关注
+
 - 偶尔研究研究Android
     - [[notepad-sample-research|NotePad Sample Research]]
-- 最喜欢的脚本语言[[python|Python]]
+
 - 最喜欢的编辑器[[vim|Vim]]
     - amix.dk的10条[[vim-tips|Vim Tips]]
 
-=== 读书笔记快速通道 ===
+=== 笔记(书籍、论文、Slides、源代码等等) ===
 - [[notes-for-jcip|《Java并发编程实践》读书笔记]]
 - [[notes-for-csipp|《CSAPP》读书笔记]] 
-
-=== Server端技术话题 ===
-- [[io-multiplexing-reactor|IO Multiplexing和Reactor模式]]
+- [[io-multiplexing-reactor|《Scalable IO in Java》阅读笔记]](IO Multiplexing和Reactor模式)
 
 === 思绪点滴 ===
-- 从机制策略的分离到数据驱动程序设计
-- 计算机科学就是由一层又一层的抽象组成的
+- [[reading-java-source-code|读Java代码的心得]]
+- TODO:从机制策略的分离到数据驱动程序设计
+- TODO:计算机科学就是由一层又一层的抽象组成的

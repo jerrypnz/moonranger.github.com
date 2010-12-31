@@ -2,6 +2,76 @@
 %toc
 
 == Reactor和Preactor模式 ==
-
 - Reactor用于同步IO，Preactor用于异步IO
+- Reactor通常会和Connector模式一起使用，进一步解耦连接的建立与连接以后的逻辑
 
+== Reactor模式中的主要角色 ==
+
+=== Reactor ===
+Reactor是IO事件的派发者。
+
+=== Acceptor ===
+Acceptor接受client连接，建立对应client的Handler，并向Reactor注册此Handler。
+
+=== Handler ===
+和一个client通讯的实体，按这样的过程实现业务的处理。一般在基本的Handler基础上还会有更进一步的层次划分，
+用来抽象诸如decode，process和encoder这些过程。比如对Web Server而言，decode通常是HTTP请求的解析，
+process的过程会进一步涉及到Listner和Servlet的调用。业务逻辑的处理在Reactor模式里被分散的IO事件所打破，
+所以Handler需要有适当的机制在所需的信息还不全（读到一半）的时候保存上下文，并在下一次IO事件到来的
+时候（另一半可读了）能继续中断的处理。为了简化设计，Handler通常被设计成状态机，按GoF的state pattern来
+实现。
+
+== 多线程下的Reactor ==
+一个突然闪入脑海的问题：在单核的机器上，如果除了Reactor可能阻塞在等待IO事件中以外，Handler和Acceptor都是完全
+非阻塞的，那用多线程来实现Reactor模式能获得性能提升吗？（貌似不能……）
+
+=== 多线程化的目的 ===
+- 利用上多核的计算能力。
+- 策略性地增减线程从而提升伸缩性。
+- 要让Reactor能快速派发IO事件到Handler中。如果用单线程，Handler处理快慢直接影响队列中后续IO事件的派发速度。
+- IO之外的处理交给其他线程，这样Reactor可以专心派发事件。
+- 可以采用多Reactor的设计，因为：
+    * 如果负载高的话，单个Reactor可能会忙于IO，影响伸缩性。
+    * 其实多Reactor就是一种负载均衡的策略，从而不会让CPU在IO十分频繁的时候空闲下来。
+- 线程划分为Reactor线程和Worker线程，前者处理IO并派发事件，后者来跑Handler做完IO后的Process处理。
+
+    Doug Lea的《Scalable IO in Java》中实例代码中，多线程版本的Handler还是在Reactor线程里运行，只有在读到
+    需要的数据了以后才会想Worker线程池里提交process的任务。个人对于这种有一个问题：如果不能一次读到全部需要
+    的数据，process过程该如何设计？ (TODO:争取从Jetty中找到一些答案)
+
+==== Workder线程 ====
+- 分担非IO的业务逻辑处理，减轻Reactor负担
+- 用线程池来管理，以便做性能和伸缩性之间的微调和控制
+    * 通常需要的线程远远低于同时连接的client数量
+- 任务之间的协调(TODO:需要更进一步的了解)
+    * Handoff
+    * Callback
+    * Queue
+    * Future
+
+== Java中的实现 ==
+Java中Reactor模式server的实现主要应用的两大块技术就是：
+- Java5引入的concurrent包([[notes-for-jcip|传送门]])
+    - ThreadPoolExecutor实现线程池
+    - Queue, Future等等机制的使用
+- Java NIO([[java-nio|传送门]])
+    - Channel
+    - Buffer
+    - Selector
+
+=== 多Reactor线程的实现 ===
+- 静态创建 vs 动态创建
+- 每个Reactor都有独立的Selector和对应的线程
+- Reactor划分为main reactor和sub reactor
+    - main reactor监听连接请求并控制acceptor（单个main reactor？）
+    - sub reactors监听连接并分发IO事件到handler里
+- Acceptor用某种机制来将accept后创建的handler分发到Reactor中
+    - Round-robin？
+    - 负载均衡？
+
+=== 应用NIO其他Feature ===
+- 单Reactor多Selector的模式：将不同的handlers绑定到不同的IO事件上
+    - 需要控制好同步
+- 文件传送：应用OS提供的sendfile调用来直接将文件数据发送到网络连接中，省去了用户空间和内核空间的一次数据拷贝
+- Direct Buffers：可以实现零拷贝的数据传送，但有创建和销毁的开销，适合长连接应用
+    - 参见NIO相关话题([[java-nio|传送门]])

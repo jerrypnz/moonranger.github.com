@@ -37,16 +37,218 @@
 <li><a href="#toc_1"> IO多路复用和Reactor模式</a></li>
 <ul>
 <li><a href="#toc_1.1">1. Reactor和Preactor模式</a></li>
+<li><a href="#toc_1.2">2. Reactor模式中的主要角色</a></li>
+<ul>
+<li><a href="#toc_1.2.1">2.1. Reactor</a></li>
+<li><a href="#toc_1.2.2">2.2. Acceptor</a></li>
+<li><a href="#toc_1.2.3">2.3. Handler</a></li>
+</ul>
+<li><a href="#toc_1.3">3. 多线程下的Reactor</a></li>
+<ul>
+<li><a href="#toc_1.3.1">3.1. 多线程化的目的</a></li>
+<ul>
+<li><a href="#toc_1.3.1.1">3.1.1. Workder线程</a></li>
+</ul>
+</ul>
+<li><a href="#toc_1.4">4. Java中的实现</a></li>
+<ul>
+<li><a href="#toc_1.4.1">4.1. 多Reactor线程的实现</a></li>
+<li><a href="#toc_1.4.2">4.2. 应用NIO其他Feature</a></li>
+</ul>
 </ul>
 </ul>
 </div>
 
 <h2 id="toc_1.1">1. Reactor和Preactor模式</h2>
-
 <ul>
 <li>
 Reactor用于同步IO，Preactor用于异步IO
 </li>
+<li>
+Reactor通常会和Connector模式一起使用，进一步解耦连接的建立与连接以后的逻辑
+</li>
+</ul>
+
+<h2 id="toc_1.2">2. Reactor模式中的主要角色</h2>
+
+<h3 id="toc_1.2.1">2.1. Reactor</h3>
+<p>
+Reactor是IO事件的派发者。
+</p>
+
+<h3 id="toc_1.2.2">2.2. Acceptor</h3>
+<p>
+Acceptor接受client连接，建立对应client的Handler，并向Reactor注册此Handler。
+</p>
+
+<h3 id="toc_1.2.3">2.3. Handler</h3>
+<p>
+和一个client通讯的实体，按这样的过程实现业务的处理。一般在基本的Handler基础上还会有更进一步的层次划分，
+用来抽象诸如decode，process和encoder这些过程。比如对Web Server而言，decode通常是HTTP请求的解析，
+process的过程会进一步涉及到Listner和Servlet的调用。业务逻辑的处理在Reactor模式里被分散的IO事件所打破，
+所以Handler需要有适当的机制在所需的信息还不全（读到一半）的时候保存上下文，并在下一次IO事件到来的
+时候（另一半可读了）能继续中断的处理。为了简化设计，Handler通常被设计成状态机，按GoF的state pattern来
+实现。
+</p>
+
+<h2 id="toc_1.3">3. 多线程下的Reactor</h2>
+<p>
+一个突然闪入脑海的问题：在单核的机器上，如果除了Reactor可能阻塞在等待IO事件中以外，Handler和Acceptor都是完全
+非阻塞的，那用多线程来实现Reactor模式能获得性能提升吗？（貌似不能……）
+</p>
+
+<h3 id="toc_1.3.1">3.1. 多线程化的目的</h3>
+<ul>
+<li>
+利用上多核的计算能力。
+</li>
+<li>
+策略性地增减线程从而提升伸缩性。
+</li>
+<li>
+要让Reactor能快速派发IO事件到Handler中。如果用单线程，Handler处理快慢直接影响队列中后续IO事件的派发速度。
+</li>
+<li>
+IO之外的处理交给其他线程，这样Reactor可以专心派发事件。
+</li>
+<li>
+可以采用多Reactor的设计，因为：
+</li>
+<ul>
+<li>
+如果负载高的话，单个Reactor可能会忙于IO，影响伸缩性。
+</li>
+<li>
+其实多Reactor就是一种负载均衡的策略，从而不会让CPU在IO十分频繁的时候空闲下来。
+</li>
+</ul>
+<li>
+线程划分为Reactor线程和Worker线程，前者处理IO并派发事件，后者来跑Handler做完IO后的Process处理。
+</li>
+</ul>
+<blockquote>
+Doug Lea的《Scalable IO in Java》中实例代码中，多线程版本的Handler还是在Reactor线程里运行，只有在读到
+需要的数据了以后才会想Worker线程池里提交process的任务。个人对于这种有一个问题：如果不能一次读到全部需要
+的数据，process过程该如何设计？ (<span class="todo">TODO:</span>争取从Jetty中找到一些答案)
+</blockquote>
+
+<h4 id="toc_1.3.1.1">3.1.1. Workder线程</h4>
+<ul>
+<li>
+分担非IO的业务逻辑处理，减轻Reactor负担
+</li>
+<li>
+用线程池来管理，以便做性能和伸缩性之间的微调和控制
+</li>
+<ul>
+<li>
+通常需要的线程远远低于同时连接的client数量
+</li>
+</ul>
+<li>
+任务之间的协调(<span class="todo">TODO:</span>需要更进一步的了解)
+</li>
+<ul>
+<li>
+Handoff
+</li>
+<li>
+Callback
+</li>
+<li>
+Queue
+</li>
+<li>
+Future
+</li>
+</ul>
+</ul>
+
+<h2 id="toc_1.4">4. Java中的实现</h2>
+<p>
+Java中Reactor模式server的实现主要应用的两大块技术就是：
+</p>
+<ul>
+<li>
+Java5引入的concurrent包(<a href="notes-for-jcip.html">传送门</a>)
+</li>
+<ul>
+<li>
+ThreadPoolExecutor实现线程池
+</li>
+<li>
+Queue, Future等等机制的使用
+</li>
+</ul>
+<li>
+Java NIO(<a href="java-nio.html">传送门</a>)
+</li>
+<ul>
+<li>
+Channel
+</li>
+<li>
+Buffer
+</li>
+<li>
+Selector
+</li>
+</ul>
+</ul>
+
+<h3 id="toc_1.4.1">4.1. 多Reactor线程的实现</h3>
+<ul>
+<li>
+静态创建 vs 动态创建
+</li>
+<li>
+每个Reactor都有独立的Selector和对应的线程
+</li>
+<li>
+Reactor划分为main reactor和sub reactor
+</li>
+<ul>
+<li>
+main reactor监听连接请求并控制acceptor（单个main reactor？）
+</li>
+<li>
+sub reactors监听连接并分发IO事件到handler里
+</li>
+</ul>
+<li>
+Acceptor用某种机制来将accept后创建的handler分发到Reactor中
+</li>
+<ul>
+<li>
+Round-robin？
+</li>
+<li>
+负载均衡？
+</li>
+</ul>
+</ul>
+
+<h3 id="toc_1.4.2">4.2. 应用NIO其他Feature</h3>
+<ul>
+<li>
+单Reactor多Selector的模式：将不同的handlers绑定到不同的IO事件上
+</li>
+<ul>
+<li>
+需要控制好同步
+</li>
+</ul>
+<li>
+文件传送：应用OS提供的sendfile调用来直接将文件数据发送到网络连接中，省去了用户空间和内核空间的一次数据拷贝
+</li>
+<li>
+Direct Buffers：可以实现零拷贝的数据传送，但有创建和销毁的开销，适合长连接应用
+</li>
+<ul>
+<li>
+参见NIO相关话题(<a href="java-nio.html">传送门</a>)
+</li>
+</ul>
 </ul>
     </div>
 
