@@ -27,104 +27,44 @@
     <div id="content">
         <script type="text/javascript">
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = 'index';
-            var disqus_url = 'http://moonranger.github.com/index.html';
+            var disqus_identifier = 'reading-java-source-code';
+            var disqus_url = 'http://moonranger.github.com/reading-java-source-code.html';
         </script>
 
-<h1 id="toc_1" class="justcenter"> Jerry's Personal WIKI</h1>
+<h1 id="toc_1"> 读Java源代码的心得</h1>
 <div class="toc">
 <ul>
-<li><a href="#toc_1"> Jerry's Personal WIKI</a></li>
+<li><a href="#toc_1"> 读Java源代码的心得</a></li>
 <ul>
-<li><a href="#toc_1.1">1. Programming</a></li>
-<ul>
-<li><a href="#toc_1.1.1">1.1. 混饭用的</a></li>
-<li><a href="#toc_1.1.2">1.2. 业余爱好</a></li>
-<li><a href="#toc_1.1.3">1.3. 读书笔记快速通道</a></li>
-<li><a href="#toc_1.1.4">1.4. Server端技术话题</a></li>
-<li><a href="#toc_1.1.5">1.5. 思绪点滴</a></li>
-</ul>
+<li><a href="#toc_1.1">1. 架构在先</a></li>
+<li><a href="#toc_1.2">2. 模板方法</a></li>
 </ul>
 </ul>
 </div>
 
-<h2 id="toc_1.1">1. Programming</h2>
-<h3 id="toc_1.1.1">1.1. 混饭用的</h3>
-<ul>
-<li>
-语言<a href="java.html">Java</a>
-</li>
-<li>
-工具<a href="hibernate.html">Hibernate</a>和<a href="spring.html">Spring</a>
-</li>
-<li>
-面向对象<a href="oop.html">OOP</a>
-</li>
-<li>
-数据库<a href="mysql.html">MySQL</a>和<a href="oracle.html">Oracle</a>
-</li>
-</ul>
+<h2 id="toc_1.1">1. 架构在先</h2>
+<p>
+各色Java开源项目是笔巨大的财富，阅读这些源代码能有很多收获。但是这些程序设计上都非常“OO”，
+一下钻进源码里只会一头雾水，迷惑不已。其实最好的办法是先收集一些相关的文档，认识一下其高层次的架构，
+分清楚里面的模块和角色，然后分而治之地深入阅读比较好。
+</p>
 
-<h3 id="toc_1.1.2">1.2. 业余爱好</h3>
-<ul>
-<li>
-操作系统<a href="unix.html">UNIX</a>(所有Unix家族的OS，包括Linux，MAC和BSD等）
-</li>
-<ul>
-<li>
-各色<a href="shell.html">Shell</a>技巧
-</li>
-</ul>
-<li>
-<a href="c-and-cpp.html">C/C++</a>算不上精通，但一直很喜欢也很关注
-</li>
-<li>
-偶尔研究研究Android
-</li>
-<ul>
-<li>
-<a href="notepad-sample-research.html">NotePad Sample Research</a>
-</li>
-</ul>
-<li>
-最喜欢的脚本语言<a href="python.html">Python</a>
-</li>
-<li>
-最喜欢的编辑器<a href="vim.html">Vim</a>
-</li>
-<ul>
-<li>
-amix.dk的10条<a href="vim-tips.html">Vim Tips</a>
-</li>
-</ul>
-</ul>
+<p>
+以Jetty为例，在读源代码之前，先了解一下Jetty的高层次架构：Reactor模式，了解这个模式要解决的问题和模式里主要的几个角色，
+在此基础上再深入阅读源码更清晰。
+</p>
 
-<h3 id="toc_1.1.3">1.3. 读书笔记快速通道</h3>
-<ul>
-<li>
-<a href="notes-for-jcip.html">《Java并发编程实践》读书笔记</a>
-</li>
-<li>
-<a href="notes-for-csipp.html">《CSAPP》读书笔记</a> 
-</li>
-</ul>
+<h2 id="toc_1.2">2. 模板方法</h2>
+<p>
+OOP中的模板模式恐怕是使用得最多的地方。虽然模板模式是很有用很不错的设计模式，但一个应用了模板模式的类层次的代码都是比较
+支离破碎的，读起来比较吃力。要解决这个问题，个人感觉要先跳出代码细节，先看整体的类层次，了解其职责，再从上到下，看每一层的
+类封装了哪些 <strong>不变</strong> 的东西，又将哪些 <strong>可变</strong> 的部分交给了子类来实现。边看边做笔记应该是个不错的方法。
+</p>
 
-<h3 id="toc_1.1.4">1.4. Server端技术话题</h3>
-<ul>
-<li>
-<a href="io-multiplexing-reactor.html">IO Multiplexing和Reactor模式</a>
-</li>
-</ul>
 
-<h3 id="toc_1.1.5">1.5. 思绪点滴</h3>
-<ul>
-<li>
-从机制策略的分离到数据驱动程序设计
-</li>
-<li>
-计算机科学就是由一层又一层的抽象组成的
-</li>
-</ul>
+<p>
+(<span class="todo">TODO:</span>待完工)
+</p>
     </div>
 
     <div id="disqus_thread"></div>

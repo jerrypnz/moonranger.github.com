@@ -1,0 +1,7 @@
+= IO多路复用和Reactor模式 =
+%toc
+
+== Reactor和Preactor模式 ==
+
+- Reactor用于同步IO，Preactor用于异步IO
+

@@ -22,6 +22,9 @@
 - [[notes-for-jcip|《Java并发编程实践》读书笔记]]
 - [[notes-for-csipp|《CSAPP》读书笔记]] 
 
+=== Server端技术话题 ===
+- [[io-multiplexing-reactor|IO Multiplexing和Reactor模式]]
+
 === 思绪点滴 ===
 - 从机制策略的分离到数据驱动程序设计
 - 计算机科学就是由一层又一层的抽象组成的
