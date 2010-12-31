@@ -28,7 +28,9 @@
 - [[notes-for-csipp|《CSAPP》读书笔记]] 
 - [[io-multiplexing-reactor|《Scalable IO in Java》阅读笔记]](IO Multiplexing和Reactor模式)
 
-=== 思绪点滴 ===
+=== 收集箱 ===
 - [[reading-java-source-code|读Java代码的心得]]
 - TODO:从机制策略的分离到数据驱动程序设计
 - TODO:计算机科学就是由一层又一层的抽象组成的
+- TODO:communicating sequential processing研究
+    - 参考： http://www.tbdata.org/archives/1359
