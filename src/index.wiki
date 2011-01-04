@@ -24,12 +24,15 @@
     - amix.dk的10条[[vim-tips|Vim Tips]]
 
 === 笔记(书籍、论文、Slides、源代码等等) ===
-- [[notes-for-jcip|《Java并发编程实践》读书笔记]]
-- [[notes-for-csipp|《CSAPP》读书笔记]] 
-- [[io-multiplexing-reactor|《Scalable IO in Java》阅读笔记]](IO Multiplexing和Reactor模式)
+- [[book-notes-jcip|Java并发编程实践读书笔记]]
+- [[book-notes-csipp|CSAPP读书笔记]] 
+- [[source-notes-jetty|Jetty源码笔记]]
+- [[io-multiplexing-reactor|IO Multiplexing和Reactor模式]](Scalable IO in Java)
 
 === 收集箱 ===
 - [[reading-java-source-code|读Java代码的心得]]
+- TODO:Java中纯POJO的设计，并通过简单的配置文件来组装对象的一类模式
+    - 类似tomcat的server.xml的那种设计
 - TODO:从机制策略的分离到数据驱动程序设计
 - TODO:计算机科学就是由一层又一层的抽象组成的
 - TODO:communicating sequential processing研究

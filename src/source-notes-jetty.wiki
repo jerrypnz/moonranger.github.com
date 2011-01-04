@@ -1,0 +1,330 @@
+= Jetty源码笔记 =
+%toc
+
+== Jetty核心抽象 ==
+
+- Connector: 接受client连接，构造Connection并handle connection的组件。
+- Handler: 处理request并产生response。
+- Server: Connector和Handler的容器，它通过配置或者编程的方式组装Connector和Handler集合，并管理它们的声明周期。同时server还是线程池的管理者，向Connecotr和Handler提供线程池的服务。
+- EndPoint: 对server的通讯目标的抽象，其中封装了读、写等IO操作。
+- Buffer: 顾名思义，Buffer是Jetty统一缓存接口所做的抽象，EndPoint的读写方法都接受Buffer作为参数。
+- Connection: Connection是对连接的抽象，核心方法是handle，供Connector调用、处理连接。Connection的核心实现是HttpConnection，
+它封装了Request、Response，并将其关联到EndPoint上。
+
+== SelectChannelConnector分析 ==
+
+=== 基本模型与流程 ===
+
+==== Acceptor ====
+{{{name=code class=java
+    /* ------------------------------------------------------------ */
+    public void open() throws IOException
+    {
+        synchronized(this)
+        {
+            if (_acceptChannel == null)
+            {
+                // Create a new server socket
+                _acceptChannel = ServerSocketChannel.open();
+                // Set to blocking mode
+                _acceptChannel.configureBlocking(true);
+
+                // Bind the server socket to the local host and port
+                _acceptChannel.socket().setReuseAddress(getReuseAddress());
+                InetSocketAddress addr = getHost()==null?
+                                     new InetSocketAddress(getPort())
+                                    :new InetSocketAddress(getHost(),getPort());
+                _acceptChannel.socket().bind(addr,getAcceptQueueSize());
+
+                _localPort=_acceptChannel.socket().getLocalPort();
+                if (_localPort<=0)
+                    throw new IOException("Server channel not bound");
+
+            }
+        }
+    }
+}}}
+
+一个SelectChannelConnector会启动一个独立的线程用来accept连接，要注意的是，虽然它是基于NIO的，但accept仍然采用阻塞模式。
+这个线程不断阻塞调用server.accept()来接受连接并想SelectorManager里注册（新建立的SocketChannel则被配置为非阻塞模式）。
+
+Acceptor线程的内部逻辑，循环调用accept来接受连接，并将连接Channel注册到SelectorManager里：
+{{{name=code class=java
+    // start a thread to accept new connections
+    _manager.dispatch(new Runnable()
+    {
+        public void run()
+        {
+            final ServerSocketChannel server=_acceptChannel;
+            while (isRunning() && _acceptChannel==server && server.isOpen())
+            {
+                try
+                {
+                    SocketChannel channel = server.accept();
+                    channel.configureBlocking(false);
+                    Socket socket = channel.socket();
+                    configure(socket);
+                    _manager.register(channel);
+                }
+                catch(IOException e)
+                {
+                    Log.ignore(e);
+                }
+            }
+        }
+    });
+}}}
+
+==== Reactor ====
+在父类AbstractConnector中启动的N个acceptor线程会循环调用子类实现的accept方法，但是在SelectChannelConnector里，
+这个accept方法里做的是调用SelectorManager的doSelect，而非accept，所以这里将其命名为Reactor。
+
+AbstractConnector里启动了多个acceptor线程：
+{{{name=code class=java
+     // Start selector thread
+    synchronized (this)
+    {
+        _acceptorThread = new Thread[getAcceptors()];
+
+        for (int i = 0; i < _acceptorThread.length; i++)
+            _threadPool.dispatch(new Acceptor(i));
+        if (_threadPool.isLowOnThreads())
+            Log.warn("insufficient threads configured for {}",this);
+    }
+}}}
+
+Acceptor里的逻辑就是简单调用AbstractConnector中的抽象accept方法：
+{{{name=code class=java
+    public void run()
+    {
+        /* 省略... */
+        try
+        {
+            current.setPriority(old_priority - _acceptorPriorityOffset);
+            while (isRunning() && getConnection() != null)
+            {
+                try
+                {
+                    accept(_acceptor);
+                }
+                catch (...) { /* 省略... */ }
+            }
+        }
+        finally { /* 省略... */ }
+    }
+}}}
+
+SelectChannelConnector里的accept，实际上做的根本就不是accept连接的动作，相反，它调用了SelectorManager的doSelect方法。
+{{{name=code class=java
+    /* ------------------------------------------------------------ */
+    @Override
+    public void accept(int acceptorID) throws IOException
+    {
+        _manager.doSelect(acceptorID);
+    }
+}}}
+
+SelectorManager的doSelect也仅仅是将调用委托给了acceptorID对应的SelectSet的doSelect方法。SelectManager里的SelectSet是
+一个数组，默认只有一个元素，但可以更改。在SelectChannelConnector里，其数目和acceptor一致。
+
+==== Select的工作流程 ====
+SelectSet的doSelect是核心，它主要完成了三大块工作：
+# 处理change queue里的changes。change可能是EndPoint, ChannelAndAttachment, SocketChannel或者Runnalble，这里会做对应的 处理。比如acceptor接受了一个新连接以后调用的register方法就会往change queue里加入对应的SocketChannel对象，在这里，此对象 就会被包装成SocketChannelEndPoint，并将其注册到selector里。
+# 调用selectNow，如果没有select到事件，可能会进一步调用select，阻塞一段时间。如果有事件，就拿到SelectionKey的attachment， 即EndPoint，做schedule和dispatch。
+# 处理idle tick相关逻辑，此处不关心（TODO:了解这个设计的用途）
+
+{{{name=code class=java
+    /* ------------------------------------------------------------ */
+    /**
+     * Select and dispatch tasks found from changes and the selector.
+     * 
+     * @throws IOException
+     */
+    public void doSelect() throws IOException
+    {
+        try
+        {
+            _selecting=Thread.currentThread();
+            final Selector selector=_selector;
+
+            // Make any key changes required
+            Object change;
+            int changes=_changes.size();
+            while (changes-->0 && (change=_changes.poll())!=null)
+            {
+                try
+                {
+                    if (change instanceof EndPoint)
+                    {
+                        // Update the operations for a key.
+                        SelectChannelEndPoint endpoint = (SelectChannelEndPoint)change;
+                        endpoint.doUpdateKey();
+                    }
+                    else if (change instanceof ChannelAndAttachment)
+                    {
+                        // finish accepting/connecting this connection
+                        final ChannelAndAttachment asc = (ChannelAndAttachment)change;
+                        final SelectableChannel channel=asc._channel;
+                        final Object att = asc._attachment;
+                        SelectionKey key = channel.register(selector,SelectionKey.OP_READ,att);
+                        SelectChannelEndPoint endpoint = createEndPoint((SocketChannel)channel,key);
+                        key.attach(endpoint);
+                        endpoint.schedule();
+                    }
+                    else if (change instanceof SocketChannel)
+                    {
+                        // Newly registered channel
+                        final SocketChannel channel=(SocketChannel)change;
+                        SelectionKey key = channel.register(selector,SelectionKey.OP_READ,null);
+                        SelectChannelEndPoint endpoint = createEndPoint(channel,key);
+                        key.attach(endpoint);
+                        endpoint.schedule();
+                    }
+                    else if (change instanceof Runnable)
+                    {
+                        dispatch((Runnable)change);
+                    }
+                    else
+                        throw new IllegalArgumentException(change.toString());
+                }
+                catch (Exception e)
+                {
+                    if (isRunning())
+                        Log.warn(e);
+                    else
+                        Log.debug(e);
+                }
+                catch (Error e)
+                {
+                    if (isRunning())
+                        Log.warn(e);
+                    else
+                        Log.debug(e);
+                }
+            }
+
+
+            // Do and instant select to see if any connections can be handled.
+            int selected=selector.selectNow();
+            _selects++;
+
+            long now=System.currentTimeMillis();
+            
+            // if no immediate things to do
+            if (selected==0)
+            {
+                // If we are in pausing mode
+                if (_pausing)
+                {
+                    try
+                    {
+                        Thread.sleep(__BUSY_PAUSE); // pause to reduce impact of  busy loop
+                    }
+                    catch(InterruptedException e)
+                    {
+                        Log.ignore(e);
+                    }
+                    now=System.currentTimeMillis();
+                }
+
+                // workout how long to wait in select
+                _timeout.setNow(now);
+                long to_next_timeout=_timeout.getTimeToNext();
+
+                long wait = _changes.size()==0?__IDLE_TICK:0L;  
+                if (wait > 0 && to_next_timeout >= 0 && wait > to_next_timeout)
+                    wait = to_next_timeout;
+
+                // If we should wait with a select
+                if (wait>0)
+                {
+                    long before=now;
+                    selected=selector.select(wait);
+                    _selects++;
+                    now = System.currentTimeMillis();
+                    _timeout.setNow(now);
+                    
+                    if (__JVMBUG_THRESHHOLD>0)
+                        checkJvmBugs(before, now, wait, selected);
+                }
+            }
+            
+            // have we been destroyed while sleeping
+            if (_selector==null || !selector.isOpen())
+                return;
+
+            // Look for things to do
+            for (SelectionKey key: selector.selectedKeys())
+            {   
+                try
+                {
+                    if (!key.isValid())
+                    {
+                        key.cancel();
+                        SelectChannelEndPoint endpoint = (SelectChannelEndPoint)key.attachment();
+                        if (endpoint != null)
+                            endpoint.doUpdateKey();
+                        continue;
+                    }
+
+                    Object att = key.attachment();
+                    if (att instanceof SelectChannelEndPoint)
+                    {
+                        ((SelectChannelEndPoint)att).schedule();
+                    }
+                    else
+                    {
+                        // Wrap readable registered channel in an endpoint
+                        SocketChannel channel = (SocketChannel)key.channel();
+                        SelectChannelEndPoint endpoint = createEndPoint(channel,key);
+                        key.attach(endpoint);
+                        if (key.isReadable())
+                            endpoint.schedule();                           
+                    }
+                    key = null;
+                }
+                catch (CancelledKeyException e)
+                {
+                    Log.ignore(e);
+                }
+                catch (Exception e)
+                {
+                    if (isRunning())
+                        Log.warn(e);
+                    else
+                        Log.ignore(e);
+
+                    if (key != null && !(key.channel() instanceof ServerSocketChannel) && key.isValid())
+                        key.cancel();
+                }
+            }
+            
+            // Everything always handled
+            selector.selectedKeys().clear();
+            
+            now=System.currentTimeMillis();
+            _timeout.setNow(now);
+            Task task = _timeout.expired();
+            while (task!=null)
+            {
+                if (task instanceof Runnable)
+                    dispatch((Runnable)task);
+                task = _timeout.expired();
+            }
+
+            // Idle tick
+            /* ... */
+            / * We do not care this here. Refer to the source code */
+        }
+        catch (CancelledKeyException e)
+        {
+            Log.ignore(e);
+        }
+        finally
+        {
+            _selecting=null;
+        }
+    }
+}}}
+
+
