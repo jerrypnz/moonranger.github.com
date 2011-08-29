@@ -1,2 +1,5 @@
 = Python =
 %toc
+
+== Blog Drafts ==
+* [[python-pattern-matching|Python Pattern Matching]]

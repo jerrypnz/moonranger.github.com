@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+<link rel="Stylesheet" type="text/css" href="css/style.css" /> 
+<title>游侠之心的个人维基</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+</head> 
+<body> 
+    <div id="navbar">
+    	<ul>
+    		<li> <a class="activated" href="index.html">WIKI</a> </li>
+    		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
+    		<li> <a href="https://github.com/moonranger">Projects</a> </li>
+    		<li> <a href="about.html">About</a> </li>
+    		<li class="search">
+                <form action="http://www.google.com/search" method="get">
+                    <input name="sitesearch" value="http://moonranger.github.com/" type="hidden" />
+                    <input name="hl" value="zh-CN" type="hidden" />
+                    <input name="ie" value="UTF-8" type="hidden" />
+                    <input size="25" name="q" id="query" value="Search..." type="text" 
+                        onfocus="if( this.value=='Search...') {this.value='' };" 
+                        onblur="if( this.value=='') {this.value='Search...' };" />
+                </form>
+            </li>
+    	</ul>
+    </div>
+    <div id="content">
+        <script type="text/javascript">
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = 'python-pattern-matching';
+            var disqus_url = 'http://moonranger.github.com/python-pattern-matching.html';
+        </script>
+
+<h1 id="toc_1"> Python Pattern Matching</h1>
+
+<h2 id="toc_1.1">1. Intro</h2>
+
+<p>
+最近在做的项目，是一个用Python实现的代理程序，服务端程序是另一个同事用Erlang实现的。
+虽然我对Erlang了解不多，但对其必杀特性之一模式匹配（Pattern Matching）早有耳闻，因此花了点时间了解了一下。
+模式匹配是Erlang语言的核心特性之一，在case, receive等语句中都可以使用，但这篇文章只考虑函数定义中的模式匹配，
+因为我试图用Python去山寨的也是这一特性。
+</p>
+
+<p>
+在函数定义中用模式匹配是为了用声明式的风格来替代本来需要用一连串的if...else...才能表达的逻辑，方便维护和修改。
+下面这段从learnyousomeerlang网站上找到的代码是一个很好的例子（原文:<a href="http://learnyousomeerlang.com/syntax-in-functions">http://learnyousomeerlang.com/syntax-in-functions</a>)：
+</p>
+
+<p>
+通常的if...else...式写法：
+</p>
+<pre name="code" class="erlang">
+function greet(Gender,Name)
+    if Gender == male then
+        print("Hello, Mr. %s!", Name)
+    else if Gender == female then
+        print("Hello, Mrs. %s!", Name)
+    else
+        print("Hello, %s!", Name)
+end
+</pre>
+
+<p>
+使用模式匹配的写法：
+</p>
+<pre name="code" class="erlang">
+greet(male, Name) -&gt;
+    io:format("Hello, Mr. ~s!", [Name]);
+greet(female, Name) -&gt;
+    io:format("Hello, Mrs. ~s!", [Name]);
+greet(_, Name) -&gt;
+    io:format("Hello, ~s!", [Name]).
+</pre>
+
+<p>
+基于函数的模式匹配乍一看有点像Java，C++里函数重载，但函数重载是静态语言的编译时特性，模式匹配则完全是运行时行为。
+模式匹配的更多细节可以参考Erlang的教程、文章，这里不再详述。
+</p>
+
+<p>
+下面要说的是如何用Python实现一个最简单的模式匹配功能，在这个过程中介绍一下decorator的用法。
+</p>
+
+
+<h2 id="toc_1.2">2. What Does It Look Like?</h2>
+<p>
+第一个要考虑的问题是如何用Python已有的语言特性来表达模式匹配。因为Python的函数不支持这种特性，所以必须要将函数强化一下才有可能实现模式匹配。
+毫无疑问，decorator必然会派上用场的。decorator本身是支持参数化构造的——这意味着用decorator的参数来表达模式最合适不过了。
+顺着这个思路，上面那段函数定义的等价Python实现可以出炉了：
+</p>
+
+<pre name="code" class="python">
+@match("male")
+def greet(male, name):
+    print "Hello, Mr. %s" % name
+
+@match("female")
+def greet(female, name):
+    print "Hello, Mrs. %s" % name
+
+@match()
+def greet(_, name):
+    print "Hello, %s" % name
+</pre>
+
+<p>
+match这个装饰器的目的就是为对应的函数描述其需要满足的Pattern，match的参数和函数本身的参数对应，但可能少于函数实际参数的个数，
+因为并不是每一个参数都需要做模式匹配。比如上面头两个greet函数都只匹配第一个参数的值。关于这一点，看函数调用的写法就能明白了：
+</p>
+
+<pre name="code" class="python">
+greet('male', 'Cooper')
+greet('female', 'Geller')
+greet('', 'Drizzt')
+</pre>
+
+<p>
+运行结果：
+</p>
+<pre>
+Hello, Mr. Cooper
+Hello, Mrs. Geller
+Hello, Drizzt
+</pre>
+
+<p>
+现在的问题是如何实现match这个decorator了。
+</p>
+
+
+<h2 id="toc_1.3">3. How It Is Implemented?</h2>
+<p>
+基本的思路是这样的：
+</p>
+<ol>
+<li>
+按函数名将一组函数及其pattern组织到一起
+</li>
+<li>
+将这些函数替换成一个统一的入口函数
+</li>
+<li>
+入口函数根据参数去寻找最匹配的实现函数并调用
+</li>
+</ol>
+
+<p>
+下面是对应的代码：
+</p>
+<pre name="code" class="python">
+
+class PatternError(Exception):
+    pass
+
+class _PatternGroup(object):
+    """match matching for python"""
+    patterns_matchers = {}
+
+    def __init__(self):
+        super(_PatternGroup, self).__init__()
+        self._rules = []
+
+    def _add_pattern(self, fn, *args, **kwargs):
+        self._rules.append(((args, kwargs), fn))
+        return self._run
+
+    def _run(self, *args, **kwargs):
+        retval = None
+        for rule, fn in self._rules:
+            if self._match(rule, (args, kwargs)):
+                retval = fn(*args, **kwargs)
+                break
+        else:
+            raise PatternError("No match found")
+        return retval
+
+    def _match(self, rule, val):
+        pargs, pkwargs = rule
+        args, kwargs = val
+        for actual, expected in itertools.izip(args, pargs):
+            if actual != expected:
+                return False
+        for key, expectedval in pkwargs.iteritems():
+            if not key in kwargs or kwargs[key] != expectedval:
+                return False
+        return True
+
+
+def match(*args, **kwargs):
+    def _do_match(fn):
+        fname = fn.__name__ #FIXME Problem 1: Should not only use function name as the key
+        if fname in _PatternGroup.patterns_matchers:
+            return _PatternGroup.patterns_matchers[fname]._add_pattern(fn, *args, **kwargs)
+        else:
+            matcher = _PatternGroup()
+            _PatternGroup.patterns_matchers[fname] = matcher
+            return matcher._add_pattern(fn, *args, **kwargs)
+    return _do_match
+
+</pre>
+
+<p>
+非常简陋，还有很多问题：
+</p>
+<ol>
+<li>
+用函数的名称来当作一组pattern的key是很不靠谱的，一旦有不同模块的同名函数就有问题
+</li>
+<li>
+因为self的缘故，不支持class的instance method
+</li>
+<li>
+match的算法很简陋，找到第一个能匹配上的就返回了，实际应该找到最匹配的函数
+</li>
+</ol>
+
+<p>
+实现完以后发现这个东西没有太多实用价值，只能当作玩具而已，因此是否要写这篇文章我也犹豫了好几天。
+想来想去还是记录下来，当作分享自己探索以及玩乐的过程罢了，不必较真。
+</p>
+
+<h2 id="toc_1.4">4. What Others Have Done</h2>
+<p>
+在实现完自己的简单Pattern Matching后，我也在Google上搜索了一番，还真有人跟我做了同样的事情，
+而且比我的要成熟得多，有兴趣的话可以看看人家的实现。
+</p>
+
+<p>
+Python Pattern Matching
+<a href="http://svn.colorstudy.com/home/ianb/recipes/patmatch.py">http://svn.colorstudy.com/home/ianb/recipes/patmatch.py</a>
+</p>
+
+<p>
+Thoughts About the Erlang Runtime
+<a href="http://blog.ianbicking.org/2008/06/09/thoughts-about-the-erlang-runtime/">http://blog.ianbicking.org/2008/06/09/thoughts-about-the-erlang-runtime/</a>
+</p>
+    </div>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'moonranger'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+ 
+</body> 
+<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
+<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
+<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
+<script language="javascript">
+dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code');
+</script>
+</html> 
