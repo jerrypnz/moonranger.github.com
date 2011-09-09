@@ -27,155 +27,150 @@
     <div id="content">
         <script type="text/javascript">
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = 'index';
-            var disqus_url = 'http://moonranger.github.com/index.html';
+            var disqus_identifier = 'learning-lisp';
+            var disqus_url = 'http://moonranger.github.com/learning-lisp.html';
         </script>
 
-<h1 id="toc_1" class="justcenter"> Jerry's Personal WIKI</h1>
-<div class="toc">
-<ul>
-<li><a href="#toc_1"> Jerry's Personal WIKI</a></li>
-<ul>
-<li><a href="#toc_1.1">1. Programming</a></li>
-<ul>
-<li><a href="#toc_1.1.1">1.1. General Topics</a></li>
-<li><a href="#toc_1.1.2">1.2. 笔记(书籍、论文、Slides、源代码等等)</a></li>
-<li><a href="#toc_1.1.3">1.3. 博客草稿箱</a></li>
-<li><a href="#toc_1.1.4">1.4. 收集箱</a></li>
-</ul>
-</ul>
-</ul>
-</div>
-
-<h2 id="toc_1.1">1. Programming</h2>
-<h3 id="toc_1.1.1">1.1. General Topics</h3>
+<h1 id="toc_1"> Lisp入门笔记</h1>
+<h2 id="toc_1.1">1. Syntax and Semantics</h2>
+<p>
+Lisp语法语义层面的东西真的很“简单”
+</p>
 <ul>
 <li>
-语言
+Lisp的求值过程包含两步：1. 文本翻译成S-expression as Lisp forms, 2. Evaluate Lisp forms
+</li>
+<li>
+S-expression：由atom和list组成的表达式
 </li>
 <ul>
 <li>
-混饭用，但谈不上非常喜欢的<a href="java.html">Java</a>
-</li>
-<li>
-算不上精通，但一直很喜欢也很关注的<a href="c-and-cpp.html">C/C++</a>
-</li>
-<li>
-最爱的脚本语言<a href="python.html">Python</a>
-</li>
-<li>
-装B用的<a href="lisp.html">Lisp</a>
-</li>
-</ul>
-</ul>
-    
-<ul>
-<li>
-面向对象<a href="oop.html">OOP</a>
+list是包含在小括号里的，由空格分开的一组元素 
 </li>
 <ul>
 <li>
-依赖注入<a href="spring.html">Spring</a>
-</li>
-</ul>
-</ul>
-
-<ul>
-<li>
-数据库<a href="mysql.html">MySQL</a>和<a href="oracle.html">Oracle</a>
-</li>
-<ul>
-<li>
-ORM工具<a href="hibernate.html">Hibernate</a>
-</li>
-</ul>
-</ul>
-
-<ul>
-<li>
-操作系统<a href="unix.html">UNIX</a>(Linux，MAC和BSD等）
-</li>
-<ul>
-<li>
-各色<a href="shell.html">Shell</a>技巧
-</li>
-</ul>
-</ul>
-
-<ul>
-<li>
-偶尔研究研究Android
-</li>
-<ul>
-<li>
-<a href="notepad-sample-research.html">NotePad Sample Research</a>
-</li>
-</ul>
-</ul>
-
-<ul>
-<li>
-最喜欢的编辑器<a href="vim.html">Vim</a>
-</li>
-<ul>
-<li>
-amix.dk的10条<a href="vim-tips.html">Vim Tips</a>
-</li>
-</ul>
-</ul>
-
-<h3 id="toc_1.1.2">1.2. 笔记(书籍、论文、Slides、源代码等等)</h3>
-<ul>
-<li>
-<a href="book-notes-jcip.html">Java并发编程实践读书笔记</a>
+list的元素可以是其他list或atom——即list的元素也是S-expression
 </li>
 <li>
-<a href="book-notes-csipp.html">CSAPP读书笔记</a> 
-</li>
-<li>
-<a href="source-notes-jetty.html">Jetty源码笔记</a>
-</li>
-<li>
-<a href="io-multiplexing-reactor.html">IO Multiplexing和Reactor模式</a>(Scalable IO in Java)
-</li>
-</ul>
-
-<h3 id="toc_1.1.3">1.3. 博客草稿箱</h3>
-<ul>
-<li>
-<a href="python-pattern-matching.html">Python Pattern Matching</a>
-</li>
-<li>
-<a href="dynamic-lang-inheritance.html">动态语言中的继承</a>
-</li>
-</ul>
-
-<h3 id="toc_1.1.4">1.4. 收集箱</h3>
-<ul>
-<li>
-<a href="reading-java-source-code.html">读Java代码的心得</a>
-</li>
-<li>
-<span class="todo">TODO:</span>Java中纯POJO的设计，并通过简单的配置文件来组装对象的一类模式
-</li>
-<ul>
-<li>
-类似tomcat的server.xml的那种设计
+这就是数据结构中学到过的广义表
 </li>
 </ul>
 <li>
-<span class="todo">TODO:</span>从机制策略的分离到数据驱动程序设计
-</li>
-<li>
-<span class="todo">TODO:</span>计算机科学就是由一层又一层的抽象组成的
-</li>
-<li>
-<span class="todo">TODO:</span>communicating sequential processing研究
+atom是除了list以外的所有
 </li>
 <ul>
 <li>
-参考： <a href="http://www.tbdata.org/archives/1359">http://www.tbdata.org/archives/1359</a>
+Number, String
 </li>
+<li>
+Symbol
+</li>
+<li>
+Keyword
+</li>
+</ul>
+</ul>
+<li>
+Lisp form是包含语义的S-expression，是符合一定规则的S-expression
+</li>
+<ul>
+<li>
+任何atom和第一个元素是symbol的list都是合法的Lisp form 
+</li>
+</ul>
+<li>
+Lisp的求值规则
+</li>
+<ul>
+<li>
+atom
+</li>
+<ul>
+<li>
+Symbol求值得到Symbol当前的值
+</li>
+<li>
+其他atom本身就是值
+</li>
+</ul>
+<li>
+list
+</li>
+<ul>
+<li>
+函数调用（function call）
+</li>
+<ul>
+<li>
+形如(function-name argument*)
+</li>
+<li>
+别的语言中的有一些表达式在Lisp里其实是函数调用
+</li>
+<ul>
+<li>
+(+ 2 3)
+</li>
+<li>
+(* 10 10)
+</li>
+<li>
+把+, *等当成是函数名就好理解多了,不要将其当作是后缀表达式
+</li>
+</ul>
+</ul>
+<li>
+特殊操作符（special operator）
+</li>
+<ul>
+<li>
+典型的如if，无法当作函数调用处理，因为有部分求值的需要
+</li>
+<ul>
+<li>
+(if test-form then-form [else-form]) 
+</li>
+</ul>
+<li>
+求值规则因操作符而异
+</li>
+<li>
+quote操作符（可以简写成一个单引号：'）
+</li>
+<ul>
+<li>
+不求值，直接返回参数
+</li>
+</ul>
+</ul>
+<li>
+宏（macros）
+</li>
+<ul>
+<li>
+传递给宏的S-expression不会被求值
+</li>
+<li>
+宏处理后返回的S-expression被替换到宏调用处并被求值
+</li>
+</ul>
+</ul>
+<li>
+关于True和False
+</li>
+<ul>
+<li>
+符号NIL是False，其他一切都是True
+</li>
+<ul>
+<li>
+NIL既是atom，又是list——空list
+</li>
+</ul>
+<li>
+符号T是常被用来表达True
+</li>
+</ul>
 </ul>
 </ul>
     </div>

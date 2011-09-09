@@ -1,0 +1,38 @@
+= Lisp入门笔记 =
+== Syntax and Semantics ==
+Lisp语法语义层面的东西真的很“简单”
+* Lisp的求值过程包含两步：1. 文本翻译成S-expression as Lisp forms, 2. Evaluate Lisp forms
+* S-expression：由atom和list组成的表达式
+    - list是包含在小括号里的，由空格分开的一组元素 
+        * list的元素可以是其他list或atom——即list的元素也是S-expression
+        * 这就是数据结构中学到过的广义表
+    - atom是除了list以外的所有
+        * Number, String
+        * Symbol
+        * Keyword
+* Lisp form是包含语义的S-expression，是符合一定规则的S-expression
+    - 任何atom和第一个元素是symbol的list都是合法的Lisp form 
+* Lisp的求值规则
+    - atom
+        * Symbol求值得到Symbol当前的值
+        * 其他atom本身就是值
+    - list
+        * 函数调用（function call）
+            - 形如(function-name argument*)
+            - 别的语言中的有一些表达式在Lisp里其实是函数调用
+                * (+ 2 3)
+                * (* 10 10)
+                * 把+, *等当成是函数名就好理解多了,不要将其当作是后缀表达式
+        * 特殊操作符（special operator）
+            - 典型的如if，无法当作函数调用处理，因为有部分求值的需要
+                * (if test-form then-form [else-form]) 
+            - 求值规则因操作符而异
+            - quote操作符（可以简写成一个单引号：'）
+                * 不求值，直接返回参数
+        * 宏（macros）
+            - 传递给宏的S-expression不会被求值
+            - 宏处理后返回的S-expression被替换到宏调用处并被求值
+    - 关于True和False
+        * 符号NIL是False，其他一切都是True
+            - NIL既是atom，又是list——空list
+        * 符号T是常被用来表达True

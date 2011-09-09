@@ -1,0 +1,24 @@
+= 动态语言中的继承 =
+
+== Intro ==
+想到这个主题，是因为最近在工作中被urllib2的一个个人认为不合理的设计所“陷害”了。修正之后，发现动态语言如Python和Ruby对于继承的设计与自己一贯的对于OO的理解有一些出入，因此想到深入挖掘并思考一下这个主题。
+请看以下代码，其中http://127.0.0.1/nonexist是一个不存在的资源，服务器会回404：
+
+{{{
+>>> import urllib2
+>>> req = urllib2.Request('http://127.0.0.1/nonexist')
+>>> try:
+...     urllib2.urlopen(req)
+... except urllib2.URLError, e:
+...     print e
+...     print e.reason
+... 
+HTTP Error 404: Not Found
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+AttributeError: 'HTTPError' object has no attribute 'reason'
+>>> 
+}}}
+
+从文档里看HTTPError是URLError的子类，但奇怪的是它竟然没有URLError应有的reason属性？！
+这逼迫我们将此处的异常处理分成两块，分别处理URLError和HTTPError。
