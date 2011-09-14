@@ -101,7 +101,7 @@ class文件里的method、field在constant pool里都有对应的描述符。Des
 下面是对类型为String的field的描述符
 </p>
 
-<pre>
+<pre class="brush: plain;">
     const #18 = Asciz   Ljava/lang/String;;
 </pre>
 
@@ -110,7 +110,7 @@ class文件里的method、field在constant pool里都有对应的描述符。Des
 下面是对接受一个String参数，返回值为StringBuilder的方法的描述符
 </p>
 
-<pre>
+<pre class="brush: plain;">
     const #51 = Asciz   (Ljava/lang/String;)Ljava/lang/StringBuilder;;
 </pre>
 
@@ -128,7 +128,7 @@ Methodref是constant pool中的一种item，它代表了对method的引用，比
 一个方法时就会使用method ref，下面是一个例子：
 </p>
 
-<pre>
+<pre class="brush: plain;">
     invokevirtual   #9;
 </pre>
 
@@ -137,7 +137,7 @@ Methodref是constant pool中的一种item，它代表了对method的引用，比
 对应的是：
 </p>
 
-<pre>
+<pre class="brush: plain;">
     const #9 = Method   #38.#39; //#38是这个method所属的类， #39是这个method的name和type
     const #20 = Asciz   (Ljava/lang/String;)V; //接受一个String，返回void的方法描述符
     const #38 = class   #54; //class的名字引用#54，即java.io.PrintStream
@@ -155,6 +155,7 @@ Methodref是constant pool中的一种item，它代表了对method的引用，比
 </p>
     </div>
 
+    <!--
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -169,17 +170,31 @@ Methodref是constant pool中的一种item，它代表了对method的引用，比
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    -->
  
 </body> 
-<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
-<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
-<script language="javascript">
-dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
-dp.SyntaxHighlighter.HighlightAll('code');
-</script>
+<script type="text/javascript" src="scripts/shCore.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushBash.js"></script>
+<script type="text/javascript" src="scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCSharp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="scripts/shBrushDiff.js"></script>
+<script type="text/javascript" src="scripts/shBrushErlang.js"></script>
+<script type="text/javascript" src="scripts/shBrushGroovy.js"></script>
+<script type="text/javascript" src="scripts/shBrushJava.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushPerl.js"></script>
+<script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="scripts/shBrushPlain.js"></script>
+<script type="text/javascript" src="scripts/shBrushPython.js"></script>
+<script type="text/javascript" src="scripts/shBrushRuby.js"></script>
+<script type="text/javascript" src="scripts/shBrushScala.js"></script>
+<script type="text/javascript" src="scripts/shBrushSql.js"></script>
+<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+<script type="text/javascript" src="scripts/shBrushClojure.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeRDark.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
 </html> 

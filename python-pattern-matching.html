@@ -50,7 +50,7 @@
 <p>
 通常的if...else...式写法：
 </p>
-<pre name="code" class="erlang">
+<pre class="brush: erlang;">
 function greet(Gender,Name)
     if Gender == male then
         print("Hello, Mr. %s!", Name)
@@ -64,7 +64,7 @@ end
 <p>
 使用模式匹配的写法：
 </p>
-<pre name="code" class="erlang">
+<pre class="brush: erlang;">
 greet(male, Name) -&gt;
     io:format("Hello, Mr. ~s!", [Name]);
 greet(female, Name) -&gt;
@@ -90,7 +90,7 @@ greet(_, Name) -&gt;
 顺着这个思路，上面那段函数定义的等价Python实现可以出炉了：
 </p>
 
-<pre name="code" class="python">
+<pre class="brush: python;">
 @match("male")
 def greet(male, name):
     print "Hello, Mr. %s" % name
@@ -109,7 +109,7 @@ match这个装饰器的目的就是为对应的函数描述其需要满足的Pat
 因为并不是每一个参数都需要做模式匹配。比如上面头两个greet函数都只匹配第一个参数的值。关于这一点，看函数调用的写法就能明白了：
 </p>
 
-<pre name="code" class="python">
+<pre class="brush: python;">
 greet('male', 'Cooper')
 greet('female', 'Geller')
 greet('', 'Drizzt')
@@ -118,7 +118,7 @@ greet('', 'Drizzt')
 <p>
 运行结果：
 </p>
-<pre>
+<pre class="brush: plain;">
 Hello, Mr. Cooper
 Hello, Mrs. Geller
 Hello, Drizzt
@@ -148,7 +148,7 @@ Hello, Drizzt
 <p>
 下面是对应的代码：
 </p>
-<pre name="code" class="python">
+<pre class="brush: python;">
 
 class PatternError(Exception):
     pass
@@ -237,6 +237,7 @@ Thoughts About the Erlang Runtime
 </p>
     </div>
 
+    <!--
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -251,17 +252,31 @@ Thoughts About the Erlang Runtime
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    -->
  
 </body> 
-<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
-<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
-<script language="javascript">
-dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
-dp.SyntaxHighlighter.HighlightAll('code');
-</script>
+<script type="text/javascript" src="scripts/shCore.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushBash.js"></script>
+<script type="text/javascript" src="scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCSharp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="scripts/shBrushDiff.js"></script>
+<script type="text/javascript" src="scripts/shBrushErlang.js"></script>
+<script type="text/javascript" src="scripts/shBrushGroovy.js"></script>
+<script type="text/javascript" src="scripts/shBrushJava.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushPerl.js"></script>
+<script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="scripts/shBrushPlain.js"></script>
+<script type="text/javascript" src="scripts/shBrushPython.js"></script>
+<script type="text/javascript" src="scripts/shBrushRuby.js"></script>
+<script type="text/javascript" src="scripts/shBrushScala.js"></script>
+<script type="text/javascript" src="scripts/shBrushSql.js"></script>
+<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+<script type="text/javascript" src="scripts/shBrushClojure.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeRDark.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
 </html> 

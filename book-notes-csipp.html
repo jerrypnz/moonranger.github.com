@@ -27,8 +27,8 @@
     <div id="content">
         <script type="text/javascript">
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = 'notes-for-csipp';
-            var disqus_url = 'http://moonranger.github.com/notes-for-csipp.html';
+            var disqus_identifier = 'book-notes-csipp';
+            var disqus_url = 'http://moonranger.github.com/book-notes-csipp.html';
         </script>
 
 <h1 id="toc_1"> 《深入理解计算机系统》读书笔记</h1>
@@ -78,7 +78,7 @@
 <p>
 以此程序为例：
 </p>
-<pre name=code class=c>
+<pre class="brush: c;">
 #include &lt;stdio.h&gt;
 
 int main(int argc, const char *argv[])
@@ -94,7 +94,7 @@ int main(int argc, const char *argv[])
 <p>
 其输出：
 </p>
-<pre code=name>
+<pre class="brush: plain;">
 x &gt; -1 ? 0
 10 &gt; -1 ? 1
 10u &gt; -1 ? 0
@@ -109,7 +109,7 @@ x &gt; -1 ? 0
 <p>
 比如在limits.h里面查到的int和long的取值范围定义：
 </p>
-<pre name=code class=c>
+<pre class="brush: c;">
 /* Minimum and maximum values a `signed int' can hold.  */
 #  define INT_MIN	(-INT_MAX - 1)
 #  define INT_MAX	2147483647
@@ -124,6 +124,7 @@ x &gt; -1 ? 0
 </pre>
     </div>
 
+    <!--
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -138,17 +139,31 @@ x &gt; -1 ? 0
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    -->
  
 </body> 
-<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
-<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
-<script language="javascript">
-dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
-dp.SyntaxHighlighter.HighlightAll('code');
-</script>
+<script type="text/javascript" src="scripts/shCore.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushBash.js"></script>
+<script type="text/javascript" src="scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCSharp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="scripts/shBrushDiff.js"></script>
+<script type="text/javascript" src="scripts/shBrushErlang.js"></script>
+<script type="text/javascript" src="scripts/shBrushGroovy.js"></script>
+<script type="text/javascript" src="scripts/shBrushJava.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushPerl.js"></script>
+<script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="scripts/shBrushPlain.js"></script>
+<script type="text/javascript" src="scripts/shBrushPython.js"></script>
+<script type="text/javascript" src="scripts/shBrushRuby.js"></script>
+<script type="text/javascript" src="scripts/shBrushScala.js"></script>
+<script type="text/javascript" src="scripts/shBrushSql.js"></script>
+<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+<script type="text/javascript" src="scripts/shBrushClojure.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeRDark.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
 </html> 

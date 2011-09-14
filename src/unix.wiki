@@ -2,7 +2,7 @@
 %toc
 
 == Tips & Tricks ==
-= 使用grep恢复被删文件内容 =
+=== 使用grep恢复被删文件内容 ===
 
 原文地址：http://coolshell.cn/articles/2822.html
 
@@ -17,7 +17,7 @@ rm命令其实并不是真正的从物理上删除文件内容，只过不把文
 其实文件内容还在硬盘上。所以，如果你不小删除了什么比较重要的程序配置文件的时候，
 我们完全可以用grep命令在恢复，下面是一个恢复示例：
 
-{{{
+{{{class="brush: bash;"
 grep -a -B 50 -A 60 'some string in the file' /dev/sda1 > results.txt
 }}}
 

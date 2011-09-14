@@ -16,7 +16,7 @@
 - 陷阱：一个布尔表达式里如果既有无符号整数，又有有符号整数，并且没有强制类型转换的话，C会将这些整数当作无符处理，从而得出很多非正常的结果。
 
 以此程序为例：
-{{{name=code class=c
+{{{class="brush: c;"
 #include <stdio.h>
 
 int main(int argc, const char *argv[])
@@ -30,7 +30,7 @@ int main(int argc, const char *argv[])
 }}}
 
 其输出：
-{{{code=name
+{{{class="brush: plain;"
 x > -1 ? 0
 10 > -1 ? 1
 10u > -1 ? 0
@@ -39,7 +39,7 @@ x > -1 ? 0
 - [ ]待查阅：为什么C语言里对有符号整数取值范围的定义里，T_MIN要写成(-T_MAX - 1)。
 
 比如在limits.h里面查到的int和long的取值范围定义：
-{{{name=code class=c
+{{{class="brush: c;"
 /* Minimum and maximum values a `signed int' can hold.  */
 #  define INT_MIN	(-INT_MAX - 1)
 #  define INT_MAX	2147483647

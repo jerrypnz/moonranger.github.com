@@ -11,7 +11,7 @@
 下面这段从learnyousomeerlang网站上找到的代码是一个很好的例子（原文:http://learnyousomeerlang.com/syntax-in-functions)：
 
 通常的if...else...式写法：
-{{{name="code" class="erlang"
+{{{class="brush: erlang;"
 function greet(Gender,Name)
     if Gender == male then
         print("Hello, Mr. %s!", Name)
@@ -23,7 +23,7 @@ end
 }}}
 
 使用模式匹配的写法：
-{{{name="code" class="erlang"
+{{{class="brush: erlang;"
 greet(male, Name) ->
     io:format("Hello, Mr. ~s!", [Name]);
 greet(female, Name) ->
@@ -43,7 +43,7 @@ greet(_, Name) ->
 毫无疑问，decorator必然会派上用场的。decorator本身是支持参数化构造的——这意味着用decorator的参数来表达模式最合适不过了。
 顺着这个思路，上面那段函数定义的等价Python实现可以出炉了：
 
-{{{name="code" class="python"
+{{{class="brush: python;"
 @match("male")
 def greet(male, name):
     print "Hello, Mr. %s" % name
@@ -60,14 +60,14 @@ def greet(_, name):
 match这个装饰器的目的就是为对应的函数描述其需要满足的Pattern，match的参数和函数本身的参数对应，但可能少于函数实际参数的个数，
 因为并不是每一个参数都需要做模式匹配。比如上面头两个greet函数都只匹配第一个参数的值。关于这一点，看函数调用的写法就能明白了：
 
-{{{name="code" class="python"
+{{{class="brush: python;"
 greet('male', 'Cooper')
 greet('female', 'Geller')
 greet('', 'Drizzt')
 }}}
 
 运行结果：
-{{{
+{{{class="brush: plain;"
 Hello, Mr. Cooper
 Hello, Mrs. Geller
 Hello, Drizzt
@@ -83,7 +83,7 @@ Hello, Drizzt
 # 入口函数根据参数去寻找最匹配的实现函数并调用
 
 下面是对应的代码：
-{{{name="code" class="python"
+{{{class="brush: python;"
 
 class PatternError(Exception):
     pass

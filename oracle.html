@@ -58,7 +58,7 @@ Oracle不区分null和空字符串
 <p>
 一般保留关键字不能用做对象名
 </p>
-<pre name="code" class="sql">
+<pre class="brush: sql;">
 ACCESS, ADD, ALL, ALTER, AND, ANY, AS, ASC, AUDIT
 BETWEEN, BY
 CHAR, CHECK, CLUSTER, COLUMN, COMMENT, COMPRESS, CONNECT, CREATE, CURRENT
@@ -104,7 +104,7 @@ URL: <a href="http://www.cnblogs.com/cheney0618/archive/2007/03/23/684949.html">
 <ul>
 <li>
 天：
-<pre name="code" class="sql">
+<pre class="brush: sql;">
     ROUND(TO_NUMBER(END_DATE - START_DATE))
 </pre>
 </li>
@@ -113,7 +113,7 @@ URL: <a href="http://www.cnblogs.com/cheney0618/archive/2007/03/23/684949.html">
 <ul>
 <li>
 小时：
-<pre name="code" class="sql">
+<pre class="brush: sql;">
     ROUND(TO_NUMBER(END_DATE - START_DATE) * 24)
 </pre>
 </li>
@@ -122,7 +122,7 @@ URL: <a href="http://www.cnblogs.com/cheney0618/archive/2007/03/23/684949.html">
 <ul>
 <li>
 分钟：
-<pre name="code" class="sql">
+<pre class="brush: sql;">
     ROUND(TO_NUMBER(END_DATE - START_DATE) * 24 * 60)
 </pre>
 </li>
@@ -131,7 +131,7 @@ URL: <a href="http://www.cnblogs.com/cheney0618/archive/2007/03/23/684949.html">
 <ul>
 <li>
 秒：
-<pre name="code" class="sql">
+<pre class="brush: sql;">
     ROUND(TO_NUMBER(END_DATE - START_DATE) * 24 * 60 * 60)
 </pre>
 </li>
@@ -140,13 +140,14 @@ URL: <a href="http://www.cnblogs.com/cheney0618/archive/2007/03/23/684949.html">
 <ul>
 <li>
 毫秒：
-<pre name="code" class="sql">
+<pre class="brush: sql;">
     ROUND(TO_NUMBER(END_DATE - START_DATE) * 24 * 60 * 60 * 60)
 </pre>
 </li>
 </ul>
     </div>
 
+    <!--
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -161,17 +162,31 @@ URL: <a href="http://www.cnblogs.com/cheney0618/archive/2007/03/23/684949.html">
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    -->
  
 </body> 
-<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
-<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
-<script language="javascript">
-dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
-dp.SyntaxHighlighter.HighlightAll('code');
-</script>
+<script type="text/javascript" src="scripts/shCore.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushBash.js"></script>
+<script type="text/javascript" src="scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCSharp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="scripts/shBrushDiff.js"></script>
+<script type="text/javascript" src="scripts/shBrushErlang.js"></script>
+<script type="text/javascript" src="scripts/shBrushGroovy.js"></script>
+<script type="text/javascript" src="scripts/shBrushJava.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushPerl.js"></script>
+<script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="scripts/shBrushPlain.js"></script>
+<script type="text/javascript" src="scripts/shBrushPython.js"></script>
+<script type="text/javascript" src="scripts/shBrushRuby.js"></script>
+<script type="text/javascript" src="scripts/shBrushScala.js"></script>
+<script type="text/javascript" src="scripts/shBrushSql.js"></script>
+<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+<script type="text/javascript" src="scripts/shBrushClojure.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeRDark.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
 </html> 

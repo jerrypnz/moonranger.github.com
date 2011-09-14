@@ -32,6 +32,15 @@
         </script>
 
 <h1 id="toc_1"> Lisp入门笔记</h1>
+<div class="toc">
+<ul>
+<li><a href="#toc_1"> Lisp入门笔记</a></li>
+<ul>
+<li><a href="#toc_1.1">1. Syntax and Semantics</a></li>
+<li><a href="#toc_1.2">2. Functions</a></li>
+</ul>
+</ul>
+</div>
 <h2 id="toc_1.1">1. Syntax and Semantics</h2>
 <p>
 Lisp语法语义层面的东西真的很“简单”
@@ -173,8 +182,81 @@ NIL既是atom，又是list——空list
 </ul>
 </ul>
 </ul>
+
+<h2 id="toc_1.2">2. Functions</h2>
+<ul>
+<li>
+可选参数（&amp;optional）
+</li>
+<ul>
+<li>
+参数列表中&amp;optional后面的参数都是可选的，但仍然按照顺序匹配
+</li>
+<li>
+可选参数的默认值是NIL
+</li>
+<li>
+可以将参数写成二元组来指定默认值
+</li>
+<ul>
+<li>
+默认值可以引用前面出现过的参数
+</li>
+</ul>
+<li>
+可以写成三元组，最后一个元素表示该参数的值是否为默认值
+</li>
+<ul>
+<li>
+此变量通常的命名规则是参数名后加上-supplied-p
+<pre class="brush: lisp;">
+(defun make-rectangle 
+    (width &amp;optional (height width height-supplied-p))
+    ...)
+</pre>
+</li>
+</ul>
+</ul>
+<li>
+其他参数（&amp;rest） 
+</li>
+<ul>
+<li>
+类似Python的*args
+</li>
+<li>
+包含所有其他参数的列表
+</li>
+</ul>
+<li>
+关键字参数（&amp;key）
+</li>
+<ul>
+<li>
+在函数定义处的写法和&amp;optional一样
+</li>
+<li>
+调用函数的地方必须加上同名的字面常量（冒号开头）
+<pre class="brush: lisp;">
+(defun hello (&amp;key a b c)
+    ...)
+(hello :a "a-value")
+(hello :b 100)
+</pre>
+</li>
+<li>
+可以改变关键字的值：将参数名替换成一个二元组，前面是关键字，后面是参数名
+<pre class="brush: lisp;">
+(defun foo 
+    (&amp;key ((:apple a)) ((:box b) 0) ((:charlie c) 0 c-supplied-p))
+    (list a b c c-supplied-p))
+</pre>
+</li>
+</ul>
+</ul>
     </div>
 
+    <!--
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -189,17 +271,31 @@ NIL既是atom，又是list——空list
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    -->
  
 </body> 
-<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
-<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
-<script language="javascript">
-dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
-dp.SyntaxHighlighter.HighlightAll('code');
-</script>
+<script type="text/javascript" src="scripts/shCore.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushBash.js"></script>
+<script type="text/javascript" src="scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCSharp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="scripts/shBrushDiff.js"></script>
+<script type="text/javascript" src="scripts/shBrushErlang.js"></script>
+<script type="text/javascript" src="scripts/shBrushGroovy.js"></script>
+<script type="text/javascript" src="scripts/shBrushJava.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushPerl.js"></script>
+<script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="scripts/shBrushPlain.js"></script>
+<script type="text/javascript" src="scripts/shBrushPython.js"></script>
+<script type="text/javascript" src="scripts/shBrushRuby.js"></script>
+<script type="text/javascript" src="scripts/shBrushScala.js"></script>
+<script type="text/javascript" src="scripts/shBrushSql.js"></script>
+<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+<script type="text/javascript" src="scripts/shBrushClojure.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeRDark.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
 </html> 

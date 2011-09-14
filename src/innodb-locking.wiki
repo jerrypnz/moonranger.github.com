@@ -16,7 +16,7 @@ select ... lock in share mode也可以对某一行加共享锁
 == 一个死锁的Case ==
 A表的b_id引用了B的主键id，按以下序列执行会出现死锁的情况(t1, t2分别为两个事务）：
 
-{{{name="code" class="sql"
+{{{class="brush: sql;"
 t1: insert into A(xxx, b_id)  values('xxx_value_1', 1)            OK
 t2: insert into A(xxx, b_id)  values('xxx_value_2', 1)            OK
 t1: update B set yyy='yyy_value1' where id=1                      Wait

@@ -16,7 +16,7 @@
 === 基本模型与流程 ===
 
 ==== Acceptor ====
-{{{name=code class=java
+{{{class="brush: java;"
     /* ------------------------------------------------------------ */
     public void open() throws IOException
     {
@@ -49,7 +49,7 @@
 这个线程不断阻塞调用server.accept()来接受连接并想SelectorManager里注册（新建立的SocketChannel则被配置为非阻塞模式）。
 
 Acceptor线程的内部逻辑，循环调用accept来接受连接，并将连接Channel注册到SelectorManager里：
-{{{name=code class=java
+{{{class="brush: java;"
     // start a thread to accept new connections
     _manager.dispatch(new Runnable()
     {
@@ -80,7 +80,7 @@ Acceptor线程的内部逻辑，循环调用accept来接受连接，并将连接
 这个accept方法里做的是调用SelectorManager的doSelect，而非accept，所以这里将其命名为Reactor。
 
 AbstractConnector里启动了多个acceptor线程：
-{{{name=code class=java
+{{{class="brush: java;"
      // Start selector thread
     synchronized (this)
     {
@@ -94,7 +94,7 @@ AbstractConnector里启动了多个acceptor线程：
 }}}
 
 Acceptor里的逻辑就是简单调用AbstractConnector中的抽象accept方法：
-{{{name=code class=java
+{{{class="brush: java;"
     public void run()
     {
         /* 省略... */
@@ -115,7 +115,7 @@ Acceptor里的逻辑就是简单调用AbstractConnector中的抽象accept方法�
 }}}
 
 SelectChannelConnector里的accept，实际上做的根本就不是accept连接的动作，相反，它调用了SelectorManager的doSelect方法。
-{{{name=code class=java
+{{{class="brush: java;"
     /* ------------------------------------------------------------ */
     @Override
     public void accept(int acceptorID) throws IOException
@@ -133,7 +133,7 @@ SelectSet的doSelect是核心，它主要完成了三大块工作：
 # 调用selectNow，如果没有select到事件，可能会进一步调用select，阻塞一段时间。如果有事件，就拿到SelectionKey的attachment， 即EndPoint，做schedule和dispatch。
 # 处理idle tick相关逻辑，此处不关心（TODO:了解这个设计的用途）
 
-{{{name=code class=java
+{{{class="brush: java;"
     /* ------------------------------------------------------------ */
     /**
      * Select and dispatch tasks found from changes and the selector.

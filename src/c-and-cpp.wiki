@@ -5,7 +5,7 @@
 - 一个布尔表达式里如果既有无符号整数，又有有符号整数，并且没有强制类型转换的话，C会将这些整数当作无符处理，从而得出很多非正常的结果。
 
 以下程序：
-{{{name=code class=c
+{{{class="brush: c;"
 #include <stdio.h>
 
 int main(int argc, const char *argv[])
@@ -19,7 +19,7 @@ int main(int argc, const char *argv[])
 }}}
 
 输出：
-{{{code=name
+{{{class="brush: plain;"
 x(10U) > -1 ? 0
 10 > -1 ? 1
 10u > -1 ? 0
@@ -32,7 +32,7 @@ x(10U) > -1 ? 0
 - exit()传入的状态值会和0377做与运算以后（status & 0377）再返回给父进程。为什么？
 - 通过waitpid()得到的子进程status需要通过一系列的宏做处理后才能进一步使用。
 
-{{{code=name class=c
+{{{class="brush: c;"
 waitpid(pid, &status, 0);
 status = WEXITSTATUS(status);
 printf("Sub process finished: %u, exit status: %d\n", pid, status);

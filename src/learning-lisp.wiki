@@ -1,4 +1,5 @@
 = Lisp入门笔记 =
+%toc
 == Syntax and Semantics ==
 Lisp语法语义层面的东西真的很“简单”
 * Lisp的求值过程包含两步：1. 文本翻译成S-expression as Lisp forms, 2. Evaluate Lisp forms
@@ -36,3 +37,35 @@ Lisp语法语义层面的东西真的很“简单”
         * 符号NIL是False，其他一切都是True
             - NIL既是atom，又是list——空list
         * 符号T是常被用来表达True
+
+== Functions ==
+* 可选参数（&optional）
+    - 参数列表中&optional后面的参数都是可选的，但仍然按照顺序匹配
+    - 可选参数的默认值是NIL
+    - 可以将参数写成二元组来指定默认值
+        - 默认值可以引用前面出现过的参数
+    - 可以写成三元组，最后一个元素表示该参数的值是否为默认值
+        - 此变量通常的命名规则是参数名后加上-supplied-p
+{{{class="brush: lisp;"
+(defun make-rectangle 
+    (width &optional (height width height-supplied-p))
+    ...)
+}}}
+* 其他参数（&rest） 
+    - 类似Python的*args
+    - 包含所有其他参数的列表
+* 关键字参数（&key）
+    - 在函数定义处的写法和&optional一样
+    - 调用函数的地方必须加上同名的字面常量（冒号开头）
+{{{class="brush: lisp;"
+(defun hello (&key a b c)
+    ...)
+(hello :a "a-value")
+(hello :b 100)
+}}}
+    - 可以改变关键字的值：将参数名替换成一个二元组，前面是关键字，后面是参数名
+{{{class="brush: lisp;"
+(defun foo 
+    (&key ((:apple a)) ((:box b) 0) ((:charlie c) 0 c-supplied-p))
+    (list a b c c-supplied-p))
+}}}

@@ -31,14 +31,14 @@ class文件里的method、field在constant pool里都有对应的描述符。Des
 
 下面是对类型为String的field的描述符
 
-{{{
+{{{class="brush: plain;"
     const #18 = Asciz   Ljava/lang/String;;
 }}}
 
 
 下面是对接受一个String参数，返回值为!StringBuilder的方法的描述符
 
-{{{
+{{{class="brush: plain;"
     const #51 = Asciz   (Ljava/lang/String;)Ljava/lang/StringBuilder;;
 }}}
 
@@ -52,14 +52,14 @@ Method描述当前class的方法，包括access flag，name，descriptor以及at
 Methodref是constant pool中的一种item，它代表了对method的引用，比如字节码中调用
 一个方法时就会使用method ref，下面是一个例子：
 
-{{{
+{{{class="brush: plain;"
     invokevirtual   #9;
 }}}
 
 这句代码是指调用constant pool中index为9的item所描述的method。constant pool中的内容
 对应的是：
 
-{{{
+{{{class="brush: plain;"
     const #9 = Method   #38.#39; //#38是这个method所属的类， #39是这个method的name和type
     const #20 = Asciz   (Ljava/lang/String;)V; //接受一个String，返回void的方法描述符
     const #38 = class   #54; //class的名字引用#54，即java.io.PrintStream

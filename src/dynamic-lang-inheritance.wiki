@@ -4,7 +4,7 @@
 想到这个主题，是因为最近在工作中被urllib2的一个个人认为不合理的设计所“陷害”了。修正之后，发现动态语言如Python和Ruby对于继承的设计与自己一贯的对于OO的理解有一些出入，因此想到深入挖掘并思考一下这个主题。
 请看以下代码，其中http://127.0.0.1/nonexist是一个不存在的资源，服务器会回404：
 
-{{{
+{{{class="brush: python;"
 >>> import urllib2
 >>> req = urllib2.Request('http://127.0.0.1/nonexist')
 >>> try:

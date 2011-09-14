@@ -37,13 +37,15 @@
 <li><a href="#toc_1"> UNIX</a></li>
 <ul>
 <li><a href="#toc_1.1">1. Tips &amp; Tricks</a></li>
+<ul>
+<li><a href="#toc_1.1.1">1.1. 使用grep恢复被删文件内容</a></li>
 </ul>
-<li><a href="#toc_2"> 使用grep恢复被删文件内容</a></li>
+</ul>
 </ul>
 </div>
 
 <h2 id="toc_1.1">1. Tips &amp; Tricks</h2>
-<h1 id="toc_2"> 使用grep恢复被删文件内容</h1>
+<h3 id="toc_1.1.1">1.1. 使用grep恢复被删文件内容</h3>
 
 <p>
 原文地址：<a href="http://coolshell.cn/articles/2822.html">http://coolshell.cn/articles/2822.html</a>
@@ -64,7 +66,7 @@ rm命令其实并不是真正的从物理上删除文件内容，只过不把文
 我们完全可以用grep命令在恢复，下面是一个恢复示例：
 </p>
 
-<pre>
+<pre class="brush: bash;">
 grep -a -B 50 -A 60 'some string in the file' /dev/sda1 &gt; results.txt
 </pre>
 
@@ -93,6 +95,7 @@ grep -a -B 50 -A 60 'some string in the file' /dev/sda1 &gt; results.txt
 </p>
     </div>
 
+    <!--
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -107,17 +110,31 @@ grep -a -B 50 -A 60 'some string in the file' /dev/sda1 &gt; results.txt
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    -->
  
 </body> 
-<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
-<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
-<script language="javascript">
-dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
-dp.SyntaxHighlighter.HighlightAll('code');
-</script>
+<script type="text/javascript" src="scripts/shCore.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushBash.js"></script>
+<script type="text/javascript" src="scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCSharp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="scripts/shBrushDiff.js"></script>
+<script type="text/javascript" src="scripts/shBrushErlang.js"></script>
+<script type="text/javascript" src="scripts/shBrushGroovy.js"></script>
+<script type="text/javascript" src="scripts/shBrushJava.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushPerl.js"></script>
+<script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="scripts/shBrushPlain.js"></script>
+<script type="text/javascript" src="scripts/shBrushPython.js"></script>
+<script type="text/javascript" src="scripts/shBrushRuby.js"></script>
+<script type="text/javascript" src="scripts/shBrushScala.js"></script>
+<script type="text/javascript" src="scripts/shBrushSql.js"></script>
+<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+<script type="text/javascript" src="scripts/shBrushClojure.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeRDark.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
 </html> 

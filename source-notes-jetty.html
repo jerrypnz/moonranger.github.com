@@ -27,8 +27,8 @@
     <div id="content">
         <script type="text/javascript">
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = 'jetty-notes';
-            var disqus_url = 'http://moonranger.github.com/jetty-notes.html';
+            var disqus_identifier = 'source-notes-jetty';
+            var disqus_url = 'http://moonranger.github.com/source-notes-jetty.html';
         </script>
 
 <h1 id="toc_1"> Jetty源码笔记</h1>
@@ -81,7 +81,7 @@ Connection: Connection是对连接的抽象，核心方法是handle，供Connect
 <h3 id="toc_1.2.1">2.1. 基本模型与流程</h3>
 
 <h4 id="toc_1.2.1.1">2.1.1. Acceptor</h4>
-<pre name=code class=java>
+<pre class="brush: java;">
     /* ------------------------------------------------------------ */
     public void open() throws IOException
     {
@@ -118,7 +118,7 @@ Connection: Connection是对连接的抽象，核心方法是handle，供Connect
 <p>
 Acceptor线程的内部逻辑，循环调用accept来接受连接，并将连接Channel注册到SelectorManager里：
 </p>
-<pre name=code class=java>
+<pre class="brush: java;">
     // start a thread to accept new connections
     _manager.dispatch(new Runnable()
     {
@@ -153,7 +153,7 @@ Acceptor线程的内部逻辑，循环调用accept来接受连接，并将连接
 <p>
 AbstractConnector里启动了多个acceptor线程：
 </p>
-<pre name=code class=java>
+<pre class="brush: java;">
      // Start selector thread
     synchronized (this)
     {
@@ -169,7 +169,7 @@ AbstractConnector里启动了多个acceptor线程：
 <p>
 Acceptor里的逻辑就是简单调用AbstractConnector中的抽象accept方法：
 </p>
-<pre name=code class=java>
+<pre class="brush: java;">
     public void run()
     {
         /* 省略... */
@@ -192,7 +192,7 @@ Acceptor里的逻辑就是简单调用AbstractConnector中的抽象accept方法�
 <p>
 SelectChannelConnector里的accept，实际上做的根本就不是accept连接的动作，相反，它调用了SelectorManager的doSelect方法。
 </p>
-<pre name=code class=java>
+<pre class="brush: java;">
     /* ------------------------------------------------------------ */
     @Override
     public void accept(int acceptorID) throws IOException
@@ -222,7 +222,7 @@ SelectSet的doSelect是核心，它主要完成了三大块工作：
 </li>
 </ol>
 
-<pre name=code class=java>
+<pre class="brush: java;">
     /* ------------------------------------------------------------ */
     /**
      * Select and dispatch tasks found from changes and the selector.
@@ -417,6 +417,7 @@ SelectSet的doSelect是核心，它主要完成了三大块工作：
 </pre>
     </div>
 
+    <!--
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -431,17 +432,31 @@ SelectSet的doSelect是核心，它主要完成了三大块工作：
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+    -->
  
 </body> 
-<link type="text/css" rel="stylesheet" href="syntaxhighlighter/css/SyntaxHighlighter.css"></link>
-<script language="javascript" src="syntaxhighlighter/js/shCore.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushJava.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushXml.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushPython.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushCpp.js"></script>
-<script language="javascript" src="syntaxhighlighter/js/shBrushSql.js"></script>
-<script language="javascript">
-dp.SyntaxHighlighter.ClipboardSwf = 'syntaxhighlighter/clipboard.swf';
-dp.SyntaxHighlighter.HighlightAll('code');
-</script>
+<script type="text/javascript" src="scripts/shCore.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushBash.js"></script>
+<script type="text/javascript" src="scripts/shBrushCpp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCSharp.js"></script>
+<script type="text/javascript" src="scripts/shBrushCss.js"></script>
+<script type="text/javascript" src="scripts/shBrushDiff.js"></script>
+<script type="text/javascript" src="scripts/shBrushErlang.js"></script>
+<script type="text/javascript" src="scripts/shBrushGroovy.js"></script>
+<script type="text/javascript" src="scripts/shBrushJava.js"></script>
+<script type="text/javascript" src="scripts/shBrushJScript.js"></script>
+<script type="text/javascript" src="scripts/shBrushPerl.js"></script>
+<script type="text/javascript" src="scripts/shBrushPhp.js"></script>
+<script type="text/javascript" src="scripts/shBrushPlain.js"></script>
+<script type="text/javascript" src="scripts/shBrushPython.js"></script>
+<script type="text/javascript" src="scripts/shBrushRuby.js"></script>
+<script type="text/javascript" src="scripts/shBrushScala.js"></script>
+<script type="text/javascript" src="scripts/shBrushSql.js"></script>
+<script type="text/javascript" src="scripts/shBrushXml.js"></script>
+<script type="text/javascript" src="scripts/shBrushClojure.js"></script>
+
+<link type="text/css" rel="stylesheet" href="styles/shCoreDefault.css"/>
+<link type="text/css" rel="stylesheet" href="styles/shThemeRDark.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
 </html> 
