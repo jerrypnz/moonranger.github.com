@@ -38,6 +38,35 @@
 <ul>
 <li><a href="#toc_1.1">1. Syntax and Semantics</a></li>
 <li><a href="#toc_1.2">2. Functions</a></li>
+<ul>
+<li><a href="#toc_1.2.1">2.1. 可选参数（&amp;optional）</a></li>
+<li><a href="#toc_1.2.2">2.2. 其他参数（&amp;rest）</a></li>
+<li><a href="#toc_1.2.3">2.3. 关键字参数（&amp;key）</a></li>
+<li><a href="#toc_1.2.4">2.4. 多种参数的混合</a></li>
+<li><a href="#toc_1.2.5">2.5. 函数返回值</a></li>
+<li><a href="#toc_1.2.6">2.6. 高阶函数</a></li>
+<li><a href="#toc_1.2.7">2.7. 匿名函数</a></li>
+</ul>
+<li><a href="#toc_1.3">3. 变量</a></li>
+<ul>
+<li><a href="#toc_1.3.1">3.1. 函数参数</a></li>
+<li><a href="#toc_1.3.2">3.2. LET操作符</a></li>
+<li><a href="#toc_1.3.3">3.3. Binding Form</a></li>
+<li><a href="#toc_1.3.4">3.4. 闭包(Closure)</a></li>
+<li><a href="#toc_1.3.5">3.5. 动态变量(Dynamic or Special Variables)</a></li>
+<li><a href="#toc_1.3.6">3.6. 常量(constants)</a></li>
+<li><a href="#toc_1.3.7">3.7. 赋值</a></li>
+</ul>
+<li><a href="#toc_1.4">4. 宏：标准控制结构</a></li>
+<ul>
+<li><a href="#toc_1.4.1">4.1. when和unless</a></li>
+<li><a href="#toc_1.4.2">4.2. cond</a></li>
+<li><a href="#toc_1.4.3">4.3. and, or和not</a></li>
+<li><a href="#toc_1.4.4">4.4. Lisp中的循环结构概述</a></li>
+<li><a href="#toc_1.4.5">4.5. dolist和dotimes</a></li>
+<li><a href="#toc_1.4.6">4.6. do</a></li>
+<li><a href="#toc_1.4.7">4.7. 强大的loop</a></li>
+</ul>
 </ul>
 </ul>
 </div>
@@ -184,10 +213,7 @@ NIL既是atom，又是list——空list
 </ul>
 
 <h2 id="toc_1.2">2. Functions</h2>
-<ul>
-<li>
-可选参数（&amp;optional）
-</li>
+<h3 id="toc_1.2.1">2.1. 可选参数（&amp;optional）</h3>
 <ul>
 <li>
 参数列表中&amp;optional后面的参数都是可选的，但仍然按照顺序匹配
@@ -217,9 +243,7 @@ NIL既是atom，又是list——空list
 </li>
 </ul>
 </ul>
-<li>
-其他参数（&amp;rest） 
-</li>
+<h3 id="toc_1.2.2">2.2. 其他参数（&amp;rest）</h3>
 <ul>
 <li>
 类似Python的*args
@@ -228,9 +252,8 @@ NIL既是atom，又是list——空list
 包含所有其他参数的列表
 </li>
 </ul>
-<li>
-关键字参数（&amp;key）
-</li>
+
+<h3 id="toc_1.2.3">2.3. 关键字参数（&amp;key）</h3>
 <ul>
 <li>
 在函数定义处的写法和&amp;optional一样
@@ -253,7 +276,427 @@ NIL既是atom，又是list——空list
 </pre>
 </li>
 </ul>
+
+<h3 id="toc_1.2.4">2.4. 多种参数的混合</h3>
+<ul>
+<li>
+应该按照required，optional，rest，key的顺序定义
+</li>
+<li>
+不要将optional和key混用，会带来一些意料之外的错误
+</li>
+<li>
+rest和key混用，参数会被两者都收集到。
+<pre class="brush: lisp;">
+(defun foo (&amp;rest rest &amp;key a b c) (list rest a b c))
+(foo :a 1 :b 2 :c 3)  ==&gt; ((:A 1 :B 2 :C 3) 1 2 3)
+</pre>
+</li>
 </ul>
+
+<h3 id="toc_1.2.5">2.5. 函数返回值</h3>
+<ul>
+<li>
+用RETURN-FROM来从函数体中返回
+</li>
+<ul>
+<li>
+需要显式带上函数名
+</li>
+</ul>
+</ul>
+
+<h3 id="toc_1.2.6">2.6. 高阶函数</h3>
+<ul>
+<li>
+用function操作符来获取一个函数对象
+</li>
+<ul>
+<li>
+简写#'
+</li>
+</ul>
+<li>
+用FUNCALL和APPLY来调用一个函数
+</li>
+<ul>
+<li>
+FUNCALL和直接调用一个函数差不多，需要显式指定参数
+</li>
+<li>
+APPLY可以将列表展开成为参数传递进函数
+</li>
+<ul>
+<li>
+类似Python里foobar(*args)这种用法
+</li>
+<li>
+可以混用两种参数传递方法
+<pre class="brush: lisp;">
+(defun plot (fn min max step)
+  (loop for i from min to max by step do
+        (loop repeat (funcall fn i) do (format t "*"))
+        (format t "~%")))
+(apply #'plot #'exp plot-data) ;#'exp是第一个参数fn，其他参数则由plot-data展开得到
+</pre>
+</li>
+</ul>
+</ul>
+</ul>
+
+<h3 id="toc_1.2.7">2.7. 匿名函数</h3>
+<ul>
+<li>
+匿名函数可以用来创建“闭包”
+</li>
+<li>
+所谓的“闭包”是指这样的函数可以部分地捕获其创建处的环境（局部变量等）
+</li>
+<ul>
+<li>
+详见变量部分
+</li>
+</ul>
+</ul>
+
+<h2 id="toc_1.3">3. 变量</h2>
+<h3 id="toc_1.3.1">3.1. 函数参数</h3>
+<p>
+每次调用时绑定的局部变量
+</p>
+
+<h3 id="toc_1.3.2">3.2. LET操作符</h3>
+<p>
+基本形式如下：
+</p>
+<pre class="brush: lisp;">
+(let (variable*)
+  body-form*)
+</pre>
+<ul>
+<li>
+variable部分指定一个或多个变量及其初始值（默认是NIL）
+</li>
+<li>
+body-form是这些变量作用域内的语句
+</li>
+<li>
+let可以嵌套，如果有同名变量，以form最靠近的let为准
+</li>
+</ul>
+
+<h3 id="toc_1.3.3">3.3. Binding Form</h3>
+<p>
+defun，let，dotimes等包含参数以及body的form都被成为binding form。
+binding form中定义的变量只在对应的body中有效。这个规则在其他大部分编程语言如Python，Java等都一样。
+</p>
+
+<h3 id="toc_1.3.4">3.4. 闭包(Closure)</h3>
+<p>
+简而言之就是嵌套的函数可以捕捉其所在的lexical scope的上下文环境，使其和函数绑定，并在
+超出相应的scope以后（比如外层函数返回以后）仍然有效。
+</p>
+<ul>
+<li>
+所以把闭包和匿名函数等同是不对的……
+</li>
+</ul>
+<p>
+另外要注意的是，捕捉到的是context，而不是变量的值。
+</p>
+
+<h3 id="toc_1.3.5">3.5. 动态变量(Dynamic or Special Variables)</h3>
+<ul>
+<li>
+变量相当于其他语言的全局变量，但更好用也更容易管理（we'll see）
+</li>
+<li>
+用defvar和defparameter来定义动态变量
+<pre class="brush: lisp;">
+(defvar *count* 0
+  "Count of widgets made so far.")
+
+(defparameter *gap-tolerance* 0.001
+  "Tolerance to be allowed in widget gaps.")
+</pre>
+</li>
+<li>
+通常的命名规则是前后都加上*（很重要！）
+</li>
+<li>
+defvar和defparameter的区别在于前者只在检查到变量未绑定时才赋予初值，而后者总是赋予初值。
+<pre class="brush: lisp;">
+(defvar *a* 1)
+(defvar *a* 3)
+*a* ;结果是1
+(defparameter *b* 1)
+(defparameter *b* 3)
+*b* ;结果是3
+</pre>
+</li>
+<li>
+称之为动态变量的重要原因是可以对其做rebind，在一个scope内改变它的值，而在出了该scope以后恢复原来的绑定。
+</li>
+<ul>
+<li>
+绑定像是一个堆栈，总是使用栈顶的绑定 
+</li>
+<li>
+改变当前绑定下的值不会影响到上层/下层绑定
+<pre class="brush: lisp;">
+(defvar *val* 10)
+(defun print_val () (format t "Value is: ~d~%" *val*))
+(print_val)
+(let ((*val* 20)) (print_val))
+(print_val)
+</pre>
+</li>
+<li>
+运行结果：
+<pre class="brush: plain;">
+Value is: 10
+Value is: 20
+Value is: 10
+</pre>
+</li>
+</ul>
+<li>
+任何需要变量绑定的地方都可以使用动态变量：let，函数参数等等。
+</li>
+<ul>
+<li>
+所以命名很重要，必须要在前后加上*
+<pre class="brush: plain;">
+This means whenever you use such a name in a binding form--in a LET or as a function parameter 
+or any other construct that creates a new variable binding--the binding that's created will 
+be a dynamic binding. 
+</pre>
+</li>
+</ul>
+</ul>
+
+<h3 id="toc_1.3.6">3.6. 常量(constants)</h3>
+<ul>
+<li>
+用defconstant来定义常量
+</li>
+<li>
+命名风格是前后加上+（但不像动态变量的命名规则那样流行）
+</li>
+</ul>
+
+<h3 id="toc_1.3.7">3.7. 赋值</h3>
+<ul>
+<li>
+通用的赋值操作符：setf
+</li>
+<li>
+可以对局部变量和动态变量使用，且只影响当前绑定
+</li>
+<li>
+要赋予的值同时也是setf操作符的返回值
+</li>
+<li>
+setf可以同时对多个变量赋值
+</li>
+<ul>
+<li>
+这种情况setf的返回值是最后一个变量的值
+<pre class="brush: lisp;">
+(let (a b)
+  (format t "setf a and b: ~d~%" (setf a 1 b 2)))
+</pre>
+</li>
+<li>
+运行结果：
+<pre class="brush: plain;">
+setf a and b: 2
+</pre>
+</li>
+</ul>
+<li>
+setf就像其他语言的赋值操作符=，能用在几乎所有需要复制的地方
+</li>
+<ul>
+<li>
+数组，哈希表
+</li>
+</ul>
+<li>
+用于赋值的，基于setf的其他宏：
+</li>
+<ul>
+<li>
+incf, decf自增，自减
+</li>
+<li>
+rotatef交换变量的值
+</li>
+<li>
+shiftf从右到左移动变量的值
+</li>
+</ul>
+</ul>
+
+<h2 id="toc_1.4">4. 宏：标准控制结构</h2>
+<h3 id="toc_1.4.1">4.1. when和unless</h3>
+<ul>
+<li>
+相当于其他语言的if和if not
+</li>
+<li>
+解决if的then和else部分只能包含单一form的问题
+<pre class="brush: lisp;">
+(defmacro when (condition &amp;rest body)
+  `(if ,condition (progn ,@body)))
+  
+(defmacro unless (condition &amp;rest body)
+  `(if (not ,condition) (progn ,@body)))
+</pre>
+</li>
+</ul>
+
+<h3 id="toc_1.4.2">4.2. cond</h3>
+<ul>
+<li>
+解决嵌套if的ugly写法
+</li>
+<li>
+基本形式如下：
+<pre class="brush: lisp;">
+(cond (a (do-x))
+      (b (do-y))
+      (t (do-z)))
+</pre>
+</li>
+<li>
+嵌套if中最后一个else在cond中通常表现为一个T加对应的表达式
+</li>
+</ul>
+
+<h3 id="toc_1.4.3">4.3. and, or和not</h3>
+<ul>
+<li>
+and, or是宏，not其实是函数
+</li>
+<li>
+and和or支持短路求值
+</li>
+<ul>
+<li>
+and在遇到第一个NIL时停止求值并返回NIL，所有都非NIL则返回最后一个form的值
+</li>
+<li>
+or在遇到第一个非NIL时停止求值并返回对应form的值，所有的都是NIL则返回NIL
+</li>
+</ul>
+</ul>
+
+<h3 id="toc_1.4.4">4.4. Lisp中的循环结构概述</h3>
+<ul>
+<li>
+语言核心只有基本的跳转操作符
+</li>
+<li>
+构建在核心上的基础循环结构do
+</li>
+<li>
+构建在do之上的有dolist和dotimes，一个用来遍历列表，一个用来做计数循环
+</li>
+<li>
+loop，有人恨有人爱，几乎可以成为一个迷你语言
+</li>
+</ul>
+
+<h3 id="toc_1.4.5">4.5. dolist和dotimes</h3>
+<ul>
+<li>
+dolist遍历列表，将列表的元素绑定到指定变量上并执行body form
+<pre class="brush: lisp;">
+(dolist (var list-form)
+  body-form*)
+</pre>
+</li>
+<li>
+dolist的返回值是NIL
+</li>
+<li>
+dotimes将0到count-1绑定到指定的变量上并执行body form
+<pre class="brush: lisp;">
+(dotimes (var count-form)
+  body-form*)
+</pre>
+</li>
+<li>
+可以用return从dolist和dotimes中返回
+</li>
+</ul>
+
+<h3 id="toc_1.4.6">4.6. do</h3>
+<p>
+do循环类似其他语言里的for循环，可以定义变量的初值，循环的测试条件以及变量的更新语句，
+但是do更强大并且看起来也更复杂。
+do的结构是这样的：
+</p>
+<pre class="brush: lisp;">
+(do (variable-definition*)
+    (end-test-form result-form*)
+  statement*)
+</pre>
+
+<p>
+其中variable-definition部分定义变量及其初值、步长。这部分的规则是：
+</p>
+<pre class="brush: lisp;">
+(var init-form step-form)
+</pre>
+<ul>
+<li>
+init-form是在do开始的时候求值并绑定给对应变量，如果不存在，变量的值是NIL
+</li>
+<li>
+step-form在每一次循环结束后求值， 其结果会被赋值给对应变量
+</li>
+<li>
+step-form是可选的，如果不存在则变量的值不会被do改变，但是body-form里可以改变变量的值
+</li>
+</ul>
+
+<p>
+每次循环开始，变量被赋予值以后，end-test-form会被求值，如果结果是NIL，循环继续，
+按顺序求值statement部分的form；如果结果不是NIL，result-form会被求值，
+其结果会被作为do的返回值，同时do结束。
+</p>
+
+<p>
+do的结构让人看着十分眼晕，一定要看清楚括号………………
+</p>
+
+<p>
+do的几个简单例子（摘自Practical Common Lisp）
+</p>
+<ul>
+<li>
+没有body-form的斐波那契数列计算表达式
+<pre class="brush: lisp;">
+(do ((n 0 (1+ n))
+     (cur 0 next)
+          (next 1 (+ cur next)))
+    ((= 10 n) cur))
+</pre>
+</li>
+<li>
+没有绑定任何变量的do循环(类似其他语言while的用法？)
+<pre class="brush: lisp;">
+(do ()
+    ((&gt; (get-universal-time) *some-future-date*))
+  (format t "Waiting~%")
+  (sleep 60)) 
+</pre>
+</li>
+</ul>
+
+<h3 id="toc_1.4.7">4.7. 强大的loop</h3>
     </div>
 
     <!--
