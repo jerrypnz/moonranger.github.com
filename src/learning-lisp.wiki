@@ -1,44 +1,52 @@
 = Lisp入门笔记 =
 %toc
-== Syntax and Semantics ==
-Lisp语法语义层面的东西真的很“简单”
-* Lisp的求值过程包含两步：1. 文本翻译成S-expression as Lisp forms, 2. Evaluate Lisp forms
-* S-expression：由atom和list组成的表达式
-    - list是包含在小括号里的，由空格分开的一组元素 
-        * list的元素可以是其他list或atom——即list的元素也是S-expression
-        * 这就是数据结构中学到过的广义表
-    - atom是除了list以外的所有
-        * Number, String
-        * Symbol
-        * Keyword
-* Lisp form是包含语义的S-expression，是符合一定规则的S-expression
-    - 任何atom和第一个元素是symbol的list都是合法的Lisp form 
-* Lisp的求值规则
-    - atom
-        * Symbol求值得到Symbol当前的值
-        * 其他atom本身就是值
-    - list
-        * 函数调用（function call）
-            - 形如(function-name argument*)
-            - 别的语言中的有一些表达式在Lisp里其实是函数调用
-                * (+ 2 3)
-                * (* 10 10)
-                * 把+, *等当成是函数名就好理解多了,不要将其当作是后缀表达式
-        * 特殊操作符（special operator）
-            - 典型的如if，无法当作函数调用处理，因为有部分求值的需要
-                * (if test-form then-form [else-form]) 
-            - 求值规则因操作符而异
-            - quote操作符（可以简写成一个单引号：'）
-                * 不求值，直接返回参数
-        * 宏（macros）
-            - 传递给宏的S-expression不会被求值
-            - 宏处理后返回的S-expression被替换到宏调用处并被求值
-    - 关于True和False
-        * 符号NIL是False，其他一切都是True
-            - NIL既是atom，又是list——空list
-        * 符号T是常被用来表达True
+== 语法和语义 ==
+Lisp语法语义层面的东西真的很“简单”，Lisp的求值过程包含两步：
+# 文本翻译成S-expression as Lisp forms
+# 对Lisp forms求值
 
-== Functions ==
+=== S-expression ===
+由atom和list组成的表达式
+- list是包含在小括号里的，由空格分开的一组元素 
+    * list的元素可以是其他list或atom——即list的元素也是S-expression
+    * 这就是数据结构中学到过的广义表
+- atom是除了list以外的所有
+    * Number, String
+    * Symbol
+    * Keyword
+
+=== Lisp Form ===
+Lisp form是包含语义的S-expression，是符合一定规则的S-expression。
+任何atom和第一个元素是symbol的list都是合法的Lisp form 
+
+=== Lisp的求值规则 ===
+==== atom ====
+* Symbol求值得到Symbol当前的值
+* 其他atom本身就是值
+
+==== list ====
+* 函数调用（function call）
+    - 形如(function-name argument*)
+    - 别的语言中的有一些表达式在Lisp里其实是函数调用
+        * (+ 2 3)
+        * (* 10 10)
+        * 把+, *等当成是函数名就好理解多了,不要将其当作是后缀表达式
+* 特殊操作符（special operator）
+    - 典型的如if，无法当作函数调用处理，因为有部分求值的需要
+        * (if test-form then-form [else-form]) 
+    - 求值规则因操作符而异
+    - quote操作符（可以简写成一个单引号：'）
+        * 不求值，直接返回参数
+* 宏（macros）
+    - 传递给宏的S-expression不会被求值
+    - 宏处理后返回的S-expression被替换到宏调用处并被求值
+
+=== 关于True和False ===
+* 符号NIL是False，其他一切都是True
+    - NIL既是atom，又是list——空list
+* 符号T是常被用来表达True
+
+== 函数 ==
 === 可选参数（&optional） ===
 - 参数列表中&optional后面的参数都是可选的，但仍然按照顺序匹配
 - 可选参数的默认值是NIL
@@ -287,4 +295,92 @@ do的几个简单例子（摘自Practical Common Lisp）
 }}}
 
 === 强大的loop ===
+loop宏定义了一套相对独立的迷你语言，用非常容易理解的方式来定义复杂的循环行为。
+* Python的列表解析八成从Lisp的loop宏抄的
+{{{class="brush: lisp;"
+(loop for i from 1 to 10 collecting i) ==> (1 2 3 4 5 6 7 8 9 10)
+}}}
+* 在Lisper中有人爱，有人恨
+    - 恨他的理由是不够Lispy（括号不够多……）
+==== 一些例子 ====
+* 计算一句话中元音字母（aeiou）的数量
+{{{class="brush: lisp;"
+(loop for x across "the quick brown fox jumps over the lazy dog"
+      counting (find x "aeiou")) ==> 11
+}}}
 
+* 计算斐波那契数列第11个元素
+{{{class="brush: lisp;"
+(loop for i below 10
+      and a = 0 then b
+      and b = 1 then (+ b a)
+      finally (return  a))
+}}}
+
+== 自定义宏 ==
+宏是用来产生代码的函数，它在编译期间运行（宏展开）。只有一个程序中所有的宏都被展开了，产生的中间代码都被编译了，
+才能进入程序实际的运行期。因此，在宏展开的时候是无法访问只有运行期才存在的数据。
+
+关于宏最核心的是：**编译器将未求值的Lisp form（代码）传给宏，宏返回的处理过的Lisp form（代码）**
+
+=== 定义宏的通常步骤 ===
+# 识别出重复代码，并想出来用宏来替代的方式
+# 写出一个宏调用的例子，并写出其展开后的样子
+# 根据这个例子来写宏的实现
+# 确保宏带来的抽象不会泄漏
+
+=== 宏的参数 ===
+==== Destructuring Parameters ====
+除了支持和普通函数一样的参数写法，宏还支持destructuring parameters。
+destructuring parameter有点类似Python里的元组展开。
+假如有以下宏，其中第一个参数是代表条件的一个Lisp form（就是一个list）。
+在宏的body里可能需要从这个list里提取不同的部分而不是将其作为一个整体，这种情况下为了方便宏的编写，
+可以把condition替换成destructuring parameter的写法，省去了在body中用first，second之类的操作符来获取form中的元素。
+{{{class="brush: lisp;"
+(defmacro foobar (condition &rest body)
+  ...)
+}}}
+可以替换成如下写法：
+{{{class="brush: lisp;"
+(defmacro foobar ((op val1 val2) &rest body)
+  ...)
+}}}
+其中op, val1, val2分别绑定到了condition form的第一、第二和第三个元素上了。
+闭着眼睛都能想象，destructuring parameters可以极大简化宏的编写。
+
+destructuring parameters的另一个好处是它无形中给宏的对应参数多加了一个约束：即对应的form里的元素个数。
+在宏展开的时候如果form中的元素个数不匹配，Lisp编译器会报错。比如代表变量初始化的form最多不会超过3个元素，
+且必须至少包含一个元素。问题来了，可变的destructing parameters要怎么定义？
+
+答案是：destructuring parameters也支持&optional, &key和&rest参数
+
+==== &body ====
+宏的参数列表中可以用&body，它和&rest含义是一样的。因为宏函数里的其他参数一般都会是宏的body forms，
+所以通常用&body来标示body forms参数。
+
+=== 宏展开表达式的生成 ===
+用backquote表达式来生成Lisp form。
+backquote（符号`）和普通的quote（'）的唯一区别就是在backquote表达式中可以用逗号（,）来unquote部分表达式。
+* unquote的含义就是将符号的值替换进去，而不用符号本身
+* unquote的逗号后面可以跟上一个@符号，此时符号的值必须是个list，此list会被展开到backquote表达式的同一级。
+    - 解释起来太拗口，上例子
+{{{class="brush: lisp;"
+#Backquote Syntax      Equivalent List-Building Code            Result
+#------------------------------------------------------------------------------
+`(a (+ 1 2) c)         (list 'a '(+ 1 2) 'c)                    (a (+ 1 2) c)
+`(a ,(+ 1 2) c)        (list 'a (+ 1 2) 'c)                     (a 3 c)
+`(a (list 1 2) c)      (list 'a '(list 1 2) 'c)                 (a (list 1 2) c)
+`(a ,(list 1 2) c)     (list 'a (list 1 2) 'c)                  (a (1 2) c)
+`(a ,@(list 1 2) c)    (append (list 'a) (list 1 2) (list 'c))  (a 1 2 c)
+}}}
+
+=== 宏定义要注意的问题 ===
+* 宏展开后的form中引用的sub form，要和传递时的顺序一致，不然可能会产生期望之外的结果
+    - 通常是在form有副作用或者互相有引用关系的时候
+* 要确保sub form在展开后的form中只被求值一次
+* 用GENSYM来生成变量名，防止命名冲突带来的bug
+
+=== 用来生成宏的宏(macro-writing macro) ===
+好眼晕……等用到的时候再研究。
+* 只是再增加一级抽象
+* 记住宏就是用来生成结构相似的代码的——宏定义本身也是代码，相似的部分一样可以抽象成宏

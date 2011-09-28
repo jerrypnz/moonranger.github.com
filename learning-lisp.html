@@ -36,8 +36,18 @@
 <ul>
 <li><a href="#toc_1"> Lisp入门笔记</a></li>
 <ul>
-<li><a href="#toc_1.1">1. Syntax and Semantics</a></li>
-<li><a href="#toc_1.2">2. Functions</a></li>
+<li><a href="#toc_1.1">1. 语法和语义</a></li>
+<ul>
+<li><a href="#toc_1.1.1">1.1. S-expression</a></li>
+<li><a href="#toc_1.1.2">1.2. Lisp Form</a></li>
+<li><a href="#toc_1.1.3">1.3. Lisp的求值规则</a></li>
+<ul>
+<li><a href="#toc_1.1.3.1">1.3.1. atom</a></li>
+<li><a href="#toc_1.1.3.2">1.3.2. list</a></li>
+</ul>
+<li><a href="#toc_1.1.4">1.4. 关于True和False</a></li>
+</ul>
+<li><a href="#toc_1.2">2. 函数</a></li>
 <ul>
 <li><a href="#toc_1.2.1">2.1. 可选参数（&amp;optional）</a></li>
 <li><a href="#toc_1.2.2">2.2. 其他参数（&amp;rest）</a></li>
@@ -66,21 +76,42 @@
 <li><a href="#toc_1.4.5">4.5. dolist和dotimes</a></li>
 <li><a href="#toc_1.4.6">4.6. do</a></li>
 <li><a href="#toc_1.4.7">4.7. 强大的loop</a></li>
+<ul>
+<li><a href="#toc_1.4.7.1">4.7.1. 一些例子</a></li>
+</ul>
+</ul>
+<li><a href="#toc_1.5">5. 自定义宏</a></li>
+<ul>
+<li><a href="#toc_1.5.1">5.1. 定义宏的通常步骤</a></li>
+<li><a href="#toc_1.5.2">5.2. 宏的参数</a></li>
+<ul>
+<li><a href="#toc_1.5.2.1">5.2.1. Destructuring Parameters</a></li>
+<li><a href="#toc_1.5.2.2">5.2.2. &amp;body</a></li>
+</ul>
+<li><a href="#toc_1.5.3">5.3. 宏展开表达式的生成</a></li>
+<li><a href="#toc_1.5.4">5.4. 宏定义要注意的问题</a></li>
+<li><a href="#toc_1.5.5">5.5. 用来生成宏的宏(macro-writing macro)</a></li>
 </ul>
 </ul>
 </ul>
 </div>
-<h2 id="toc_1.1">1. Syntax and Semantics</h2>
+<h2 id="toc_1.1">1. 语法和语义</h2>
 <p>
-Lisp语法语义层面的东西真的很“简单”
+Lisp语法语义层面的东西真的很“简单”，Lisp的求值过程包含两步：
 </p>
-<ul>
+<ol>
 <li>
-Lisp的求值过程包含两步：1. 文本翻译成S-expression as Lisp forms, 2. Evaluate Lisp forms
+文本翻译成S-expression as Lisp forms
 </li>
 <li>
-S-expression：由atom和list组成的表达式
+对Lisp forms求值
 </li>
+</ol>
+
+<h3 id="toc_1.1.1">1.1. S-expression</h3>
+<p>
+由atom和list组成的表达式
+</p>
 <ul>
 <li>
 list是包含在小括号里的，由空格分开的一组元素 
@@ -108,21 +139,15 @@ Keyword
 </li>
 </ul>
 </ul>
-<li>
-Lisp form是包含语义的S-expression，是符合一定规则的S-expression
-</li>
-<ul>
-<li>
+
+<h3 id="toc_1.1.2">1.2. Lisp Form</h3>
+<p>
+Lisp form是包含语义的S-expression，是符合一定规则的S-expression。
 任何atom和第一个元素是symbol的list都是合法的Lisp form 
-</li>
-</ul>
-<li>
-Lisp的求值规则
-</li>
-<ul>
-<li>
-atom
-</li>
+</p>
+
+<h3 id="toc_1.1.3">1.3. Lisp的求值规则</h3>
+<h4 id="toc_1.1.3.1">1.3.1. atom</h4>
 <ul>
 <li>
 Symbol求值得到Symbol当前的值
@@ -131,9 +156,8 @@ Symbol求值得到Symbol当前的值
 其他atom本身就是值
 </li>
 </ul>
-<li>
-list
-</li>
+
+<h4 id="toc_1.1.3.2">1.3.2. list</h4>
 <ul>
 <li>
 函数调用（function call）
@@ -193,9 +217,8 @@ quote操作符（可以简写成一个单引号：'）
 </li>
 </ul>
 </ul>
-<li>
-关于True和False
-</li>
+
+<h3 id="toc_1.1.4">1.4. 关于True和False</h3>
 <ul>
 <li>
 符号NIL是False，其他一切都是True
@@ -209,10 +232,8 @@ NIL既是atom，又是list——空list
 符号T是常被用来表达True
 </li>
 </ul>
-</ul>
-</ul>
 
-<h2 id="toc_1.2">2. Functions</h2>
+<h2 id="toc_1.2">2. 函数</h2>
 <h3 id="toc_1.2.1">2.1. 可选参数（&amp;optional）</h3>
 <ul>
 <li>
@@ -697,6 +718,173 @@ do的几个简单例子（摘自Practical Common Lisp）
 </ul>
 
 <h3 id="toc_1.4.7">4.7. 强大的loop</h3>
+<p>
+loop宏定义了一套相对独立的迷你语言，用非常容易理解的方式来定义复杂的循环行为。
+</p>
+<ul>
+<li>
+Python的列表解析八成从Lisp的loop宏抄的
+<pre class="brush: lisp;">
+(loop for i from 1 to 10 collecting i) ==&gt; (1 2 3 4 5 6 7 8 9 10)
+</pre>
+</li>
+<li>
+在Lisper中有人爱，有人恨
+</li>
+<ul>
+<li>
+恨他的理由是不够Lispy（括号不够多……）
+</li>
+</ul>
+</ul>
+<h4 id="toc_1.4.7.1">4.7.1. 一些例子</h4>
+<ul>
+<li>
+计算一句话中元音字母（aeiou）的数量
+<pre class="brush: lisp;">
+(loop for x across "the quick brown fox jumps over the lazy dog"
+      counting (find x "aeiou")) ==&gt; 11
+</pre>
+</li>
+</ul>
+
+<ul>
+<li>
+计算斐波那契数列第11个元素
+<pre class="brush: lisp;">
+(loop for i below 10
+      and a = 0 then b
+      and b = 1 then (+ b a)
+      finally (return  a))
+</pre>
+</li>
+</ul>
+
+<h2 id="toc_1.5">5. 自定义宏</h2>
+<p>
+宏是用来产生代码的函数，它在编译期间运行（宏展开）。只有一个程序中所有的宏都被展开了，产生的中间代码都被编译了，
+才能进入程序实际的运行期。因此，在宏展开的时候是无法访问只有运行期才存在的数据。
+</p>
+
+<p>
+关于宏最核心的是：*<strong>编译器将未求值的Lisp form（代码）传给宏，宏返回的处理过的Lisp form（代码）</strong>*
+</p>
+
+<h3 id="toc_1.5.1">5.1. 定义宏的通常步骤</h3>
+<ol>
+<li>
+识别出重复代码，并想出来用宏来替代的方式
+</li>
+<li>
+写出一个宏调用的例子，并写出其展开后的样子
+</li>
+<li>
+根据这个例子来写宏的实现
+</li>
+<li>
+确保宏带来的抽象不会泄漏
+</li>
+</ol>
+
+<h3 id="toc_1.5.2">5.2. 宏的参数</h3>
+<h4 id="toc_1.5.2.1">5.2.1. Destructuring Parameters</h4>
+<p>
+除了支持和普通函数一样的参数写法，宏还支持destructuring parameters。
+destructuring parameter有点类似Python里的元组展开。
+假如有以下宏，其中第一个参数是代表条件的一个Lisp form（就是一个list）。
+在宏的body里可能需要从这个list里提取不同的部分而不是将其作为一个整体，这种情况下为了方便宏的编写，
+可以把condition替换成destructuring parameter的写法，省去了在body中用first，second之类的操作符来获取form中的元素。
+</p>
+<pre class="brush: lisp;">
+(defmacro foobar (condition &amp;rest body)
+  ...)
+</pre>
+<p>
+可以替换成如下写法：
+</p>
+<pre class="brush: lisp;">
+(defmacro foobar ((op val1 val2) &amp;rest body)
+  ...)
+</pre>
+<p>
+其中op, val1, val2分别绑定到了condition form的第一、第二和第三个元素上了。
+闭着眼睛都能想象，destructuring parameters可以极大简化宏的编写。
+</p>
+
+<p>
+destructuring parameters的另一个好处是它无形中给宏的对应参数多加了一个约束：即对应的form里的元素个数。
+在宏展开的时候如果form中的元素个数不匹配，Lisp编译器会报错。比如代表变量初始化的form最多不会超过3个元素，
+且必须至少包含一个元素。问题来了，可变的destructing parameters要怎么定义？
+</p>
+
+<p>
+答案是：destructuring parameters也支持&amp;optional, &amp;key和&amp;rest参数
+</p>
+
+<h4 id="toc_1.5.2.2">5.2.2. &amp;body</h4>
+<p>
+宏的参数列表中可以用&amp;body，它和&amp;rest含义是一样的。因为宏函数里的其他参数一般都会是宏的body forms，
+所以通常用&amp;body来标示body forms参数。
+</p>
+
+<h3 id="toc_1.5.3">5.3. 宏展开表达式的生成</h3>
+<p>
+用backquote表达式来生成Lisp form。
+backquote（符号`）和普通的quote（'）的唯一区别就是在backquote表达式中可以用逗号（,）来unquote部分表达式。
+</p>
+<ul>
+<li>
+unquote的含义就是将符号的值替换进去，而不用符号本身
+</li>
+<li>
+unquote的逗号后面可以跟上一个@符号，此时符号的值必须是个list，此list会被展开到backquote表达式的同一级。
+</li>
+<ul>
+<li>
+解释起来太拗口，上例子
+<pre class="brush: lisp;">
+#Backquote Syntax      Equivalent List-Building Code            Result
+#------------------------------------------------------------------------------
+`(a (+ 1 2) c)         (list 'a '(+ 1 2) 'c)                    (a (+ 1 2) c)
+`(a ,(+ 1 2) c)        (list 'a (+ 1 2) 'c)                     (a 3 c)
+`(a (list 1 2) c)      (list 'a '(list 1 2) 'c)                 (a (list 1 2) c)
+`(a ,(list 1 2) c)     (list 'a (list 1 2) 'c)                  (a (1 2) c)
+`(a ,@(list 1 2) c)    (append (list 'a) (list 1 2) (list 'c))  (a 1 2 c)
+</pre>
+</li>
+</ul>
+</ul>
+
+<h3 id="toc_1.5.4">5.4. 宏定义要注意的问题</h3>
+<ul>
+<li>
+宏展开后的form中引用的sub form，要和传递时的顺序一致，不然可能会产生期望之外的结果
+</li>
+<ul>
+<li>
+通常是在form有副作用或者互相有引用关系的时候
+</li>
+</ul>
+<li>
+要确保sub form在展开后的form中只被求值一次
+</li>
+<li>
+用GENSYM来生成变量名，防止命名冲突带来的bug
+</li>
+</ul>
+
+<h3 id="toc_1.5.5">5.5. 用来生成宏的宏(macro-writing macro)</h3>
+<p>
+好眼晕……等用到的时候再研究。
+</p>
+<ul>
+<li>
+只是再增加一级抽象
+</li>
+<li>
+记住宏就是用来生成结构相似的代码的——宏定义本身也是代码，相似的部分一样可以抽象成宏
+</li>
+</ul>
     </div>
 
     <!--
