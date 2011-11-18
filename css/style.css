@@ -205,13 +205,12 @@ del {
 }
 
 .toc ul {
-    margin: 0.2em;
-    padding: 02.em;
+    margin: 0.5em 0.2em 0.5em 0.2em;
 }
 
 .toc li {
     list-style-type: none;
-    margin: 0.5em;
+    margin: 0.2em;
 }
 
 .todo {
