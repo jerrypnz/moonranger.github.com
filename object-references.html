@@ -27,27 +27,39 @@
     <div id="content">
         <script type="text/javascript">
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = 'python';
-            var disqus_url = 'http://moonranger.github.com/python.html';
+            var disqus_identifier = 'object-references';
+            var disqus_url = 'http://moonranger.github.com/object-references.html';
         </script>
 
-<h1 id="toc_1"> Python</h1>
-<div class="toc">
-<ul>
-<li><a href="#toc_1"> Python</a></li>
-<ul>
-<li><a href="#toc_1.1">1. Blog Drafts</a></li>
-</ul>
-</ul>
-</div>
+<h1 id="toc_1"> Java对象引用</h1>
 
-<h2 id="toc_1.1">1. Blog Drafts</h2>
+<h2 id="toc_1.1">1. 强引用Strong Reference</h2>
+<p>
+Object obj = new Object()这一类的是强引用，有强引用的对象无法被回收掉。
+</p>
+
+<h2 id="toc_1.2">2. 软引用Soft Reference</h2>
+<p>
+会持有到即将OOM之前才会回收。
+</p>
+
+<h2 id="toc_1.3">3. 弱引用Weak Reference</h2>
+<p>
+会持有到下次GC发生的时候。
+</p>
+
+<h2 id="toc_1.4">4. 虚引用Phantom Reference</h2>
+<p>
+对象被GC与否与其有没有虚引用无关（无论如何都会被回收），只是提供机制让程序有机会得到此对象已被回收的通知。
+</p>
+
+<h2 id="toc_1.5">5. Finalize</h2>
 <ul>
 <li>
-<a href="python-pattern-matching.html">Python Pattern Matching</a>
+Finalize只会被执行一次，对象有机会在finalize的时候将自身引用赋值给某个变量从而避免被gc
 </li>
 <li>
-<a href="python-scoping-rules.html">Python Scoping Rules</a>
+<strong>完全不建议使用！</strong>
 </li>
 </ul>
     </div>

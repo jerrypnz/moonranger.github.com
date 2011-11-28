@@ -1,0 +1,17 @@
+= Java对象引用 =
+
+== 强引用Strong Reference ==
+Object obj = new Object()这一类的是强引用，有强引用的对象无法被回收掉。
+
+== 软引用Soft Reference ==
+会持有到即将OOM之前才会回收。
+
+== 弱引用Weak Reference ==
+会持有到下次GC发生的时候。
+
+== 虚引用Phantom Reference ==
+对象被GC与否与其有没有虚引用无关（无论如何都会被回收），只是提供机制让程序有机会得到此对象已被回收的通知。
+
+== Finalize ==
+* Finalize只会被执行一次，对象有机会在finalize的时候将自身引用赋值给某个变量从而避免被gc
+* *完全不建议使用！*

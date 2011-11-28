@@ -3,3 +3,4 @@
 
 == Blog Drafts ==
 * [[python-pattern-matching|Python Pattern Matching]]
+* [[python-scoping-rules|Python Scoping Rules]]

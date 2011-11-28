@@ -8,9 +8,10 @@
 == JVM ==
 - [[method-invoking|Method Invoking]]
 - [[class-file-format|Class File Format]]
-
-== OOM ==
+=== Memory Management ===
+- [[object-references|对象引用]]
 - [[oom-caused-by-string-split|OOM Caused by String.split]]
+
 
 == IO ==
 - [[java-nio|Java NIO]]
