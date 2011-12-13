@@ -16,7 +16,9 @@
     - ORM工具[[hibernate|Hibernate]]
 
 - 操作系统[[unix|UNIX]](Linux，MAC和BSD等）
-    - 各色[[shell|Shell]]技巧
+    - [[gentoo|Gentoo]]相关笔记
+
+- 文档工具[[restructuredtext|reStructuredText]]
 
 - 偶尔研究研究Android
     - [[notepad-sample-research|NotePad Sample Research]]

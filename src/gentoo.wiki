@@ -1,0 +1,6 @@
+= Gentoo Tips & Tricks =
+
+== Video Related ==
+
+=== Framebuffer ===
+* With uvesafb running, check /sys/class/graphics/fb0/modes. Those are the resolutions you can use.
