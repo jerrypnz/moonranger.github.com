@@ -1,9 +1,3 @@
-= reStructuredText =
-
-== 生成s5 slide ==
-可以用rst2s5来生成s5 slides，下面是一个样例:
-
-{{{class="brush: plain;"
 ================
 rst2s5幻灯片演示
 ================
@@ -25,7 +19,5 @@ rst2s5幻灯片演示
 嵌入图片的效果是什么样的呢？
 
     .. image:: funny.jpg
-    
-}}}
 
-效果：[[rst2s5-sample/index.html]]
+
