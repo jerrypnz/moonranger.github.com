@@ -1,0 +1,1051 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<meta name="version" content="S5 1.1" />
+<title>可爱的reStructuredText</title>
+<meta name="author" content="Jerry Peng &lt;pr2jerry&#64;gmail.com&gt;" />
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<script src="ui/pixel/slides.js" type="text/javascript"></script>
+<link rel="stylesheet" href="ui/pixel/slides.css"
+      type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/pixel/outline.css"
+      type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/pixel/print.css"
+      type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/pixel/opera.css"
+      type="text/css" media="projection" id="operaFix" />
+
+<style type="text/css">
+#currentSlide {display: none;}
+</style>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header">
+
+</div>
+<div id="footer">
+<h1>可爱的reStructuredText</h1>
+
+</div>
+</div>
+<div class="presentation">
+<div class="slide" id="slide0">
+<h1 class="title">可爱的reStructuredText</h1>
+<h2 class="subtitle" id="id1">实用主义者的文档解决方案</h2>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Author:</th>
+<td>Jerry Peng &lt;<a class="reference external" href="mailto:pr2jerry&#64;gmail.com">pr2jerry&#64;gmail.com</a>&gt;</td></tr>
+</tbody>
+</table>
+<!-- Definitions of interpreted text roles (classes) for S5/HTML data. -->
+<!-- This data file has been placed in the public domain. -->
+<!-- Colours
+======= -->
+<!-- Text Sizes
+========== -->
+<!-- Display in Slides (Presentation Mode) Only
+========================================== -->
+<!-- Display in Outline Mode Only
+============================ -->
+<!-- Display in Print Only
+===================== -->
+<!-- Display in Handout Mode Only
+============================ -->
+<!-- Incremental Display
+=================== -->
+
+</div>
+<div class="slide" id="id2">
+<h1>用什么写文档？</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>WYSIWYG字处理工具</dt>
+<dd><ul class="first last simple">
+<li>M$ Word</li>
+<li>OpenOffice Writer</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>纯文本的文档格式</dt>
+<dd><ul class="first last simple">
+<li>XML类标记语言（Docbook, HTML）</li>
+<li>LaTeX</li>
+<li>轻量级标记语言</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Embedded in Code</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="wysiwyg">
+<h1>WYSIWYG字处理软件</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>What You See Is What You Get</dt>
+<dd><ul class="first last simple">
+<li>Not always true</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">大量的鼠标点击</p>
+</li>
+<li><p class="first">繁复的格式调整</p>
+</li>
+<li><dl class="first docutils">
+<dt>二进制的文件格式</dt>
+<dd><ul class="first last simple">
+<li>无法diff，不利于作版本控制</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="id3">
+<h1>WYSIWYG字处理软件</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>花架子功能，影响心情（个人对此深恶痛绝）</dt>
+<dd><ul class="first last">
+<li><p class="first">首字母自动大写</p>
+</li>
+<li><p class="first">自动识别为日期</p>
+</li>
+<li><dl class="first docutils">
+<dt>电脑软件是不应该“自作聪明”的</dt>
+<dd><ul class="first last simple">
+<li>用户知道自己要干什么，你一机器指手画脚干嘛！</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>总而言之，无法让人集中于主要问题上</dt>
+<dd><ul class="first last simple">
+<li>让人流畅地将idea变成文档才是最重要的</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="latex">
+<h1>LaTeX</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>学习曲线让人望而却步</dt>
+<dd><ul class="first last simple">
+<li>投入／回报不成比例</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>工具链复杂</dt>
+<dd><ul class="first last simple">
+<li>宏包</li>
+<li>中文问题</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="id4">
+<h1>LaTeX</h1>
+<ul>
+<li><p class="first">适合产出印刷物，学术论文</p>
+</li>
+<li><dl class="first docutils">
+<dt>不适合日常的工作文档，项目文档</dt>
+<dd><ul class="first last simple">
+<li>效率不高</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>没玩过LaTeX，所以轻拍…… ;-)</dt>
+<dd><ul class="first last simple">
+<li>期待TJLUG的LaTeX用户分享一下经验，让我入个门</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="xml-html">
+<h1>XML/HTML</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>没人直接用HTML写文档吧？</dt>
+<dd><ul class="first last simple">
+<li>但HTML是常见的输出格式</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>XML文档解决方案——Docbook</dt>
+<dd><ul class="first last">
+<li><p class="first">一切都满足需求</p>
+</li>
+<li><dl class="first docutils">
+<dt>但它是坑爹的XML！</dt>
+<dd><ul class="first last simple">
+<li>标签要闭合</li>
+<li>源文件可读性不好</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="id5">
+<h1>轻量级标记语言</h1>
+<ul>
+<li><p class="first">Markdown</p>
+</li>
+<li><p class="first">Vimwiki</p>
+</li>
+<li><dl class="first docutils">
+<dt>reStructuredText</dt>
+<dd><ul class="first last simple">
+<li>今天的主角</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="id6">
+<h1>代码中嵌入文档</h1>
+<ul class="simple">
+<li>只适合API文档</li>
+<li>方便和代码保持同步</li>
+<li>通过工具生成</li>
+</ul>
+</div>
+<div class="slide" id="id7">
+<h1>实用主义者的标准</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>必须是纯文本</dt>
+<dd><ul class="first last simple">
+<li>可以用最趁手的编辑器，比如：Vim</li>
+<li>轻松做版本控制</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>数据和表现分离</dt>
+<dd><ul class="first last simple">
+<li>文档源文件只包含结构化的数据</li>
+<li>以样式表、主题或者命令行选项的方式来控制字体、颜色等</li>
+<li>同样的源文件结合不同的样式得到不同的展现</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="id8">
+<h1>实用主义者的标准</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>源文件的可读性要好</dt>
+<dd><ul class="first last simple">
+<li>HTML/XML第一个被排除掉</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>可以输出到多种格式</dt>
+<dd><ul class="first last simple">
+<li>HTML, pdf是必须的</li>
+<li>S5——这样就可以做slides了</li>
+<li>LaTeX——可以做进一步排版，方便打印或者输出高质量的pdf</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>易学易用，上手快，编辑效率高</dt>
+<dd><ul class="first last simple">
+<li>所以排除了LaTeX</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="id9">
+<h1>主角登场：reStructuredText</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>Powered by Python Technology</dt>
+<dd><ul class="first last simple">
+<li>python-docutils</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">基于StructuredText和Setext标记语言强化而来</p>
+</li>
+<li><p class="first">源文件可读性很好</p>
+</li>
+<li><p class="first">保持简单的同时功能强大</p>
+</li>
+<li><p class="first">可以输出为多种格式</p>
+<blockquote>
+<img alt="rst2xxx.png" src="rst2xxx.png" />
+</blockquote>
+</li>
+</ul>
+</div>
+<div class="slide" id="python-docutils">
+<h1>安装python-docutils</h1>
+<ul>
+<li><p class="first">通过发行版的包管理器直接安装:</p>
+<pre class="literal-block">
+sudo apt-get install python-docutils
+sudo apt-get install rst2pdf
+</pre>
+</li>
+<li><p class="first">通过Python pip来安装:</p>
+<pre class="literal-block">
+sudo pip install docutils
+sudo pip install rst2pdf
+</pre>
+</li>
+<li><p class="first">建议用pip + virtualenv来管理Python包</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="id10">
+<h1>reStructuredText格式简介</h1>
+<ul>
+<li><p class="first">很多格式与Markdown等其他轻量标记语言类似</p>
+</li>
+<li><p class="first">符合直觉，很容易记忆</p>
+</li>
+<li><dl class="first docutils">
+<dt>这里简要介绍，详细的文档请Google之</dt>
+<dd><ul class="first last simple">
+<li>reStructuredText官网 <a class="footnote-reference" href="#id13" id="id11">[1]</a>.</li>
+<li>Quick reStructuredText <a class="footnote-reference" href="#id14" id="id12">[2]</a>.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11">[1]</a></td><td><a class="reference external" href="http://docutils.sourceforge.net/rst.html">http://docutils.sourceforge.net/rst.html</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id12">[2]</a></td><td><a class="reference external" href="http://docutils.sourceforge.net/docs/user/rst/quickref.html">http://docutils.sourceforge.net/docs/user/rst/quickref.html</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="slide" id="id15">
+<h1>标题</h1>
+<ul>
+<li><p class="first">标题的格式:</p>
+<pre class="literal-block">
+========
+文档标题
+========
+
+----------
+文档副标题
+----------
+</pre>
+</li>
+<li><p class="first">文档标题和副标题通常用在封面页</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="id16">
+<h1>标题</h1>
+<ul>
+<li><p class="first">标题的格式:</p>
+<pre class="literal-block">
+一级标题
+========
+
+二级标题
+--------
+
+三级标题
+````````
+</pre>
+</li>
+<li><p class="first">这些是文档各节（section）的标题</p>
+</li>
+<li><p class="first">文档的目录根据这些标题生成</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="id17">
+<h1>标题</h1>
+<ul>
+<li><p class="first">可以使用字母数字以外的可打印ACSII字符，官方推荐的是以下字符:</p>
+<pre class="literal-block">
+Recommended choices are
+&quot;``= - ` : ' &quot; ~ ^ _ * + # &lt; &gt;``&quot;
+</pre>
+</li>
+<li><p class="first">标题前后的符号数目必须大于等于标题文本的长度</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="id18">
+<h1>段落</h1>
+<ul>
+<li><p class="first">段落的格式:</p>
+<pre class="literal-block">
+段落不需要特殊标记，用空行来分割，
+段落内的换行是被忽略的，因此源文件
+可以很好地控制一行的长度。
+
+这是一段。
+
+这是第二段。
+
+    段落可以缩进，通常用来表达引用的文字。
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="id19">
+<h1>行内标记</h1>
+<ul>
+<li><p class="first">用来实现斜体、粗体、引用、脚注、引用等等:</p>
+<pre class="literal-block">
+*斜体*, **粗体**, hyperlink_, 脚注 [3]_
+
+.. [3] 脚注的正文
+.. _hyperlink:  http://jerrypeng.me
+</pre>
+</li>
+<li><p class="first">下面是实际的效果</p>
+<blockquote>
+<p><em>斜体</em>, <strong>粗体</strong>, <a class="reference external" href="http://jerrypeng.me">hyperlink</a>, 脚注 <a class="footnote-reference" href="#id21" id="id20">[3]</a></p>
+</blockquote>
+</li>
+<li><p class="first">还有更多其他标记，请参考文档</p>
+</li>
+</ul>
+<table class="docutils footnote" frame="void" id="id21" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id20">[3]</a></td><td>脚注的正文</td></tr>
+</tbody>
+</table>
+</div>
+<div class="slide" id="id22">
+<h1>项目编号</h1>
+<ul>
+<li><p class="first">项目符号的格式:</p>
+<pre class="literal-block">
+前面的段落，下面需要一个空行。
+
+- 项目一
+- 项目二
+- 项目符号后必须跟一个空格
+- 一组项目的前后要加上空行
+- 可以用*, -, +来作为bullet，如果有多行，
+  必须和上一行的文字对其，像你看到的这样。
+
+后面的段落，上面需要一个空行。
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="id23">
+<h1>数字编号</h1>
+<ul>
+<li><p class="first">数字编号的格式:</p>
+<pre class="literal-block">
+规则和项目编号一样，只不过用数字来替代项目符号
+
+1. 第一项
+2. 第二项
+3. 格式是数字后面跟一个'.'，再跟一个空格
+#. 用#替代数字来自动编号
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="id24">
+<h1>表格</h1>
+<ul>
+<li><p class="first">表格的格式:</p>
+<pre class="literal-block">
++------------+------------+-----------+
+| Header 1   | Header 2   | Header 3  |
++============+============+===========+
+| body row 1 | column 2   | column 3  |
++------------+------------+-----------+
+| body row 2 | Cells may span columns.|
++------------+------------+-----------+
+| body row 3 | Cells may  | - Cells   |
++------------+ span rows. | - contain |
+| body row 4 |            | - blocks. |
++------------+------------+-----------+
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="id25">
+<h1>表格</h1>
+<ul>
+<li><p class="first">看起来是这样的:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="34%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head"><p class="first last">Header 1</p>
+</th>
+<th class="head"><p class="first last">Header 2</p>
+</th>
+<th class="head"><p class="first last">Header 3</p>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><p class="first last">body row 1</p>
+</td>
+<td><p class="first last">column 2</p>
+</td>
+<td><p class="first last">column 3</p>
+</td>
+</tr>
+<tr><td><p class="first last">body row 2</p>
+</td>
+<td colspan="2"><p class="first last">Cells may span columns.</p>
+</td>
+</tr>
+<tr><td><p class="first last">body row 3</p>
+</td>
+<td rowspan="2"><p class="first last">Cells may
+span rows.</p>
+</td>
+<td rowspan="2"><ul class="first last simple">
+<li>Cells</li>
+<li>contain</li>
+<li>blocks.</li>
+</ul>
+</td>
+</tr>
+<tr><td><p class="first last">body row 4</p>
+</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+</ul>
+</div>
+<div class="slide" id="id26">
+<h1>简单表格</h1>
+<ul>
+<li><p class="first">简单表格的格式:</p>
+<pre class="literal-block">
+=====  =====  ======
+   Inputs     Output
+------------  ------
+  A      B    A or B
+=====  =====  ======
+False  False  False
+True   False  True
+False  True   True
+True   True   True
+=====  =====  ======
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="id27">
+<h1>简单表格</h1>
+<ul>
+<li><p class="first">看起来是这样的:</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="31%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head" colspan="2"><p class="first last">Inputs</p>
+</th>
+<th class="head"><p class="first last">Output</p>
+</th>
+</tr>
+<tr><th class="head"><p class="first last">A</p>
+</th>
+<th class="head"><p class="first last">B</p>
+</th>
+<th class="head"><p class="first last">A or B</p>
+</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><p class="first last">False</p>
+</td>
+<td><p class="first last">False</p>
+</td>
+<td><p class="first last">False</p>
+</td>
+</tr>
+<tr><td><p class="first last">True</p>
+</td>
+<td><p class="first last">False</p>
+</td>
+<td><p class="first last">True</p>
+</td>
+</tr>
+<tr><td><p class="first last">False</p>
+</td>
+<td><p class="first last">True</p>
+</td>
+<td><p class="first last">True</p>
+</td>
+</tr>
+<tr><td><p class="first last">True</p>
+</td>
+<td><p class="first last">True</p>
+</td>
+<td><p class="first last">True</p>
+</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+</li>
+</ul>
+</div>
+<div class="slide" id="directives">
+<h1>指令（Directives）</h1>
+<ul>
+<li><p class="first">指令是基本的标记之外的扩展机制</p>
+</li>
+<li><dl class="first docutils">
+<dt>有一组标准的指令</dt>
+<dd><ul class="first last simple">
+<li>目录</li>
+<li>图片，内嵌代码</li>
+<li>公式</li>
+<li>标准指令大全 <a class="footnote-reference" href="#id29" id="id28">[4]</a></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">不同的工具可以实现自己独特的指令以实现高级功能</p>
+</li>
+</ul>
+<table class="docutils footnote" frame="void" id="id29" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id28">[4]</a></td><td><a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/directives.html">http://docutils.sourceforge.net/docs/ref/rst/directives.html</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="slide" id="id30">
+<h1>指令的格式</h1>
+<ul>
+<li><p class="first">指令的格式如下:</p>
+<pre class="literal-block">
+.. directive_type :: directive
+   block
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="id31">
+<h1>指令示例: 嵌入图片</h1>
+<ul>
+<li><p class="first">嵌入图片:</p>
+<pre class="literal-block">
+.. image:: funny.gif
+   :height: 100px
+   :width: 100px
+   :alt: funny cat picture
+   :align: center
+</pre>
+</li>
+</ul>
+<img alt="funny cat picture" class="align-center" src="funny.gif" style="width: 100px; height: 100px;" />
+</div>
+<div class="slide" id="id32">
+<h1>指令实例: 嵌入代码</h1>
+<ul>
+<li><p class="first">嵌入代码:</p>
+<pre class="literal-block">
+.. code:: python
+
+    def say_hello():
+        print 'Hello, reStructuredText'
+
+    if __name__ == '__main__':
+        say_hello()
+</pre>
+</li>
+</ul>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">rest-intro.rst</tt>, line 373)</p>
+<p>Unknown directive type &quot;code&quot;.</p>
+<pre class="literal-block">
+.. code:: python
+
+    def say_hello():
+        print 'Hello, reStructuredText'
+
+    if __name__ == '__main__':
+        say_hello()
+</pre>
+</div>
+</div>
+</div>
+</body>
+</html>

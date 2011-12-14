@@ -1,5 +1,8 @@
 = reStructuredText =
 
+== TJLUG ReST分享 ==
+Slides: [[rest-tjlug/index.html]]
+
 == 生成s5 slide ==
 可以用rst2s5来生成s5 slides，下面是一个样例:
 
@@ -29,3 +32,4 @@ rst2s5幻灯片演示
 }}}
 
 效果：[[rst2s5-sample/index.html]]
+
