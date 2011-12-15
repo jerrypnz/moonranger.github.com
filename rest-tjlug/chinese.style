@@ -1,8 +1,15 @@
-{ 
-    "embeddedFonts" : [ ["simhei.ttf","simkai.ttf","simsun.ttc"]],
-    "fontsAlias" : {
-        "stdFont" : "simsun",
-        "stdBold" : "simhei",
-        "stdItalic" : "simkai"
+{
+"styles": {
+    "base": {
+        "wordWrap": "CJK"
         }
+    },
+
+"embeddedFonts" : [["simfang.ttf", "simhei.ttf", "simkai.ttf",  "simsun.ttc"]],
+
+"fontsAlias" : {
+    "stdFont": "simsun",
+    "stdBold": "simhei",
+    "stdItalic": "simkai"
+    }
 }
