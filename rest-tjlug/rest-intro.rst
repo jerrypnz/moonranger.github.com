@@ -588,12 +588,14 @@ Sphinx
     # Additional stuff for the LaTeX preamble.
     'preamble': '''
     \usepackage{xeCJK}
-    \setCJKmainfont[BoldFont=Droid Sans Fallback, ItalicFont=AR PL UKai CN]{AR PL UMing CN}
-    \setCJKmonofont[Scale=0.9]{AR PL UKai CN}
-    \setCJKfamilyfont{song}[BoldFont=Droid Sans Fallback]{AR PL UMing CN}
-    \setCJKfamilyfont{sf}[BoldFont=Droid Sans Fallback]{Droid Sans Fallback}
+    \setCJKmainfont[BoldFont=SimHei, ItalicFont=KaiTi_GB2312]{SimSun}
+    \setCJKmonofont[Scale=0.9]{Droid Sans Mono}
+    \setCJKfamilyfont{song}[BoldFont=SimSun]{SimSun}
+    \setCJKfamilyfont{sf}[BoldFont=SimSun]{SimSun}
     ''',
     }
+
+* 可耻地用了M$的字体……
 
 
 用Sphinx输出中文PDF
@@ -604,6 +606,8 @@ Sphinx
     cd _build/latex && xelatex mydoc.tex
 
 * 不要使用sphinx提供的make latexpdf，其设计没有考虑中文，似乎不工作
+* 可能要运行两遍xelatex，出来的PDF里的目录才是正常的，非常奇怪
+    * 看sphinx生成的Makefile里也调用了多次pdflatex……
 * conf.py里还有更多可以改变的选项，比如documentclass可以选howto或者manual
     * howto很简洁，适合只有几页十几页的使用说明等
     * manual更适合长篇幅的大型文档或者书籍
