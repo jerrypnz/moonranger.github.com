@@ -33,3 +33,56 @@ rst2s5幻灯片演示
 
 效果：[[rst2s5-sample/index.html]]
 
+== 用sphinx生成中文PDF ==
+
+=== 中文字体 ===
+修改sphinx工程的conf.py，加入以下内容：
+
+{{{class="brush: python;"
+latex_elements = {
+...
+# Additional stuff for the LaTeX preamble.
+'preamble': '''
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=SimHei, ItalicFont=KaiTi_GB2312]{SimSun}
+\setCJKmonofont[Scale=0.9]{Droid Sans Mono}
+\setCJKfamilyfont{song}[BoldFont=SimSun]{SimSun}
+\setCJKfamilyfont{sf}[BoldFont=SimSun]{SimSun}
+''',
+}
+}}}
+
+字体根据个人喜好可以随意更改，要查询Linux下可用的中文字体，用以下命令：
+
+{{{class="brush: bash;"
+fc-list :lang=zh
+}}}
+
+=== 中文首行缩进 ===
+仍然是更改latex_elements的preamble，加入一下内容：
+
+{{{class="brush: python;"
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+}}}
+
+这样每个段落的首行会缩进两个字符。
+
+最终的conf.py中的preamble配置：
+
+{{{class="brush: python;"
+latex_elements = {
+...
+# Additional stuff for the LaTeX preamble.
+'preamble': '''
+\usepackage{xeCJK}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setCJKmainfont[BoldFont=SimHei, ItalicFont=KaiTi_GB2312]{SimSun}
+\setCJKmonofont[Scale=0.9]{Droid Sans Mono}
+\setCJKfamilyfont{song}[BoldFont=SimSun]{SimSun}
+\setCJKfamilyfont{sf}[BoldFont=SimSun]{SimSun}
+''',
+}
+}}}
+

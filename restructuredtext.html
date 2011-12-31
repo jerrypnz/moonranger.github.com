@@ -71,6 +71,69 @@ rst2s5幻灯片演示
 <p>
 效果：<a href="rst2s5-sample/index.html">rst2s5-sample/index.html</a>
 </p>
+
+<h2 id="toc_1.3">3. 用sphinx生成中文PDF</h2>
+
+<h3 id="toc_1.3.1">3.1. 中文字体</h3>
+<p>
+修改sphinx工程的conf.py，加入以下内容：
+</p>
+
+<pre class="brush: python;">
+latex_elements = {
+...
+# Additional stuff for the LaTeX preamble.
+'preamble': '''
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=SimHei, ItalicFont=KaiTi_GB2312]{SimSun}
+\setCJKmonofont[Scale=0.9]{Droid Sans Mono}
+\setCJKfamilyfont{song}[BoldFont=SimSun]{SimSun}
+\setCJKfamilyfont{sf}[BoldFont=SimSun]{SimSun}
+''',
+}
+</pre>
+
+<p>
+字体根据个人喜好可以随意更改，要查询Linux下可用的中文字体，用以下命令：
+</p>
+
+<pre class="brush: bash;">
+fc-list :lang=zh
+</pre>
+
+<h3 id="toc_1.3.2">3.2. 中文首行缩进</h3>
+<p>
+仍然是更改latex_elements的preamble，加入一下内容：
+</p>
+
+<pre class="brush: python;">
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+</pre>
+
+<p>
+这样每个段落的首行会缩进两个字符。
+</p>
+
+<p>
+最终的conf.py中的preamble配置：
+</p>
+
+<pre class="brush: python;">
+latex_elements = {
+...
+# Additional stuff for the LaTeX preamble.
+'preamble': '''
+\usepackage{xeCJK}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setCJKmainfont[BoldFont=SimHei, ItalicFont=KaiTi_GB2312]{SimSun}
+\setCJKmonofont[Scale=0.9]{Droid Sans Mono}
+\setCJKfamilyfont{song}[BoldFont=SimSun]{SimSun}
+\setCJKfamilyfont{sf}[BoldFont=SimSun]{SimSun}
+''',
+}
+</pre>
     </div>
 
     <!--
