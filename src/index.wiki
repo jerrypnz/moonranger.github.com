@@ -34,6 +34,7 @@
 - [[book-notes-csipp|CSAPP读书笔记]] 
 - [[source-notes-jetty|Jetty源码笔记]]
 - [[io-multiplexing-reactor|IO Multiplexing和Reactor模式]](Scalable IO in Java)
+- [[seven-lang-seven-week-notes|七周七语言读书笔记]] 
 
 === 博客草稿箱 ===
 - [[python-pattern-matching|Python Pattern Matching]]

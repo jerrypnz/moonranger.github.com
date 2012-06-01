@@ -1,0 +1,8 @@
+= 七周七语言读书笔记 = 
+
+== Ruby命名参数（Page 20） ==
+
+Ruby不支持命名参数是指其不能像Python那样用func(arg='val')的方式传入命名参数，
+Ruby在定义函数的时候可以给参数提供默认值。
+
+== Ruby的inject就是Python中的reduce（Page 27） ==
