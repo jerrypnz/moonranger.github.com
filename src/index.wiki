@@ -40,6 +40,7 @@
 - [[dynamic-lang-inheritance|动态语言中的继承]]
 - [[python-scoping-rules|Python Scoping Rules]]
 - [[c-inheritance-kernel|Linux Kernel中学到的C语言技巧之：继承]]
+- [[2011-conclusion|2011总结]]
 
 === 收集箱 ===
 - [[reading-java-source-code|读Java代码的心得]]
