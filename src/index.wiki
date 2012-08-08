@@ -37,6 +37,10 @@
 - [[io-multiplexing-reactor|IO Multiplexing和Reactor模式]](Scalable IO in Java)
 - [[seven-lang-seven-week-notes|七周七语言读书笔记]] 
 
+=== My Slides ===
+- TJLUG reStructured Text Introduction [[rest-tjlug/index.html]]
+- Groovy Introduction [[groovy-intro/index.html]]
+
 === 博客草稿箱 ===
 - [[python-pattern-matching|Python Pattern Matching]]
 - [[dynamic-lang-inheritance|动态语言中的继承]]

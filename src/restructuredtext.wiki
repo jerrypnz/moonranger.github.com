@@ -1,4 +1,5 @@
 = reStructuredText =
+%toc
 
 == TJLUG ReST分享 ==
 Slides: [[rest-tjlug/index.html]]

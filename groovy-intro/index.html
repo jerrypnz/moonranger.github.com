@@ -1,0 +1,1085 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
+<meta name="version" content="S5 1.1" />
+<title>Groovy Introduction</title>
+<meta name="author" content="Jerry Peng &lt;pr2jerry&#64;gmail.com&gt;" />
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 7056 2011-06-17 10:50:48Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<script src="ui/pixel/slides.js" type="text/javascript"></script>
+<link rel="stylesheet" href="ui/pixel/slides.css"
+      type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="ui/pixel/outline.css"
+      type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="ui/pixel/print.css"
+      type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="ui/pixel/opera.css"
+      type="text/css" media="projection" id="operaFix" />
+
+<style type="text/css">
+#currentSlide {display: none;}
+</style>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header">
+
+</div>
+<div id="footer">
+<h1>Groovy Introduction</h1>
+
+</div>
+</div>
+<div class="presentation">
+<div class="slide" id="slide0">
+<h1 class="title">Groovy Introduction</h1>
+<h2 class="subtitle" id="a-dynamic-language-based-on-the-jvm-platform">A Dynamic Language based on the JVM platform</h2>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Author:</th>
+<td>Jerry Peng &lt;<a class="reference external" href="mailto:pr2jerry&#64;gmail.com">pr2jerry&#64;gmail.com</a>&gt;</td></tr>
+</tbody>
+</table>
+
+</div>
+<div class="slide" id="powerful-platform-old-language">
+<h1>Powerful Platform, Old Language</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>JVM is a powerful platform</dt>
+<dd><ul class="first last simple">
+<li>Industry-standard</li>
+<li>Performance</li>
+<li>Security</li>
+<li>Stability</li>
+<li>Existing tools, libraries</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>The Java language is really old</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>Lack of important features of modern languages</dt>
+<dd><ul class="first last simple">
+<li>First-class functions, closure, etc.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Verbose</p>
+</li>
+<li><dl class="first docutils">
+<dt>Slowly evolving</dt>
+<dd><ul class="first last simple">
+<li>Java 7, 8</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="alternative-languages-on-jvm">
+<h1>Alternative Languages on JVM</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>Groovy, Jython, JRuby</dt>
+<dd><ul class="first last simple">
+<li>Dynamic language</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Scala</dt>
+<dd><ul class="first last simple">
+<li>Static language</li>
+<li>Actor model</li>
+<li>Really complex</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Clojure</dt>
+<dd><ul class="first last simple">
+<li>Lisp dialect with modern features</li>
+<li>Macros, code as data, pure functional</li>
+<li>Immutable data structure</li>
+<li>Software transactional memory</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="id1">
+<h1>Alternative Languages on JVM</h1>
+<p>It is worth learning one or more of these languages.</p>
+<ul>
+<li><dl class="first docutils">
+<dt>Think Different</dt>
+<dd><ul class="first last simple">
+<li>OO vs Functional</li>
+<li>Dynamic vs Static</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Use these languages in Java projects</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="introduction-to-groovy">
+<h1>Introduction to Groovy</h1>
+<ul>
+<li><p class="first">Dynamic language</p>
+</li>
+<li><p class="first">First-class function and closure</p>
+</li>
+<li><dl class="first docutils">
+<dt>Easy to read and learn</dt>
+<dd><ul class="first last simple">
+<li>Compatible with Java syntax</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">DSL support</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="first-sight-on-groovy">
+<h1>First Sight on Groovy</h1>
+<p>Hello world:</p>
+<pre class="literal-block">
+class HelloWorld {
+
+    static main(args) {
+        println(&quot;Hello world&quot;);
+        println &quot;Hello world&quot;
+        def name = &quot;WKS&quot;
+        println &quot;Hello to ${name}&quot;
+    }
+}
+</pre>
+</div>
+<div class="slide" id="id2">
+<h1>First Sight on Groovy</h1>
+<ul class="simple">
+<li>Parentheses are optional if there is only one argument</li>
+<li>Variable type is optional</li>
+<li>Groovy template</li>
+</ul>
+</div>
+<div class="slide" id="install-run">
+<h1>Install &amp; Run</h1>
+<ul>
+<li><p class="first">Need a JDK installed (JAVA_HOME, PATH)</p>
+</li>
+<li><p class="first">Configure GROOVY_HOME and PATH</p>
+</li>
+<li><dl class="first docutils">
+<dt>REPL(Read Evaluation Print Loop)</dt>
+<dd><ul class="first last simple">
+<li>Groovy Shell (groovysh)</li>
+<li>REPL is great for test/experiment/learning</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Run a groovy script:</p>
+<pre class="literal-block">
+groovy xxx.groovy
+</pre>
+</li>
+<li><p class="first">Install guide <a class="footnote-reference" href="#id4" id="id3">[1]</a>.</p>
+</li>
+</ul>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td><a class="reference external" href="http://groovy.codehaus.org/Installing+Groovy">http://groovy.codehaus.org/Installing+Groovy</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="slide" id="a-brief-tour-of-groovy-features">
+<h1>A Brief Tour of Groovy Features</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>Just an introduction</dt>
+<dd><ul class="first last simple">
+<li>Still unfamiliar with Groovy</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Need to explore the language by yourself</dt>
+<dd><ul class="first last simple">
+<li>Use groovy shell to do experiments</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Features to introduce:</dt>
+<dd><ul class="first last simple">
+<li>Functional Programming</li>
+<li>Regular expression</li>
+<li>Groovy string template</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="functional-programming">
+<h1>Functional Programming</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>First-class function</dt>
+<dd><ul class="first last simple">
+<li>Function is also a kind of object</li>
+<li>Could be created on the fly</li>
+<li>Function could be used as argument or return value</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Anonymous function (function without a name)</dt>
+<dd><ul class="first last simple">
+<li>In Groovy, it is called Block</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Supports closure</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="id5">
+<h1>Functional Programming</h1>
+<p>Functions could be assigned to variables:</p>
+<pre class="literal-block">
+groovy:000&gt; add = {x, y -&gt; x + y}
+===&gt; groovysh_evaluate$_run_closure1&#64;1c19919
+groovy:000&gt; add(10, 9)
+===&gt; 19
+groovy:000&gt; square = {it * it}
+===&gt; groovysh_evaluate$_run_closure1&#64;a166bd
+groovy:000&gt; square(9)
+===&gt; 81
+</pre>
+</div>
+<div class="slide" id="id6">
+<h1>Functional Programming</h1>
+<p>Functions could be passed as aruguments:</p>
+<pre class="literal-block">
+groovy:000&gt; [1, 2, 3, 4, 5].collect {it * 2}
+===&gt; [2, 4, 6, 8, 10]
+groovy:000&gt; (1..20).findAll {it % 2 == 1}
+===&gt; [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+groovy:000&gt; [&quot;OneMS&quot;, &quot;SPU&quot;, &quot;iSharing&quot;].each {
+    println it }
+OneMS
+SPU
+iSharing
+===&gt; [OneMS, SPU, iSharing]
+</pre>
+</div>
+<div class="slide" id="id7">
+<h1>Functional Programming</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>Collection class have methods that take function as arguments</dt>
+<dd><ul class="first last simple">
+<li>find, findAll</li>
+<li>collect, inject (map/reduce)</li>
+<li>each</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="closure">
+<h1>Closure</h1>
+<ul>
+<li><p class="first">A enclosed function that binds its enclosing scope</p>
+</li>
+<li><p class="first">A means to bind data with function</p>
+</li>
+<li><dl class="first docutils">
+<dt>Like Java anonymous class</dt>
+<dd><ul class="first last simple">
+<li>Could access final variables in outer scope from inside the method</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="id8">
+<h1>Closure</h1>
+<p>A example of closure:</p>
+<pre class="literal-block">
+groovy:000&gt; max = -1
+===&gt; -1
+groovy:000&gt; [0, 99, 1, 56, 23].each {if (it &gt; max)
+    max = it;}
+===&gt; [0, 99, 1, 56, 23]
+groovy:000&gt; max
+===&gt; 99
+</pre>
+</div>
+<div class="slide" id="why-functional-programming">
+<h1>Why Functional Programming</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>State is evil</dt>
+<dd><ul class="first last simple">
+<li>FP encourge immutability and side-effect-free functions</li>
+<li>State make concurrent programming harder</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Parallelization</p>
+</li>
+<li><p class="first">Lazy evaluation</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="template-method-design-pattern-with-fp">
+<h1>Template Method Design Pattern with FP</h1>
+<ul>
+<li><p class="first">Use FileInputStream as an example:</p>
+<pre class="literal-block">
+FileInputStream stream = null;
+try {
+    stream = new FileInputStream(fileName);
+    // Do this, do that
+} catch( IOException e) {
+    e.printStackTrace();
+} finally {
+    if (stream != null) {
+        try { stream.close();}
+        catch (IOException e) {}
+    }
+}
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="id9">
+<h1>Template Method Design Pattern with FP</h1>
+<ul>
+<li><p class="first">Want to do some refactorings?</p>
+<pre class="literal-block">
+public interface FileStreamCallback {
+    void doWithFileInputStream(FileInputStream in);
+}
+
+public void withFileInputStream(String fileName,
+        FileStreamCallback callback) {
+    FileInputStream stream = null;
+    try {
+        stream = new FileInputStream(fileName);
+        callback.doWithFileInputStream(stream);
+    } catch(...)
+}
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="id10">
+<h1>Template Method Design Pattern with FP</h1>
+<ul>
+<li><p class="first">Anonymous inner classes are too ugly:</p>
+<pre class="literal-block">
+public void test() {
+    final String foo = &quot;foo&quot;;
+    withFileInputStream(&quot;foo.txt&quot;,
+            new FileStreamCallback() {
+        &#64;Override
+        public void doWithFileInputStream(
+            FileInputStream in) {
+            // foo = &quot;bar&quot;;
+            // Not possible since foo is final
+            in.read()
+        }
+    });
+}
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="how-to-do-this-with-fp">
+<h1>How to Do This with FP</h1>
+<ul>
+<li><p class="first">Implement the same method in Groovy with closures:</p>
+<pre class="literal-block">
+def withFileInputStream(fileName, func) {
+    def stream = null;
+    try {
+        stream = new FileInputStream(fileName)
+        func(stream)
+    } catch(...)
+}
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="id11">
+<h1>How to Do This with FP</h1>
+<ul>
+<li><p class="first">Anonymous functions looks much better</p>
+<pre class="literal-block">
+static def testIt() {
+    def foo = &quot;foo&quot;
+    withFileInputStream(&quot;foo.txt&quot;) {
+        foo = &quot;bar&quot;
+        it.read()
+        //Do this, do that
+    }
+}
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="sum-it-up">
+<h1>Sum It Up</h1>
+<ul class="simple">
+<li>It is easy to write quite readable code with FP</li>
+<li>Since closures bind to scope, what you can do is not limited</li>
+<li>No need to use final</li>
+</ul>
+</div>
+<div class="slide" id="regular-expression">
+<h1>Regular Expression</h1>
+<ul>
+<li><p class="first">It's easy to use regular expressions in Groovy</p>
+</li>
+<li><dl class="first docutils">
+<dt>The ==~ and =~ operator</dt>
+<dd><ul class="first last simple">
+<li>==~ return true/false (match or not)</li>
+<li>=~ returns the matcher object</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Surround regular expression with &quot;/&quot;</dt>
+<dd><ul class="first last simple">
+<li>Easy to read</li>
+<li>No need to escape</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Easy group capturing</dt>
+<dd><ul class="first last simple">
+<li>Access groups via array index</li>
+<li>Two dimensinal array</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="id12">
+<h1>Regular Expression</h1>
+<p>Examples:</p>
+<pre class="literal-block">
+groovy:000&gt; &quot;&lt;p&gt;hello&lt;/p&gt;&quot; ==~ /&lt;(\w+)&gt;(.*)&lt;\/\1&gt;/
+===&gt; true
+groovy:000&gt; &quot;&lt;p&gt;hello&lt;/a&gt;&quot; ==~ /&lt;(\w+)&gt;(.*)&lt;\/\1&gt;/
+===&gt; false
+groovy:000&gt; matcher = (&quot;&lt;p&gt;hello&lt;/p&gt;&quot; =~ /&lt;(\w+)&gt;(.*)&lt;\/\1&gt;/)
+===&gt; java.util.regex.Matcher[pattern=&lt;(\w+)&gt;(.*)&lt;/\1&gt; region=0,12 lastmatch=]
+groovy:000&gt; matcher[0]
+===&gt; [&lt;p&gt;hello&lt;/p&gt;, p, hello]
+groovy:000&gt; matcher[0][1]
+===&gt; p
+groovy:000&gt; matcher[0][2]
+===&gt; hello
+</pre>
+</div>
+<div class="slide" id="groovy-template">
+<h1>Groovy Template</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>Two kinds of strings in Groovy</dt>
+<dd><ul class="first last">
+<li><p class="first">Simple string, the same as Java strings</p>
+</li>
+<li><p class="first">Groovy string, which supports template:</p>
+<pre class="literal-block">
+groovy:000&gt; num = 123
+===&gt; 123
+groovy:000&gt; 'value is ${num}'
+===&gt; value is ${num}
+groovy:000&gt; &quot;value is ${num}&quot;
+===&gt; value is 123
+</pre>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="id13">
+<h1>Groovy Template</h1>
+<ul class="simple">
+<li>Like JSP, freemarker, etc.</li>
+<li>Refer to official intro doc <a class="footnote-reference" href="#id15" id="id14">[2]</a>.</li>
+</ul>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id14">[2]</a></td><td><a class="reference external" href="http://groovy.codehaus.org/Groovy+Templates">http://groovy.codehaus.org/Groovy+Templates</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="slide" id="using-groovy-standalone">
+<h1>Using Groovy (Standalone)</h1>
+<ul>
+<li><p class="first">Groovy code could be compiled to regular class files</p>
+</li>
+<li><p class="first">Automates the process with ant tasks</p>
+</li>
+<li><dl class="first docutils">
+<dt>Web development</dt>
+<dd><ul class="first last simple">
+<li>Grails</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="using-groovy-embedded">
+<h1>Using Groovy (Embedded)</h1>
+<ul>
+<li><p class="first">Benefit from the power of dynamic languages in legacy projects</p>
+</li>
+<li><dl class="first docutils">
+<dt>Three methods to embed Groovy into Java projects:</dt>
+<dd><ul class="first last simple">
+<li>Groovy Shell</li>
+<li>Groovy Class Loader</li>
+<li>Groovy Script Engine</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="groovy-shell">
+<h1>Groovy Shell</h1>
+<ul class="simple">
+<li>Evaluate Groovy expressions or run scripts</li>
+<li>Pass in/out variables via Bindings</li>
+<li>Could set the base class of the scripts (so they could share common methods, etc.)</li>
+</ul>
+</div>
+<div class="slide" id="id16">
+<h1>Groovy Shell</h1>
+<p>Example:</p>
+<pre class="literal-block">
+// call groovy expressions from Java code
+Binding binding = new Binding();
+binding.setVariable(&quot;foo&quot;,
+    new Integer(2));
+GroovyShell shell = new GroovyShell(binding);
+
+Object value = shell.evaluate(
+    &quot;println 'Hello World!'; x = 123; return foo * 10&quot;
+    );
+assert value.equals(new Integer(20));
+assert binding.getVariable(&quot;x&quot;)
+    .equals(new Integer(123));
+</pre>
+</div>
+<div class="slide" id="groovy-class-loader">
+<h1>Groovy Class Loader</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>Use Groovy Class Loader to load scripts or Groovy classes</dt>
+<dd><ul class="first last simple">
+<li>Simple scripts are subclasses of Script</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Use parseClass method to compile Groovy scripts/classes</p>
+</li>
+<li><p class="first">Then use the Class object to initiate objects and invoke their methods</p>
+</li>
+<li><p class="first">Useful in scenarios where all Groovy classes implements common interfaces</p>
+</li>
+<li><p class="first">If loadClass is used (to support hot reloading), PermGen memory issue may be a problem</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="id17">
+<h1>Groovy Class Loader</h1>
+<p>Example(from Nawras project):</p>
+<pre class="literal-block">
+file = FileUtil.loadClassPathFile(
+    String.format(&quot;%s/%s&quot;,
+        SCRIPT_ROOT_DIR,
+        filename)
+    );
+String clsName = &quot;data.scripts.&quot; +
+    filename.replaceAll(&quot;\\.groovy&quot;, &quot;&quot;);
+clazz = classLoader.loadClass(clsName,
+                              true,
+                              false);
+this.scriptTask = clazz.getConstructor(Binding.class)
+                    .newInstance(binding);
+</pre>
+</div>
+<div class="slide" id="groovy-script-engine">
+<h1>Groovy Script Engine</h1>
+<ul class="simple">
+<li>Most powerful solution</li>
+<li>Supports hot reloading</li>
+<li>Track dependencies automatically</li>
+<li>No PermGen memory issue</li>
+<li>Provides a CLASSPATH of all the groovy scripts/classes</li>
+</ul>
+</div>
+<div class="slide" id="id18">
+<h1>Groovy Script Engine</h1>
+<p>Example(from Nawras project):</p>
+<pre class="literal-block">
+engine = new GroovyScriptEngine(new URL[] {
+    getClass()
+    .getClassLoader()
+    .getResource(SCRIPT_ROOT_DIR)
+    });
+engine.run(scriptName, binding);
+</pre>
+</div>
+<div class="slide" id="nawras-project-case-study">
+<h1>Nawras Project Case Study</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>Non-TR protocol stack</dt>
+<dd><ul class="first last simple">
+<li>Manage devices via telnet</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Not standard protocol</p>
+</li>
+<li><dl class="first docutils">
+<dt>Need to implement tasks for different device type</dt>
+<dd><ul class="first last simple">
+<li>Different device models have different telnet interfaces</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Two much work to modify both NBI/GUI and SBI</p>
+</li>
+<li><p class="first">Keep NBI/GUI features unmodified, implement new SBI stack</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="id19">
+<h1>Nawras Project Case Study</h1>
+<ul>
+<li><dl class="first docutils">
+<dt>Use Groovy script to implement tasks</dt>
+<dd><ul class="first last simple">
+<li>Task logic may always change</li>
+<li>New device models may need new scripts</li>
+<li>Need hot reloading</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="slide" id="id20">
+<h1>Nawras Project Case Study</h1>
+<img alt="Nawras Non-TR tasks" class="align-center" src="tasks.jpg" />
+</div>
+<div class="slide" id="id21">
+<h1>Nawras Project Case Study</h1>
+<ul>
+<li><p class="first">Script names are written in DD:</p>
+<pre class="literal-block">
+&lt;feature name=&quot;IPPING&quot;
+    support=&quot;true&quot;
+    script=&quot;telnet_deviceping.groovy&quot;
+    protocol=&quot;telnet&quot;/&gt;
+&lt;feature name=&quot;WAN&quot;
+    support=&quot;true&quot;
+    script=&quot;telnet_config_ipaddr.groovy&quot;
+    protocol=&quot;telnet&quot;/&gt;
+</pre>
+</li>
+</ul>
+</div>
+<div class="slide" id="id22">
+<h1>Nawras Project Case Study</h1>
+<ul class="simple">
+<li>Refer to Nawras Non-TR DS for the detailed design</li>
+</ul>
+</div>
+<div class="slide" id="groovy-resources">
+<h1>Groovy resources</h1>
+<ul class="simple">
+<li>Functional Programming with Groovy <a class="footnote-reference" href="#id25" id="id23">[3]</a>.</li>
+<li>Functional Thinking <a class="footnote-reference" href="#id26" id="id24">[4]</a>.</li>
+</ul>
+<table class="docutils footnote" frame="void" id="id25" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id23">[3]</a></td><td><a class="reference external" href="http://www.slideshare.net/arturoherrero/functional-programming-with-groovy">http://www.slideshare.net/arturoherrero/functional-programming-with-groovy</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id26" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id24">[4]</a></td><td><a class="reference external" href="http://www.ibm.com/developerworks/cn/views/java/libraryview.jsp?view_by=search&amp;sort_by=Date&amp;sort_order=desc&amp;view_by=Search&amp;search_by=%E5%87%BD%E6%95%B0%E5%BC%8F%E6%80%9D%E7%BB%B4&amp;dwsearch.x=18&amp;dwsearch.y=11">http://www.ibm.com/developerworks/cn/views/java/libraryview.jsp?view_by=search&amp;sort_by=Date&amp;sort_order=desc&amp;view_by=Search&amp;search_by=%E5%87%BD%E6%95%B0%E5%BC%8F%E6%80%9D%E7%BB%B4&amp;dwsearch.x=18&amp;dwsearch.y=11</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="slide" id="happy-hacking">
+<h1>Happy Hacking</h1>
+<img alt="q.jpg" class="align-center" src="q.jpg" />
+</div>
+</div>
+</body>
+</html>

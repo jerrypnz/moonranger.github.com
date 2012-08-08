@@ -1,3 +1,90 @@
 = Clojure =
+%toc
+
+== Clojure中的坑 ==
+
+=== contains? ===
+contains?函数的语义是检查一个给定的 **key** 是否在一个集合中存在，对于associative的容器
+如map或者record，它检查给定的key是否存在；对于vector，Java array，Java list，它检查给定
+的下标是否在其范围内。这个语义和Java collection中的contains方法完全不一样，需要非常小心。
+
+{{{class="brush: clojure;"
+; Java数组
+user=> (contains? (int-array [1 2 3 4]) 0)
+true
+user=> (contains? (int-array [1 2 3 4]) 4)
+false
+user=> (contains? (int-array [1 2 3 4]) 3)
+true
+; Clojure record
+user=> (defrecord Student [name gender])
+user.Student
+user=> (def a (Student. "Jerry" :male))
+#'user/a
+user=> (contains? a :name)
+true
+user=> (contains? a :gender)
+true
+user=> (contains? a :gende)
+false
+}}}
 
 
+=== 小心nil和false ===
+简单地说，因为nil和false都是逻辑上的false，如果恰好某个集合中包含nil和false（他们都是可以合法
+地作为集合的元素），某些时候可能会出现意料之外的现象，典型的问题包括：
+
+判断一个元素是否在集合中时，如果那个元素的值是nil，可能会导致判断出错，即集合中包含那个元
+素，但由于其值是nil或者false，导致判断的结果是false。这种情况就应该用contains?来作判断
+
+对于map，如果用nil作为value，那么用get，关键字函数等常规手段从map中取值的时候，无法区分以下
+两中情况：
+
+- map中包含指定的key，但其value是nil
+- map中不包含指定的key
+
+{{{class="brush: clojure;"
+user=> (:a {:a nil :b 2})
+nil
+user=> (:a {:b 2})
+nil
+}}}
+
+这时候应该用find来替代。find返回的是key和value的vector，如果不存在key则返回nil。
+
+{{{class="brush: clojure;"
+user=> (find {:a nil :b 2} :a)
+[:a nil]
+user=> (find {:b 2} :a)
+nil
+}}}
+
+
+=== transient ===
+transient会将一个集合变成mutable的，但这并不意味着你可以像在java中那样重复对同一个引用
+作操作，并期待其值不断变化。看下面的例子（Clojure Programming）：
+
+{{{class="brush: clojure;"
+(let [tm (transient {})]
+  (doseq [x (range 100)]
+    (assoc! tm x 0))
+  (persistent! tm))
+;= {0 0, 1 0, 2 0, 3 0, 4 0, 5 0, 6 0, 7 0}
+}}}
+
+这段程序中assoc!的返回值未被捕获，而是直接使用了原始的transient引用tm，最后的结果不正确。
+
+简单说，transient的collection，一旦对其作任何操作，原来的引用要抛弃，而应该使用相应的函数
+返回值，即使用起来和persistent collection应该是一样的。改写上面的例子如下：
+
+{{{class="brush: clojure;"
+user=> (persistent! (reduce #(assoc! % %2 0) (transient {}) (range 100)))
+{0 0, 32 0, 64 0, 96 0, 1 0, 33 0, 65 0, 97 0, 2 0, 34 0, 66 0, 98 0, 3 0, 35 0, 67 0, 99 0, 4 0, 36 0, 68 0, 5 0, 37 0, 69 0, 6 0, 38 0, 70 0, 7 0, 39 0, 71 0, 8 0, 40 0, 72 0, 9 0, 41 0, 73 0, 10 0, 42 0, 74 0, 11 0, 43 0, 75 0, 12 0, 44 0, 76 0, 13 0, 45 0, 77 0, 14 0, 46 0, 78 0, 15 0, 47 0, 79 0, 16 0, 48 0, 80 0, 17 0, 49 0, 81 0, 18 0, 50 0, 82 0, 19 0, 51 0, 83 0, 20 0, 52 0, 84 0, 21 0, 53 0, 85 0, 22 0, 54 0, 86 0, 23 0, 55 0, 87 0, 24 0, 56 0, 88 0, 25 0, 57 0, 89 0, 26 0, 58 0, 90 0,
+27 0, 59 0, 91 0, 28 0, 60 0, 92 0, 29 0, 61 0, 93 0, 30 0, 62 0, 94 0, 31 0, 63 0, 95 0}
+}}}
+
+其他要注意的：
+
+- 只有未排序的普通map和vector支持transient
+- 应该将transient作为一种优化手段并紧密封装起来
+- transient collection只能从创建它的线程里访问
