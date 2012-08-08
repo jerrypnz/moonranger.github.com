@@ -8,9 +8,9 @@
 <body> 
     <div id="navbar">
     	<ul>
+    		<li> <a href="http://jerrypeng.me">Blog</a> </li>
     		<li> <a class="activated" href="index.html">WIKI</a> </li>
-    		<li> <a href="http://www.delicious.com/jmoonranger">Delicious</a> </li>
-    		<li> <a href="https://github.com/moonranger">Projects</a> </li>
+    		<li> <a href="https://github.com/moonranger">Github</a> </li>
     		<li> <a href="about.html">About</a> </li>
     		<li class="search">
                 <form action="http://www.google.com/search" method="get">
