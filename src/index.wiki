@@ -8,6 +8,7 @@
     - 算不上精通，但一直很喜欢也很关注的[[c-and-cpp|C/C++]]
     - 最爱的脚本语言[[python|Python]]
     - 装B用的[[lisp|Lisp]]
+    - JVM上的实用Lisp：[[clojure|Clojure]]
     
 - 面向对象[[oop|OOP]]
     - 依赖注入[[spring|Spring]]
