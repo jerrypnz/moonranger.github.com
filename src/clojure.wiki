@@ -88,3 +88,20 @@ user=> (persistent! (reduce #(assoc! % %2 0) (transient {}) (range 100)))
 - 只有未排序的普通map和vector支持transient
 - 应该将transient作为一种优化手段并紧密封装起来
 - transient collection只能从创建它的线程里访问
+
+=== 代码顺序问题 ===
+这个严格来说算不上什么坑，但刚开始容易遇到。在一个源文件里，前面的代码无法引用后面定义的函数，如果需要这么做，需要用declare：
+
+{{{class="brush: clojure;"
+user=> (declare my-func)
+#'user/my-func
+user=> (defn foobar [x] (println (my-func x)))
+#'user/foobar
+user=> (foobar "a")
+IllegalStateException Attempting to call unbound fn: #'user/my-func  clojure.lang.Var$Unbound.throwArity (Var.java:43)
+user=> (defn my-func [x] (str "Foobar: " x))
+#'user/my-func
+user=> (foobar "a")
+Foobar: a
+nil
+}}}
