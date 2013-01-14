@@ -371,7 +371,7 @@ ReST格式简介
 ==========
 * 指令的格式如下::
 
-    .. directive_type :: directive
+    .. directive_type:: directive
        block
 
 
